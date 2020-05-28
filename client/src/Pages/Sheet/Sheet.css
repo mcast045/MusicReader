@@ -1,0 +1,59 @@
+.sheet {
+    width: 92%;
+    margin-left: 15rem;
+    margin-top: 5rem;
+    position: relative;
+}
+
+.stave-container {
+    border-left: 1px solid black;
+    position: relative;
+}
+
+#mask {
+    position: absolute;
+    top: 0px;
+    left:-1px;
+    width:5px;
+    height: 21.9%;
+    background-color:white;
+}
+
+.sheet-music-container ul,
+.tab-music {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sheet-music,
+.tab-music {
+    width: 25%;
+}
+
+.sheet-music-container ul:not(:first-child) li:not(:nth-child(9)),
+.tab-music-container ul:not(:first-child) li:not(:first-child) {
+    border-left: 1px solid black;
+}
+
+.sheet-music li,
+.tab-music li {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sheet-music li .note-temp-container,
+.tab-music li input{
+    height: 2rem;
+    width: 10%;
+}
+
+.sheet-music-container > ul:nth-child(1) > li,
+.tab-music-container > ul:nth-child(1) li{
+    padding-left: 10rem;
+}
+
+.sheet-music:first-child,
+.tab-music:first-child {
+    width: 30%;
+}

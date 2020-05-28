@@ -1,0 +1,27 @@
+.btn-sheets{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding-bottom: .8rem;
+}
+
+.btn-sheets > * {
+    margin-bottom: .8rem;
+    border: none;
+    color: #eee;
+    transition: all .5s;
+}
+
+.btn-sheets > *:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .5);
+    background-color: #aaa;
+    color: black;
+}
+.btn-sheets > *:active{
+    transform: translateY(-1px);
+    box-shadow: 0 .25rem .5rem rgba(0, 0, 0, .3);
+}
+.btn-sheets .clearBtn:hover {
+    background-color: orangered;
+}

@@ -1,0 +1,43 @@
+.sheet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+    margin-left: 50%;
+}
+
+.sheet-header .userSignIn .userSignIn_link,
+.sheet-header .search-songs {
+    text-decoration: none;
+    margin: 0 1rem;
+    font-size: 1.5rem;
+    color: black;
+}
+
+.sheet-header .userSignIn .userSignIn_link:hover,
+.sheet-header .search-songs:hover {
+    padding-bottom: 1rem;
+    border-bottom: 2px solid black;
+}
+
+.song-information .logout {
+    visibility: hidden;
+}
+
+.main_song_header {
+    text-transform: uppercase;
+    font-size: 4rem;
+    padding-top: .5rem;
+}
+
+.username,
+.main_song_header {
+    margin: 0;
+}
+
+.song-information {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}

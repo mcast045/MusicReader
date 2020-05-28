@@ -1,0 +1,35 @@
+.tab-music-container > ul > li > input:hover {
+    cursor: default;
+}
+
+.tab-music-container ul:not(:first-child) li:first-child {
+    margin-left: 1px;
+}
+
+.tab-music-container {
+    display: flex;
+}
+
+.tab-music li {
+    border-bottom: 1px solid black;
+    height: 2rem;
+}
+
+.tabLine-input {
+    width: 5%;
+    background-color: transparent;
+    transform: translateY(55%);
+    padding: 0;
+    border: none;
+    text-align: center;
+    font-weight: 700;
+}
+
+.tabLine-input:not(:last-child) {
+    margin: 0 1.3rem;
+}
+
+.tabLine-input:last-child {
+    margin: 0;
+    margin-left: 1.3rem
+}

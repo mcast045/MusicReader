@@ -1,0 +1,53 @@
+.search {
+    display: flex;
+    width: 100%;
+    margin: auto;
+}
+
+.search .search-menu {
+    width: 20%;
+    height: 100%;
+    background-color: #999;
+}
+
+.search .search-menu .search-menu_label {
+    font-size: 2rem;
+}
+
+.search .search-songs {
+    width: 100%;
+}
+
+.search .search-songs .search-songs_list,
+.search .search-songs .search-songs_list .search-songs_list-headings,
+.search .search-songs .search-songs_list .search-songs_list-item{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-column-gap: 1fr;
+    align-items: center
+}
+
+.search .search-songs .search-songs_list .search-songs_list-headings {
+    padding: 1rem 0;
+    font-size: 2rem;
+    background-color: #a1ee7d;
+    grid-column: 1 / -1;
+}
+
+.search .search-songs .search-songs_list .search-songs_list-item {
+    font-size: 2rem;
+    margin: 0;
+    border-bottom: 1px solid black;
+    grid-column: 1 / -1;
+    text-decoration: none;
+    color: black;
+}
+
+.search .search-songs .search-songs_list .search-songs_list-item:hover {
+    background-color: orangered;
+}
+
+.search .search-songs .search-songs_list .search-songs_list-headings span,
+.search .search-songs .search-songs_list .search-songs_list-item span {
+    justify-self: center;
+}

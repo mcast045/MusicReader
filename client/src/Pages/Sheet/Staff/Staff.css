@@ -1,0 +1,125 @@
+.sheet-music-container {
+    display: flex;
+}
+
+.drag-container-space {
+    height: 2rem;
+    border: none;
+    margin: auto;
+    display: none;
+}
+
+.sheet-music li {
+    border-top: 1px solid black;
+    height: 2rem;
+    position: relative;
+}
+
+.sheet-music li .note-temp-container .edit-placeholder:hover {
+    cursor: pointer;
+}
+
+.sheet-music li .note-temp-container .note-temp-item-btn img,
+.sheet-music li .note-temp-container .note-temp-item-img img {
+    display: none;
+    margin: auto;
+    transform: translateY(-65%);
+    height: 200%;
+    position: relative;
+    z-index: 2;
+}
+
+.sheet-music li .note-temp-container .note-temp-item-btn, 
+.sheet-music li .note-temp-container .note-temp-item-img {
+    border: none;
+    background-color: transparent;
+    display: none;
+    height: 100%;
+    width: 100%;;
+}
+
+.note-temp-container .drag-container-space .note-temp-item-btn .note-staff-image,
+.note-temp-container .drag-container-space .note-temp-item-img .note-staff-image {
+    font-weight: 700;
+    font-size: 4rem;
+    line-height: 1px;
+    transform: translateY(-1rem);
+}
+.note-temp-container .drag-container-space .note-temp-item-btn .note-staff-image .note-staff-image-accidental,
+.note-temp-container .drag-container-space .note-temp-item-img .note-staff-image .note-staff-image-accidental {
+    font-size: 2rem;
+    line-height: 1px;
+    transform: translateY(-1.2rem);
+}
+
+.note-temp-container .drag-container-space .note-temp-item-btn .WholeRest,
+.note-temp-container .drag-container-space .note-temp-item-img .WholeRest {
+    transform: translateY(.2rem) !important;
+}
+
+.note-temp-container .drag-container-space .note-temp-item-btn .HalfRest,
+.note-temp-container .drag-container-space .note-temp-item-img .HalfRest {
+    transform: translateY(1.4rem) !important;
+}
+
+.note-temp-container .drag-container-space .note-temp-item-btn .QuarterRest,
+.note-temp-container .drag-container-space .note-temp-item-img .QuarterRest {
+    transform: translateY(1.1rem) !important;
+}
+
+.note-temp-container .drag-container-space .note-temp-item-btn .EighthRest,
+.note-temp-container .drag-container-space .note-temp-item-img .EighthRest {
+    transform: translateY(.7rem) !important;
+}
+
+.note-temp-container .drag-container-space .note-temp-item-btn .Dotted-WholeRest,
+.note-temp-container .drag-container-space .note-temp-item-img .Dotted-WholeRest {
+    transform: translateY(.2rem) !important;
+}
+
+.note-temp-container .drag-container-space .note-temp-item-btn .Dotted-HalfRest,
+.note-temp-container .drag-container-space .note-temp-item-img .Dotted-HalfRest {
+    transform: translateY(1.45rem) !important;
+}
+.note-temp-container .drag-container-space .note-temp-item-btn .Dotted-QuarterRest,
+.note-temp-container .drag-container-space .note-temp-item-img .Dotted-QuarterRest {
+    transform: translateY(1.1rem) !important;
+}
+
+/* Move dot to the top */
+.rest-dotted {
+    position: absolute;
+    bottom: 18px;
+    left: 20px;
+}
+
+.Dotted-Half,
+.Dotted-Quarter,
+.Dotted-Whole,
+.Dotted-WholeRest,
+.Dotted-QuarterRest,
+.Dotted-HalfRest {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.Eighth {
+    padding-left: 5px;
+}
+
+.edit-placeholder {
+    color: #FF4B2B;
+}
+
+.no-translate {transform: translateY(0);}
+
+.move-up {
+    transform: translateY(-52%);
+    position: relative;
+    z-index: 2;
+}
+
+.move-down {
+    transform: translateY(53%);
+    position: relative;
+    z-index: 2;
+}

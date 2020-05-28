@@ -1,0 +1,65 @@
+.modal {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.modal-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.modal .modal-content-container {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 0 2rem;
+    animation: fadeIn .5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    0%{opacity: 0;}
+    100%{opacity: 1;}
+}
+
+.modal .modal-content-container header {
+    margin: auto;
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 700;
+    border-bottom: 1px solid black;
+    text-transform: uppercase;
+    color: orangered;
+}
+
+.modal .modal-content-container p {
+    font-size: 2rem;
+}
+.modal .modal-content-container p span {
+    text-transform: uppercase;
+    font-weight: 700;
+    color: red;
+}
+
+.modal .modal-content-container .modal-content-btn {
+    display: flex;
+    justify-content: space-evenly;
+    padding-bottom: 1rem;
+}
+
+.modal .modal-content-container .modal-content-btn .modal-btn {
+    border: none;
+    border-radius: 10px;
+    background-color: #777;
+    padding: 2px 1.5rem;
+}
+
+.modal .modal-container .modal-content-container .modal-content-btn .modal-btn:hover {
+    cursor: pointer;
+    background-color: #aaa;
+}

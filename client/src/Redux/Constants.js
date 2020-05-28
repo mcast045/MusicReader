@@ -1,0 +1,47 @@
+export const ADD_NOTE = 'ADD_NOTE'
+export const DELETE_LAST_NOTE = 'DELETE_LAST_NOTE'
+export const DELETE_NOTE = 'DELETE_NOTE'
+export const REPLACE_NOTE = 'REPLACE_NOTE'
+export const INSERT_NOTE = 'INSERT_NOTE'
+export const UPDATE_NOTE = 'UPDATE_NOTE'
+export const FINISH_UPDATE_NOTE = 'FINISH_UPDATE_NOTE'
+
+export const UPDATE_KEYSIGNATURE = 'UPDATE_KEYSIGNATURE'
+
+export const SHOW_MODAL = 'SHOW_MODAL'
+export const HIDE_MODAL = 'HIDE_MODAL'
+
+export const CLEAR_SONG = 'CLEAR_SONG'
+export const CLEAR_NOTES = 'CLEAR_NOTES'
+
+
+
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
+export const REGISTER_FAIL = 'REGISTER_FAIL'
+export const LOGIN_USER = 'LOGIN_USER'
+export const LOGOUT_USER = 'LOGOUT_USER'
+export const LOGIN_FAIL = 'LOGIN_FAIL'
+export const IS_FETCHING = 'IS_FETCHING'
+export const IS_FETCHING_SONG = 'IS_FETCHING_SONG'
+export const IS_DELETING_USER = 'IS_DELETING_USER'
+export const LOAD_USER = 'LOAD_USER'
+export const LOAD_ERROR = 'LOAD_ERROR'
+
+export const CREATE_SONG_INFO = 'CREATE_SONG_INFO'
+export const GET_SONGS_INFO = 'GET_SONGS_INFO'
+export const GET_SONG_INFO = 'GET_SONG_INFO'
+export const GET_ALL_SONGS = 'GET_ALL_SONGS'
+export const CLEAR__SONG_INFO = 'CLEAR__SONG_INFO'
+export const PUBLISH_SONG = 'PUBLISH_SONG'
+export const REDACT_SONG = 'REDACT_SONG'
+export const GET_PUBLISHED_SONG = 'GET_PUBLISHED_SONG'
+
+export const SAVE_NOTES = 'SAVE_NOTES'
+export const GET_NOTES = 'GET_NOTES'
+
+export const DELETE_SONG = 'DELETE_SONG'
+export const DELETE_ACCOUNT = 'DELETE_ACCOUNT'
+export const DELETE_ACCOUNT_ERROR = 'DELETE_ACCOUNT_ERROR'
+
+export const SET_ALERT = 'SET_ALERT'
+export const REMOVE_ALERT = 'REMOVE_ALERT'

@@ -1,0 +1,65 @@
+.auth {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.login .loginForm,
+.register .registerForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 75vh;
+    width: 20%;
+    margin: auto;
+}
+
+.login .loginForm .loginForm_label,
+.register .registerForm .registerForm_label {
+    font-size: 3rem;
+    padding: 0;
+    margin: 1rem 0;
+    text-align: center;
+}
+
+.loginForm .loginForm_input,
+.registerForm .registerForm_input {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+    font-size: 2rem;
+}
+
+.login .loginForm .loginForm_container, 
+.register .registerForm .registerForm_container {
+    background-color: green;
+    border-radius: 10px;
+}
+
+.login .loginForm .loginForm_input input, 
+.register .registerForm .registerForm_input input {
+    width: 25rem;
+    padding: .5rem;
+}
+
+.login .loginForm .loginForm_input label,
+.register .registerForm .registerForm_input label {
+    padding-bottom: 1rem;
+}
+
+.login .loginForm .loginForm_container .loginForm_container-btns > *, 
+.register .registerForm .registerForm_container .registerForm_container-btns > * {
+    margin-bottom: 1rem;
+    margin-left: .5rem;
+}
+
+.login .loginForm .loginForm_container .loginForm_container-btn:hover,
+.register .registerForm .registerForm_container .registerForm_container-btn:hover {
+    background-color: #3C3B3F;
+}
+
+.login .loginForm .loginForm_container .loginForm_container-btns,
+.register .registerForm .registerForm_container .registerForm_container-btns {
+    display: flex;
+    justify-content: space-evenly;
+}
