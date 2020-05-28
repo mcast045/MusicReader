@@ -10,7 +10,7 @@ const Auth = props => {
     const dispatch = useDispatch()
 
     const onClickBackBtn = () => {
-        props.history.push('/')
+        props.history.goBack()
         dispatch({ type: REMOVE_ALERT })
     }
 

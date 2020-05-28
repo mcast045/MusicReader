@@ -2,6 +2,7 @@ import React from 'react'
 import './PageHeader.css'
 import { Link } from 'react-router-dom'
 import { logoutUser } from '../../../Redux/Actions/Auth'
+import { clearAll } from '../../../Redux/Actions/Song'
 import { useSelector, useDispatch } from 'react-redux'
 
 const SheetHeader = ({ setNumOfSheets, viewOnly, showLogout }) => {
@@ -36,12 +37,15 @@ const SheetHeader = ({ setNumOfSheets, viewOnly, showLogout }) => {
                     <Link to='/auth' className='userSignIn_link'>Login</Link>
                     <Link to='/auth' className='userSignIn_link'>Register</Link>
                     {!isEnabled && <Link to='/search' className='search-songs'>Search</Link>}
+                    {viewOnly && <Link to='/' onClick={() => dispatch(clearAll())} className='search-songs'>Home</Link>}
                 </div>
             }
             {user._id && (showLogout || viewOnly) && !isNotesLoading &&
                 <div className='userSignIn'>
                     <Link to='/' className='userSignIn_link' onClick={() => onClickLogoutUser()}>Logout</Link>
-                    {!isEnabled && <Link to='/search' className='search-songs'>Search</Link>}                </div>
+                    {!isEnabled && <Link to='/search' className='search-songs'>Search</Link>}
+                    {viewOnly && <Link to='/' onClick={() => dispatch(clearAll())} className='search-songs'>Home</Link>}
+                </div>
             }
         </div >
     );

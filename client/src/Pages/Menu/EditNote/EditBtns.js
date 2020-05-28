@@ -3,7 +3,7 @@ import Accidental from './Accidental'
 import { useSelector, useDispatch } from 'react-redux'
 import { deleteNote, updateNote, replaceNote, insertNote } from '../../../Redux/Actions/Notes'
 import { allNotes } from '../../../HelperFunctions/UpdateNoteLetter'
-import { editIndex, isRestNote, countNumberOfNulls } from '../../../HelperFunctions/Helpers'
+import { isRestNote, countNumberOfNulls, editIndex } from '../../../HelperFunctions/Helpers'
 // import { moveNoteBetween, moveNoteDown, moveNoteUp, findLetterNoteIndex } from '../../HelperFunctions/MoveNote'
 
 const EditBtns = ({ showLogout, setShowLogout, isShowingMenu, setIsShowingMenu }) => {
@@ -14,7 +14,7 @@ const EditBtns = ({ showLogout, setShowLogout, isShowingMenu, setIsShowingMenu }
     const isReplacing = useSelector(state => state.notes.isReplacing)
     const isInserting = useSelector(state => state.notes.isInserting)
 
-    //If button has already been clicked for specific song note
+    //If button has already been clicked for specific note
     //the button will be disabled to prevent the key(letter) from changing incorrectly
     const isDisabled = currentTransformClassName => {
         let idx = editIndex(notes)

@@ -5,10 +5,7 @@ export const dateFormat = date => {
     return `${mo} ${da}, ${ye}`
 }
 
-export const editIndex = notes =>
-    notes.findIndex(note => note && note.edit === 'edit-placeholder')
-
-export const findIndex = (innerloop1, innerloop2, outerloop) =>
+export const getIndex = (innerloop1, innerloop2, outerloop) =>
     ((innerloop1 * 8) + innerloop2 - 9) + (32 * outerloop)
 
 export const isRestNote = (idx, type, notes) => {
@@ -26,3 +23,6 @@ export const countNumberOfNulls = (array, index, nullCount = 0) => {
     }
     return nullCount
 }
+
+export const editIndex = notesArr =>
+    notesArr.findIndex(note => note && note.edit === 'edit-placeholder')

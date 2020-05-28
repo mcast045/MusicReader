@@ -4,7 +4,7 @@ import '../Sheet.css'
 import { useSelector, useDispatch } from 'react-redux';
 import { updateNote, getUserNotes } from '../../../Redux/Actions/Notes';
 import { updateNoteLetter } from '../../../HelperFunctions/UpdateNoteLetter'
-import { editIndex, findIndex, isRestNote } from '../../../HelperFunctions/Helpers'
+import { getIndex, isRestNote, editIndex } from '../../../HelperFunctions/Helpers'
 
 const Staff = ({ viewOnly, showLogout, setShowLogout, setIsShowingMenu, isShowingMenu, bars, staffLines, eighthNotes, i }) => {
 
@@ -21,7 +21,7 @@ const Staff = ({ viewOnly, showLogout, setShowLogout, setIsShowingMenu, isShowin
     //Without isMounted, mounting error when adding notes to new staff lines
     useEffect(() => {
         //Only run when the dependencies change & if user has at least 1 song
-        if (isMounted.current && currentSong)
+        if (isMounted.current && currentSong && !viewOnly)
             isAuthenticated && currentSong._id && dispatch(getUserNotes(currentSong._id))
 
         return () => { isMounted.current = true; }
@@ -55,13 +55,13 @@ const Staff = ({ viewOnly, showLogout, setShowLogout, setIsShowingMenu, isShowin
     const isCurrentColumn = (j, l, i) => {
         let idx = editIndex(notes)
         if (notes[idx] && !isRestNote(idx, notes[idx].type, notes))
-            return (findIndex(j, l, i) === idx)
+            return (getIndex(j, l, i) === idx)
     }
 
     const showLedgerLines = (j, l, i, k) => {
-        if (notes[findIndex(j, l, i)].row < 5)
+        if (notes[getIndex(j, l, i)].row < 5)
             return k < 4 ? { borderBottom: '1px solid black' } : null
-        else if (notes[findIndex(j, l, i)].row > 8)
+        else if (notes[getIndex(j, l, i)].row > 8)
             return (k > 8 && k !== 12) ? { borderBottom: '1px solid black' } : null
     }
 
@@ -81,31 +81,31 @@ const Staff = ({ viewOnly, showLogout, setShowLogout, setIsShowingMenu, isShowin
                                     className='note-temp-container'
                                     key={l}
                                     style={
-                                        isCurrentColumn(j, l, i) && (k !== 12 && (k < 4 || k > 8)) ? { borderBottom: '1px solid black' } : notes[findIndex(j, l, i)] && showLedgerLines(j, l, i, k)}>
+                                        isCurrentColumn(j, l, i) && (k !== 12 && (k < 4 || k > 8)) ? { borderBottom: '1px solid black' } : notes[getIndex(j, l, i)] && showLedgerLines(j, l, i, k)}>
                                     <div
-                                        id={`note-container-${findIndex(j, l, i)}`}
+                                        id={`note-container-${getIndex(j, l, i)}`}
                                         className='drag-container-space'
-                                        onDrop={e => drop(e, k, findIndex(j, l, i))}
+                                        onDrop={e => drop(e, k, getIndex(j, l, i))}
                                         onDragOver={e => allowDrop(e)}
-                                        style={notes[findIndex(j, l, i)] && { display: 'block' }} >
-                                        {notes[findIndex(j, l, i)] && k === notes[findIndex(j, l, i)].row &&
+                                        style={notes[getIndex(j, l, i)] && { display: 'block' }} >
+                                        {notes[getIndex(j, l, i)] && k === notes[getIndex(j, l, i)].row &&
                                             <button
-                                                draggable={!viewOnly && notes[findIndex(j, l, i)] && notes[findIndex(j, l, i)].draggable}
-                                                id={`note-btn-${findIndex(j, l, i)}`}
+                                                draggable={!viewOnly && notes[getIndex(j, l, i)] && notes[getIndex(j, l, i)].draggable}
+                                                id={`note-btn-${getIndex(j, l, i)}`}
                                                 disabled={isEnabled}
-                                                className={`${!viewOnly ? 'note-temp-item-btn' : 'note-temp-item-img'}  ${notes[findIndex(j, l, i)] && notes[findIndex(j, l, i)].transform} ${notes[findIndex(j, l, i)] && notes[findIndex(j, l, i)].edit}`}
-                                                style={notes[findIndex(j, l, i)] && { display: 'block' }}
-                                                onClick={() => onClickImg(findIndex(j, l, i))}
+                                                className={`${!viewOnly ? 'note-temp-item-btn' : 'note-temp-item-img'}  ${notes[getIndex(j, l, i)] && notes[getIndex(j, l, i)].transform} ${notes[getIndex(j, l, i)] && notes[getIndex(j, l, i)].edit}`}
+                                                style={notes[getIndex(j, l, i)] && { display: 'block' }}
+                                                onClick={() => onClickImg(getIndex(j, l, i))}
                                             >
                                                 <div
                                                     alt='Note'
                                                     draggable='false'
-                                                    className={`note-staff-image ${notes[findIndex(j, l, i)] && notes[findIndex(j, l, i)].type}`}
-                                                    style={notes[findIndex(j, l, i)] && { display: 'block' }}
+                                                    className={`note-staff-image ${notes[getIndex(j, l, i)] && notes[getIndex(j, l, i)].type}`}
+                                                    style={notes[getIndex(j, l, i)] && { display: 'block' }}
                                                 >
-                                                    <span className='note-staff-image-accidental'>{notes[findIndex(j, l, i)] && notes[findIndex(j, l, i)].accidental}</span>
-                                                    {notes[findIndex(j, l, i)] && notes[findIndex(j, l, i)].notePath}
-                                                    {(notes[findIndex(j, l, i)].type === 'Dotted-WholeRest' || notes[findIndex(j, l, i)].type === 'Dotted-HalfRest' || notes[findIndex(j, l, i)].type === 'Dotted-QuarterRest') && <span className='rest-dotted'>.</span>}
+                                                    <span className='note-staff-image-accidental'>{notes[getIndex(j, l, i)] && notes[getIndex(j, l, i)].accidental}</span>
+                                                    {notes[getIndex(j, l, i)] && notes[getIndex(j, l, i)].notePath}
+                                                    {(notes[getIndex(j, l, i)].type === 'Dotted-WholeRest' || notes[getIndex(j, l, i)].type === 'Dotted-HalfRest' || notes[getIndex(j, l, i)].type === 'Dotted-QuarterRest') && <span className='rest-dotted'>.</span>}
                                                 </div>
                                             </button>}
                                     </div>

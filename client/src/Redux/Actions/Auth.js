@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { setAlert } from './Alert'
+import { clearAll } from './Song'
 import {
     LOGIN_USER,
     LOGOUT_USER,
@@ -16,8 +17,7 @@ import {
     LOAD_ERROR,
 
     GET_SONG_INFO,
-    GET_SONGS_INFO,
-    GET_NOTES
+    GET_SONGS_INFO
 } from '../Constants'
 
 export const loginUser = ({ email, password }) => async dispatch => {
@@ -35,8 +35,7 @@ export const loginUser = ({ email, password }) => async dispatch => {
         const res = await axios.post('user/login', body, config)
 
         //To prevent login into account from 'Search' and loading incorrect song/notes
-        dispatch({ type: CLEAR_NOTES })
-        dispatch({ type: CLEAR_SONG })
+        dispatch(clearAll())
         dispatch({ type: LOGIN_USER, payload: res.data })
     }
     catch (err) {
@@ -71,8 +70,7 @@ export const registerUser = ({ email, password, confirmPassword, username }) => 
         const res = await axios.post('user/register', body, config)
 
         //To prevent login into account from 'Search' and loading incorrect song/notes
-        dispatch({ type: CLEAR_NOTES })
-        dispatch({ type: CLEAR_SONG })
+        dispatch(clearAll())
         dispatch({ type: REGISTER_SUCCESS, payload: res.data })
     }
     catch (err) {

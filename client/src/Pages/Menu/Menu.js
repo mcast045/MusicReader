@@ -7,7 +7,7 @@ import Rest from './Notes/RestNotes'
 import NewSong from './NewSong/NewSong'
 import { useSelector, useDispatch } from 'react-redux';
 import { addNote, replaceNote, insertNote } from '../../Redux/Actions/Notes';
-import { editIndex, isRestNote, countNumberOfNulls } from '../../HelperFunctions/Helpers'
+import { isRestNote, countNumberOfNulls, editIndex } from '../../HelperFunctions/Helpers'
 
 const Menu = ({ showInfo, setShowInfo, showLogout, setShowLogout, newSongClickState, setNewSongClickState, isShowingMenu, setIsShowingMenu }) => {
 
@@ -39,7 +39,7 @@ const Menu = ({ showInfo, setShowInfo, showLogout, setShowLogout, newSongClickSt
 
     const replaceNoteInSong = (notesArray, notePath, noteType, nullArray = []) => {
         let copy = [...notesArray]
-        let idx = editIndex(notes)
+        let idx = editIndex(copy)
         //Replacing note to a regular note
         if (!isRestNote(-1, noteType, copy)) {
             //If replacing rest note to regular note, show tab
@@ -56,7 +56,7 @@ const Menu = ({ showInfo, setShowInfo, showLogout, setShowLogout, newSongClickSt
 
     const insertNoteInSong = (notesArray, notePath, noteType, nullArray = []) => {
         let copy = [...notesArray]
-        let idx = editIndex(notes)
+        let idx = editIndex(copy)
         delete copy[idx]['edit']
         //If inserting rest note to regular note, show tab
         if (!isRestNote(-1, noteType, copy)) {

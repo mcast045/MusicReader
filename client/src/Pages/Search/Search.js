@@ -36,7 +36,7 @@ const Search = props => {
                         <label className='search-menu_label'>Song Title: </label>
                         <input type='text' name='songName' />
                         <button className='btn search-menu_btn'>Select</button>
-                        <button className='btn search-menu_btn' onClick={() => onClickBack()}>Back</button>
+                        <button className='btn search-menu_btn' onClick={() => onClickBack()}>Home</button>
                     </div>
 
                     <div className='search-songs'>

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux'
 import { updateNoteLetter, allNotes } from '../../../HelperFunctions/UpdateNoteLetter'
-import { editIndex, isRestNote } from '../../../HelperFunctions/Helpers'
+import { isRestNote, editIndex } from '../../../HelperFunctions/Helpers'
 
 const Accidental = ({ findLetterNoteIndex, moveNoteBetween, moveNoteDown, moveNoteUp }) => {
 

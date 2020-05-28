@@ -4,7 +4,7 @@ import Notes from '../../Menu/Notes/Notes'
 import Rest from '../../Menu/Notes/RestNotes'
 import Buttons from './EditBtns'
 import { useSelector, useDispatch } from 'react-redux'
-import { finishUpdating } from '../../../Redux/Actions/Notes'
+import { finishUpdating, updateNote } from '../../../Redux/Actions/Notes'
 import { editIndex } from '../../../HelperFunctions/Helpers'
 
 const EditNote = ({ showLogout, setShowLogout, replaceNoteInSong, insertNoteInSong, addToSongArray, createNull, setIsShowingMenu, isShowingMenu }) => {
@@ -16,10 +16,11 @@ const EditNote = ({ showLogout, setShowLogout, replaceNoteInSong, insertNoteInSo
 
     const confirmCancel = () => {
         let copy = [...notes]
-        let idx = editIndex(notes)
+        let idx = editIndex(copy)
         delete copy[idx]['edit']
         copy[idx] = { ...copy[idx], draggable: false }
-        dispatch(finishUpdating(copy))
+        dispatch(updateNote(copy))
+        dispatch(finishUpdating())
         setIsShowingMenu(!isShowingMenu)
         setShowLogout(!showLogout)
     }

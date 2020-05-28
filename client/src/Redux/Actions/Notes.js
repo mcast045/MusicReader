@@ -64,7 +64,7 @@ export const addNote = note => ({ type: ADD_NOTE, payload: note })
 export const updateNote = note => ({ type: UPDATE_NOTE, payload: note })
 export const replaceNote = note => ({ type: REPLACE_NOTE, payload: note })
 export const insertNote = note => ({ type: INSERT_NOTE, payload: note })
-export const finishUpdating = note => ({ type: FINISH_UPDATE_NOTE, payload: note })
+export const finishUpdating = () => ({ type: FINISH_UPDATE_NOTE })
 
 //Deletes any note in the state.notes array 
 export const deleteNote = note => ({ type: DELETE_NOTE, payload: note })

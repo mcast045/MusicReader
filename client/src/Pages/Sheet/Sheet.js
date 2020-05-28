@@ -1,14 +1,17 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import './Sheet.css'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import Loader from '../../Images/Loader/Loader'
 import Modal from '../Menu/SheetBtn/Modal/Modal'
 import Staff from './Staff/Staff'
 import Tab from './Tab/Tab'
 import PageHeader from './PageHeader/PageHeader'
 import SheetHeader from './StaffHeader/Clef&Tab/Clef&Tab'
+import { getPublishedSong } from '../../Redux/Actions/Song'
 
-const Sheet = ({ viewOnly, showLogout, setShowLogout, newSongClickState, setIsShowingMenu, isShowingMenu }) => {
 
+const Sheet = ({ match, viewOnly, showLogout, setShowLogout, newSongClickState, setIsShowingMenu, isShowingMenu }) => {
+    const dispatch = useDispatch()
     const notes = useSelector(state => state.notes.notes)
     const staffLineNumber = useSelector(state => state.song.staffLineNumber)
     // let screenSize = window.screen.width
@@ -32,6 +35,11 @@ const Sheet = ({ viewOnly, showLogout, setShowLogout, newSongClickState, setIsSh
         }
     }, [notes, numOfSheets])
 
+    useEffect(() => {
+        if (viewOnly && match.params.id)
+            dispatch(getPublishedSong(match.params.id))
+    }, [])
+
     return (
         <Fragment>
             <PageHeader showLogout={showLogout} viewOnly={viewOnly} setNumOfSheets={setNumOfSheets} />
@@ -45,7 +53,6 @@ const Sheet = ({ viewOnly, showLogout, setShowLogout, newSongClickState, setIsSh
 
                         <Staff viewOnly={viewOnly} showLogout={showLogout} setShowLogout={setShowLogout} isShowingMenu={isShowingMenu} setIsShowingMenu={setIsShowingMenu} i={i} bars={bars} staffLines={staffLines} eighthNotes={eighthNotes} />
                         <Tab newSongClickState={newSongClickState} i={i} eighthNotes={eighthNotes} bars={bars} tabLines={tabLines} />
-
                     </div>
                 </div>
             ))}

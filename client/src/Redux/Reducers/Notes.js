@@ -73,7 +73,6 @@ export default function (state = initialState, action) {
         case FINISH_UPDATE_NOTE:
             return {
                 ...state,
-                notes: payload,
                 isReplacing: false,
                 isInserting: false,
                 showModal: false,
