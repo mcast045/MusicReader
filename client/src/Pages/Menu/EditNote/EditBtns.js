@@ -1,10 +1,10 @@
 import React from 'react'
 import Accidental from './Accidental'
 import { useSelector, useDispatch } from 'react-redux'
-import { deleteNote, updateNote, replaceNote, insertNote } from '../../../Redux/Actions/Notes'
+import { deleteAnyNote, updateNote, replaceNote, insertNote } from '../../../Redux/Actions/Notes'
 import { allNotes } from '../../../HelperFunctions/UpdateNoteLetter'
 import { isRestNote, countNumberOfNulls, editIndex } from '../../../HelperFunctions/Helpers'
-// import { moveNoteBetween, moveNoteDown, moveNoteUp, findLetterNoteIndex } from '../../HelperFunctions/MoveNote'
+// import { moveNoteBetween, moveNoteDown, moveNoteUp, findLetterIdx } from '../../HelperFunctions/MoveNote'
 
 const EditBtns = ({ showLogout, setShowLogout, isShowingMenu, setIsShowingMenu }) => {
 
@@ -26,12 +26,12 @@ const EditBtns = ({ showLogout, setShowLogout, isShowingMenu, setIsShowingMenu }
         let copy = [...notes]
         let idx = editIndex(notes)
         copy.splice(idx, countNumberOfNulls(copy, idx, 1))
-        dispatch(deleteNote(copy))
+        dispatch(deleteAnyNote(copy))
         setIsShowingMenu(!isShowingMenu)
         setShowLogout(!showLogout)
     }
 
-    const findLetterNoteIndex = (songArr, index) =>
+    const findLetterIdx = (songArr, index) =>
         allNotes.findIndex(note => note === songArr[index].letter)
 
     const moveNoteUp = () => {
@@ -39,7 +39,7 @@ const EditBtns = ({ showLogout, setShowLogout, isShowingMenu, setIsShowingMenu }
             //Change transform and letter of note
             let copy = [...notes]
             let idx = editIndex(notes)
-            let allNotesIdx = findLetterNoteIndex(copy, idx)
+            let allNotesIdx = findLetterIdx(copy, idx)
 
             const changeNaturalLetter = (arr, index, transform) => {
                 if (transform === 'no-translate') {
@@ -278,7 +278,7 @@ const EditBtns = ({ showLogout, setShowLogout, isShowingMenu, setIsShowingMenu }
             //Change transform and letter of note
             let copy = [...notes]
             let idx = editIndex(notes)
-            let allNotesIdx = findLetterNoteIndex(copy, idx)
+            let allNotesIdx = findLetterIdx(copy, idx)
 
             const changeNaturalLetter = (arr, index, transform) => {
                 if (transform === 'no-translate') {
@@ -530,7 +530,7 @@ const EditBtns = ({ showLogout, setShowLogout, isShowingMenu, setIsShowingMenu }
             //Change transform and letter of note
             let copy = [...notes]
             let idx = editIndex(notes)
-            let allNotesIdx = findLetterNoteIndex(copy, idx)
+            let allNotesIdx = findLetterIdx(copy, idx)
 
             const changeNaturalLetter = (arr, index, transform) => {
                 if (transform === 'move-up') {
@@ -736,7 +736,7 @@ const EditBtns = ({ showLogout, setShowLogout, isShowingMenu, setIsShowingMenu }
                 </div>
             }
             {!isRestNote(editIndex(notes), null, notes) &&
-                <Accidental allNotes={allNotes} findLetterNoteIndex={findLetterNoteIndex} moveNoteBetween={moveNoteBetween} moveNoteDown={moveNoteDown} moveNoteUp={moveNoteUp} isRestNote={isRestNote} />
+                <Accidental allNotes={allNotes} findLetterIdx={findLetterIdx} moveNoteBetween={moveNoteBetween} moveNoteDown={moveNoteDown} moveNoteUp={moveNoteUp} isRestNote={isRestNote} />
             }
         </div>
     );

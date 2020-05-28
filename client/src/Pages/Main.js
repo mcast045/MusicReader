@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { isFetching, loadUser } from '../Redux/Actions/Auth'
+import { isFetchingUser, loadUser } from '../Redux/Actions/Auth'
 import Sheet from './Sheet/Sheet'
 import Menu from './Menu/Menu'
 import Alert from '../Pages/Alert/Alert'
@@ -18,7 +18,7 @@ const Main = () => {
 
     //Load user most recent song
     useEffect(() => {
-        dispatch(isFetching())
+        dispatch(isFetchingUser())
         user._id && dispatch(loadUser(user._id))
     }, [dispatch, user._id])
 

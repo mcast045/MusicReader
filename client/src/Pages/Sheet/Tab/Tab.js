@@ -2,26 +2,26 @@ import React from 'react'
 import './Tab.css'
 import '../Sheet.css'
 import { useSelector } from 'react-redux'
-import { showTab } from '../../../HelperFunctions/TabHelper'
-import { getIndex } from '../../../HelperFunctions/Helpers'
+import { tabValue } from '../../../HelperFunctions/MapNoteToTab'
+import { getNoteColumn } from '../../../HelperFunctions/Helpers'
 
-const Tab = ({ bars, tabLines, eighthNotes, i }) => {
+const Tab = ({ bars, tabLines, eighthNotes, numberOfStaves }) => {
 
     const notes = useSelector(state => state.notes.notes)
 
     return (
         <div className='tab-music-container'>
-            {bars.map(m => (
-                <ul className='tab-music' key={m}>
-                    {tabLines.map(n => (
-                        <li key={n} className={`tab-row-${n}`}>
-                            {eighthNotes.map(o => (
+            {bars.map(measure => (
+                <ul className='tab-music' key={measure}>
+                    {tabLines.map(rowNumber => (
+                        <li key={rowNumber} className={`tab-row-${rowNumber}`}>
+                            {eighthNotes.map(columnsPerMeasure => (
                                 <input type='text'
-                                    name={`tab-input-${getIndex(m, o, i)}`}
+                                    name={`tab-input-${getNoteColumn(measure, columnsPerMeasure, numberOfStaves)}`}
                                     className='tabLine-input'
                                     readOnly
-                                    key={o}
-                                    value={showTab(n, getIndex(m, o, i), notes)} >
+                                    key={columnsPerMeasure}
+                                    value={tabValue(rowNumber, getNoteColumn(measure, columnsPerMeasure, numberOfStaves), notes)} >
                                 </input>
                             ))}
                         </li>

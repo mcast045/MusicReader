@@ -3,13 +3,13 @@ import {
     SAVE_NOTES,
     ADD_NOTE,
     DELETE_LAST_NOTE,
-    DELETE_NOTE,
+    DELETE_ANY_NOTE,
     UPDATE_NOTE,
     REPLACE_NOTE,
     INSERT_NOTE,
     FINISH_UPDATE_NOTE,
     CLEAR_NOTES,
-    IS_FETCHING_SONG
+    IS_FETCHING_NOTES
 } from '../Constants'
 
 const initialState = {
@@ -38,7 +38,7 @@ export default function (state = initialState, action) {
             }
         case ADD_NOTE:
         case DELETE_LAST_NOTE:
-        case DELETE_NOTE:
+        case DELETE_ANY_NOTE:
             return {
                 ...state,
                 notes: payload,
@@ -80,7 +80,7 @@ export default function (state = initialState, action) {
                 isEnabled: false
             }
         case CLEAR_NOTES:
-        case IS_FETCHING_SONG:
+        case IS_FETCHING_NOTES:
             return {
                 ...state,
                 loading: true,

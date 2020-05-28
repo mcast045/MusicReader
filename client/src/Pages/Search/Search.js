@@ -5,20 +5,21 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getAllSongs, getPublishedSong, clearAll } from '../../Redux/Actions/Song'
 import { dateFormat } from '../../HelperFunctions/Helpers'
 import Loader from '../../Images/Loader/Loader'
-import { isFetchingSong } from '../../Redux/Actions/Notes'
+import { isFetchingNotes } from '../../Redux/Actions/Notes'
 
 const Search = props => {
 
     const dispatch = useDispatch()
+
     useEffect(() => {
         dispatch(getAllSongs())
-    }, [])
+    }, [dispatch])
 
     const songs = useSelector(state => state.song.songsSearch)
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
 
     const onClickSong = id => {
-        dispatch(isFetchingSong())
+        dispatch(isFetchingNotes())
         dispatch(getPublishedSong(id))
     }
 

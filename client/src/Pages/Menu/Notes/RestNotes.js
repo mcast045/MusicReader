@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { finishUpdating } from '../../../Redux/Actions/Notes';
+import { finishUpdatingNote } from '../../../Redux/Actions/Notes';
 
 const RestNotes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu, createNull, addToSongArray, replaceNoteInSong, insertNoteInSong }) => {
 
@@ -17,14 +17,14 @@ const RestNotes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu,
 
         if (isReplacing) {
             replaceNoteInSong(notes, "\uD834\uDD3B", 'WholeRest', nullArray)
-            dispatch(finishUpdating())
+            dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
 
         if (isInserting) {
             insertNoteInSong(notes, "\uD834\uDD3B", 'WholeRest', nullArray)
-            dispatch(finishUpdating())
+            dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
@@ -35,14 +35,14 @@ const RestNotes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu,
 
         if (isReplacing) {
             replaceNoteInSong(notes, "\uD834\uDD3B", 'Dotted-WholeRest', nullArray)
-            dispatch(finishUpdating())
+            dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
 
         if (isInserting) {
             insertNoteInSong(notes, "\uD834\uDD3B", 'Dotted-WholeRest', nullArray)
-            dispatch(finishUpdating())
+            dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
@@ -56,14 +56,14 @@ const RestNotes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu,
 
         if (isReplacing) {
             replaceNoteInSong(notes, "\uD834\uDD3C", 'HalfRest', nullArray)
-            dispatch(finishUpdating())
+            dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
 
         if (isInserting) {
             insertNoteInSong(notes, "\uD834\uDD3C", 'HalfRest', nullArray)
-            dispatch(finishUpdating())
+            dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
@@ -75,14 +75,14 @@ const RestNotes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu,
 
         if (isReplacing) {
             replaceNoteInSong(notes, "\uD834\uDD3C", 'Dotted-HalfRest', nullArray)
-            dispatch(finishUpdating())
+            dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
 
         if (isInserting) {
             insertNoteInSong(notes, "\uD834\uDD3C", 'Dotted-HalfRest', nullArray)
-            dispatch(finishUpdating())
+            dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
@@ -94,14 +94,14 @@ const RestNotes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu,
 
         if (isReplacing) {
             replaceNoteInSong(notes, "\uD834\uDD3D", 'QuarterRest', nullArray)
-            dispatch(finishUpdating())
+            dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
 
         if (isInserting) {
             insertNoteInSong(notes, "\uD834\uDD3D", 'QuarterRest', nullArray)
-            dispatch(finishUpdating())
+            dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
@@ -113,14 +113,14 @@ const RestNotes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu,
 
         if (isReplacing) {
             replaceNoteInSong(notes, "\uD834\uDD3D", 'Dotted-QuarterRest', nullArray)
-            dispatch(finishUpdating())
+            dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
 
         if (isInserting) {
             insertNoteInSong(notes, "\uD834\uDD3D", 'Dotted-QuarterRest', nullArray)
-            dispatch(finishUpdating())
+            dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
@@ -131,14 +131,14 @@ const RestNotes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu,
 
         if (isReplacing) {
             replaceNoteInSong(notes, "\uD834\uDD3E", 'EighthRest')
-            dispatch(finishUpdating())
+            dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
 
         if (isInserting) {
             insertNoteInSong(notes, "\uD834\uDD3E", 'EighthRest')
-            dispatch(finishUpdating())
+            dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }

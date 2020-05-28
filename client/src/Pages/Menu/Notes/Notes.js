@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { finishUpdating } from '../../../Redux/Actions/Notes'
+import { finishUpdatingNote } from '../../../Redux/Actions/Notes'
 
 const Notes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu, createNull, addToSongArray, replaceNoteInSong, insertNoteInSong }) => {
 
@@ -23,14 +23,14 @@ const Notes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu, cre
 
         if (isReplacing) {
             replaceNoteInSong(notes, "\uD834\uDD5D", 'Whole', nullArray)
-            dispatch(finishUpdating())
+            dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
 
         if (isInserting) {
             insertNoteInSong(notes, "\uD834\uDD5D", 'Whole', nullArray)
-            dispatch(finishUpdating())
+            dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
@@ -46,14 +46,14 @@ const Notes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu, cre
 
         if (isReplacing) {
             replaceNoteInSong(notes, `${"\uD834\uDD5D"}.`, 'Dotted-Whole', nullArray)
-            dispatch(finishUpdating())
+            dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
 
         if (isInserting) {
             insertNoteInSong(notes, `${"\uD834\uDD5D"}.`, 'Dotted-Whole', nullArray)
-            dispatch(finishUpdating())
+            dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
@@ -72,14 +72,14 @@ const Notes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu, cre
 
         if (isReplacing) {
             replaceNoteInSong(notes, "\uD834\uDD5E", 'Half', nullArray)
-            dispatch(finishUpdating())
+            dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
 
         if (isInserting) {
             insertNoteInSong(notes, "\uD834\uDD5E", 'Half', nullArray)
-            dispatch(finishUpdating())
+            dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
@@ -95,14 +95,14 @@ const Notes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu, cre
 
         if (isReplacing) {
             replaceNoteInSong(notes, `${"\uD834\uDD5E"}.`, 'Dotted-Half', nullArray)
-            dispatch(finishUpdating())
+            dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
 
         if (isInserting) {
             insertNoteInSong(notes, `${"\uD834\uDD5E"}.`, 'Dotted-Half', nullArray)
-            dispatch(finishUpdating())
+            dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
@@ -122,14 +122,14 @@ const Notes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu, cre
 
         if (isReplacing) {
             replaceNoteInSong(notes, "\uD834\uDD5F", 'Quarter', nullArray)
-            dispatch(finishUpdating())
+            dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
 
         if (isInserting) {
             insertNoteInSong(notes, "\uD834\uDD5F", 'Quarter', nullArray)
-            dispatch(finishUpdating())
+            dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
@@ -145,14 +145,14 @@ const Notes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu, cre
 
         if (isReplacing) {
             replaceNoteInSong(notes, `${"\uD834\uDD5F"}.`, 'Dotted-Quarter', nullArray)
-            dispatch(finishUpdating())
+            dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
 
         if (isInserting) {
             insertNoteInSong(notes, `${"\uD834\uDD5F"}.`, 'Dotted-Quarter', nullArray)
-            dispatch(finishUpdating())
+            dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
@@ -170,14 +170,14 @@ const Notes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu, cre
 
         if (isReplacing) {
             replaceNoteInSong(notes, "\uD834\uDD60", 'Eighth')
-            dispatch(finishUpdating())
+            dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
 
         if (isInserting) {
             insertNoteInSong(notes, "\uD834\uDD60", 'Eighth')
-            dispatch(finishUpdating())
+            dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }

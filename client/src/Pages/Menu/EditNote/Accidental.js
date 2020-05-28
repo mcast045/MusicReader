@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { updateNoteLetter, allNotes } from '../../../HelperFunctions/UpdateNoteLetter'
 import { isRestNote, editIndex } from '../../../HelperFunctions/Helpers'
 
-const Accidental = ({ findLetterNoteIndex, moveNoteBetween, moveNoteDown, moveNoteUp }) => {
+const Accidental = ({ findLetterIdx, moveNoteBetween, moveNoteDown, moveNoteUp }) => {
 
     const notes = useSelector(state => state.notes.notes)
     const key = useSelector(state => state.song.keySignature)
@@ -68,7 +68,7 @@ const Accidental = ({ findLetterNoteIndex, moveNoteBetween, moveNoteDown, moveNo
 
     //Only Sharp/Flat notes if they are not already part of natural scale
     const isLetterSameLength = (idx, type) => {
-        let letterIdx = findLetterNoteIndex(notes, idx)
+        let letterIdx = findLetterIdx(notes, idx)
         if (type === 'Sharp') {
             if ((allNotes[letterIdx] === 'G' || allNotes[letterIdx] === 'G#') && key.id > 0)
                 return true
@@ -108,46 +108,46 @@ const Accidental = ({ findLetterNoteIndex, moveNoteBetween, moveNoteDown, moveNo
         }
     }
 
-    const accidentalChange = (e, kb, idx, key) => {
-        if ((e.target.id === 'Sharp' || kb === 'Sharp') && (notes[idx].row > 1 || notes[idx].transform === 'move-down') && (preventAccidentalNotes(key.id, idx) || notes[idx].accidental === "\u266D") && notes[idx].accidental !== "\u266E" && isLetterSameLength(idx, 'Sharp') && (notes[idx].letter !== 'D#' && notes[idx].letter !== 'A#'))
-            updateNoteLetter(notes[idx].row, idx, "\u266F", notes, key)
-        else if ((e.target.id === 'Flat' || kb === 'Flat') && (notes[idx].row < 12 || notes[idx].transform === 'move-up') && (preventAccidentalNotes(key.id, idx) || notes[idx].accidental === "\u266F") && notes[idx].accidental !== "\u266E" && isLetterSameLength(idx, 'Flat') && (notes[idx].letter !== 'F#' && notes[idx].letter !== 'C#'))
-            updateNoteLetter(notes[idx].row, idx, "\u266D", notes, key)
-        else if ((e.target.id === 'Natural' || kb === 'Natural') && preventNaturalNotes(key.id, idx) && (notes[idx].accidental !== "\u266D" && notes[idx].accidental !== "\u266F"))
-            updateNoteLetter(notes[idx].row, idx, "\u266E", notes, key)
+    const accidentalChange = (e, kb, noteToEditIndex, key) => {
+        if ((e.target.id === 'Sharp' || kb === 'Sharp') && (notes[noteToEditIndex].row > 1 || notes[noteToEditIndex].transform === 'move-down') && (preventAccidentalNotes(key.id, noteToEditIndex) || notes[noteToEditIndex].accidental === "\u266D") && notes[noteToEditIndex].accidental !== "\u266E" && isLetterSameLength(noteToEditIndex, 'Sharp') && (notes[noteToEditIndex].letter !== 'D#' && notes[noteToEditIndex].letter !== 'A#'))
+            updateNoteLetter(notes[noteToEditIndex].row, noteToEditIndex, "\u266F", notes, key)
+        else if ((e.target.id === 'Flat' || kb === 'Flat') && (notes[noteToEditIndex].row < 12 || notes[noteToEditIndex].transform === 'move-up') && (preventAccidentalNotes(key.id, noteToEditIndex) || notes[noteToEditIndex].accidental === "\u266F") && notes[noteToEditIndex].accidental !== "\u266E" && isLetterSameLength(noteToEditIndex, 'Flat') && (notes[noteToEditIndex].letter !== 'F#' && notes[noteToEditIndex].letter !== 'C#'))
+            updateNoteLetter(notes[noteToEditIndex].row, noteToEditIndex, "\u266D", notes, key)
+        else if ((e.target.id === 'Natural' || kb === 'Natural') && preventNaturalNotes(key.id, noteToEditIndex) && (notes[noteToEditIndex].accidental !== "\u266D" && notes[noteToEditIndex].accidental !== "\u266F"))
+            updateNoteLetter(notes[noteToEditIndex].row, noteToEditIndex, "\u266E", notes, key)
         else
-            updateNoteLetter(notes[idx].row, idx, null, notes, key)
+            updateNoteLetter(notes[noteToEditIndex].row, noteToEditIndex, null, notes, key)
     }
 
     const accidentalNote = (e, kb) => {
-        let idx = editIndex(notes)
+        let noteToEditIndex = editIndex(notes)
 
-        if (!isRestNote(idx, null, notes)) {
+        if (!isRestNote(noteToEditIndex, null, notes)) {
             if (key.id === 1)
-                accidentalChange(e, kb, idx, key)
+                accidentalChange(e, kb, noteToEditIndex, key)
             else if (key.id === 2)
-                accidentalChange(e, kb, idx, key)
+                accidentalChange(e, kb, noteToEditIndex, key)
             else if (key.id === 3)
-                accidentalChange(e, kb, idx, key)
+                accidentalChange(e, kb, noteToEditIndex, key)
             else if (key.id === 4)
-                accidentalChange(e, kb, idx, key)
+                accidentalChange(e, kb, noteToEditIndex, key)
             else if (key.id === 5)
-                accidentalChange(e, kb, idx, key)
+                accidentalChange(e, kb, noteToEditIndex, key)
             else if (key.id === 6)
-                accidentalChange(e, kb, idx, key)
+                accidentalChange(e, kb, noteToEditIndex, key)
             else if (key.id === 7)
-                accidentalChange(e, kb, idx, key)
+                accidentalChange(e, kb, noteToEditIndex, key)
 
             else if (key.id === -1)
-                accidentalChange(e, kb, idx, key)
+                accidentalChange(e, kb, noteToEditIndex, key)
             else if (key.id === -2)
-                accidentalChange(e, kb, idx, key)
+                accidentalChange(e, kb, noteToEditIndex, key)
             else if (key.id === -3)
-                accidentalChange(e, kb, idx, key)
+                accidentalChange(e, kb, noteToEditIndex, key)
             else if (key.id === -4)
-                accidentalChange(e, kb, idx, key)
+                accidentalChange(e, kb, noteToEditIndex, key)
             else if (key.id === -5)
-                accidentalChange(e, kb, idx, key)
+                accidentalChange(e, kb, noteToEditIndex, key)
         }
     }
 
@@ -155,31 +155,30 @@ const Accidental = ({ findLetterNoteIndex, moveNoteBetween, moveNoteDown, moveNo
         const isKeyMatch = e =>
             key.toLowerCase() === e.key.toLowerCase()
 
-        const onDown = e => {
-            if (isKeyMatch(e)) {
-                if (isMovingUp === 'Sharp' && notes[editIndex(notes)].accidental !== "\u266F")
-                    accidentalNote(e, 'Sharp')
-                else if (isMovingUp === 'Flat' && notes[editIndex(notes)].accidental !== "\u266D")
-                    accidentalNote(e, 'Flat')
-                else if (isMovingUp === 'Natural' && notes[editIndex(notes)].accidental !== "\u266E")
-                    accidentalNote(e, 'Natural')
-                else if (isMovingUp === 'Up')
-                    moveNoteUp()
-                else if (isMovingUp === 'Down')
-                    moveNoteDown()
-                else if (isMovingUp === 'Between')
-                    moveNoteBetween()
-            }
-        }
-
         useEffect(() => {
+            const onDown = e => {
+                if (isKeyMatch(e)) {
+                    if (isMovingUp === 'Sharp' && notes[editIndex(notes)].accidental !== "\u266F")
+                        accidentalNote(e, 'Sharp')
+                    else if (isMovingUp === 'Flat' && notes[editIndex(notes)].accidental !== "\u266D")
+                        accidentalNote(e, 'Flat')
+                    else if (isMovingUp === 'Natural' && notes[editIndex(notes)].accidental !== "\u266E")
+                        accidentalNote(e, 'Natural')
+                    else if (isMovingUp === 'Up')
+                        moveNoteUp()
+                    else if (isMovingUp === 'Down')
+                        moveNoteDown()
+                    else if (isMovingUp === 'Between')
+                        moveNoteBetween()
+                }
+            }
             if (editIndex(notes) !== -1) {
                 window.addEventListener('keydown', onDown)
                 return () => {
                     window.removeEventListener('keydown', onDown)
                 }
             }
-        }, [key, editIndex])
+        }, [key, isMovingUp, isKeyMatch])
     }
 
     useKey('1', 'Sharp')

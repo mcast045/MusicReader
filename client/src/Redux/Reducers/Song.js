@@ -1,15 +1,15 @@
 import {
-    GET_SONG_INFO,
-    GET_SONGS_INFO,
-    GET_ALL_SONGS,
-    CREATE_SONG_INFO,
-    DELETE_SONG,
+    GET_USER_SONG,
+    GET_USER_SONGS,
+    GET_PUBLISHED_SONG,
+    GET_ALL_PUBLISHED_SONGS,
+    CREATE_SONG,
+    PUBLISH_SONG,
     UPDATE_KEYSIGNATURE,
     CLEAR_SONG,
-    LOGOUT_USER,
-    PUBLISH_SONG,
     REDACT_SONG,
-    GET_PUBLISHED_SONG
+    DELETE_SONG,
+    LOGOUT_USER
 } from '../Constants'
 
 const initialState = {
@@ -18,7 +18,7 @@ const initialState = {
     songsSearch: [],
     title: 'Your Song Title',
     keySignature: { id: 1, value: 'C-major/A-minor' },
-    staffLineNumber: [{ 0: '4', 1: '4' }],
+    staffLineNumber: [{ beats: '4', bar: '4' }],
     loading: true
 };
 
@@ -26,7 +26,7 @@ export default function (state = initialState, action) {
 
     const { type, payload } = action;
     switch (type) {
-        case GET_SONG_INFO:
+        case GET_USER_SONG:
         case PUBLISH_SONG:
         case REDACT_SONG:
             return {
@@ -41,19 +41,19 @@ export default function (state = initialState, action) {
                 keySignature: payload.keySignature,
                 loading: false
             }
-        case GET_SONGS_INFO:
+        case GET_USER_SONGS:
             return {
                 ...state,
                 songs: payload,
                 loading: false
             }
-        case GET_ALL_SONGS:
+        case GET_ALL_PUBLISHED_SONGS:
             return {
                 ...state,
                 songsSearch: payload,
                 loading: false
             }
-        case CREATE_SONG_INFO:
+        case CREATE_SONG:
             return {
                 ...state,
                 currentSong: payload,

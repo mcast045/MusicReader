@@ -2,8 +2,7 @@ import { SHOW_MODAL, HIDE_MODAL } from '../Constants'
 
 const initialState = {
     showModal: false,
-    isDeleteUser: false,
-    loading: true,
+    loading: true
 };
 
 export default function (state = initialState, action) {
@@ -21,8 +20,7 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 loading: false,
-                showModal: false,
-                isDeleteUser: false
+                showModal: false
             }
         default:
             return state;

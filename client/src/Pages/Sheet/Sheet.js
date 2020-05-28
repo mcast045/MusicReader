@@ -1,7 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import './Sheet.css'
 import { useSelector, useDispatch } from 'react-redux'
-import Loader from '../../Images/Loader/Loader'
 import Modal from '../Menu/SheetBtn/Modal/Modal'
 import Staff from './Staff/Staff'
 import Tab from './Tab/Tab'
@@ -35,24 +34,25 @@ const Sheet = ({ match, viewOnly, showLogout, setShowLogout, newSongClickState, 
         }
     }, [notes, numOfSheets])
 
+    //If refreshing or going back into '/search/:id', load song
     useEffect(() => {
         if (viewOnly && match.params.id)
             dispatch(getPublishedSong(match.params.id))
-    }, [])
+    }, [dispatch, viewOnly, match])
 
     return (
         <Fragment>
             <PageHeader showLogout={showLogout} viewOnly={viewOnly} setNumOfSheets={setNumOfSheets} />
 
-            {numOfSheets.map((x, i) => (
-                <div key={i} className={viewOnly ? 'sheetView' : 'sheet'}>
+            {numOfSheets.map((staves, numberOfStaves) => (
+                <div key={numberOfStaves} className={viewOnly ? 'sheetView' : 'sheet'}>
                     <div className='stave-container'>
-                        <SheetHeader x={x} />
+                        <SheetHeader />
 
                         <div id='mask'></div>
 
-                        <Staff viewOnly={viewOnly} showLogout={showLogout} setShowLogout={setShowLogout} isShowingMenu={isShowingMenu} setIsShowingMenu={setIsShowingMenu} i={i} bars={bars} staffLines={staffLines} eighthNotes={eighthNotes} />
-                        <Tab newSongClickState={newSongClickState} i={i} eighthNotes={eighthNotes} bars={bars} tabLines={tabLines} />
+                        <Staff viewOnly={viewOnly} showLogout={showLogout} setShowLogout={setShowLogout} isShowingMenu={isShowingMenu} setIsShowingMenu={setIsShowingMenu} numberOfStaves={numberOfStaves} bars={bars} staffLines={staffLines} eighthNotes={eighthNotes} />
+                        <Tab newSongClickState={newSongClickState} numberOfStaves={numberOfStaves} eighthNotes={eighthNotes} bars={bars} tabLines={tabLines} />
                     </div>
                 </div>
             ))}

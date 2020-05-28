@@ -5,12 +5,12 @@ import {
     SAVE_NOTES,
     ADD_NOTE,
     DELETE_LAST_NOTE,
-    DELETE_NOTE,
+    DELETE_ANY_NOTE,
     UPDATE_NOTE,
     REPLACE_NOTE,
     INSERT_NOTE,
     FINISH_UPDATE_NOTE,
-    IS_FETCHING_SONG,
+    IS_FETCHING_NOTES,
 } from '../Constants'
 
 export const getUserNotes = songId => async dispatch => {
@@ -21,16 +21,10 @@ export const getUserNotes = songId => async dispatch => {
         if (res.data[0])
             notes = res.data[0].notes
 
-        dispatch({
-            type: GET_NOTES,
-            payload: notes
-        })
+        dispatch({ type: GET_NOTES, payload: notes })
     }
     catch (err) {
-        const errors = err.response.data.errors
-
-        if (errors)
-            errors.forEach(error => dispatch(setAlert(error.msg, 'danger')))
+        dispatch(setAlert('No Notes Found', 'danger'))
     }
 }
 
@@ -52,20 +46,15 @@ export const saveNotes = (notes, songId, isSaveBtn) => async dispatch => {
             dispatch(setAlert('Save Successful', 'success'))
     }
     catch (err) {
-        const errors = err.response.data.errors
-
-        if (errors)
-            errors.forEach(error => dispatch(setAlert('Save Failed', 'danger')))
+        dispatch(setAlert('Save Failed', 'danger'))
     }
 }
 
-export const isFetchingSong = () => ({ type: IS_FETCHING_SONG })
+export const isFetchingNotes = () => ({ type: IS_FETCHING_NOTES })
 export const addNote = note => ({ type: ADD_NOTE, payload: note })
 export const updateNote = note => ({ type: UPDATE_NOTE, payload: note })
 export const replaceNote = note => ({ type: REPLACE_NOTE, payload: note })
 export const insertNote = note => ({ type: INSERT_NOTE, payload: note })
-export const finishUpdating = () => ({ type: FINISH_UPDATE_NOTE })
-
-//Deletes any note in the state.notes array 
-export const deleteNote = note => ({ type: DELETE_NOTE, payload: note })
+export const finishUpdatingNote = () => ({ type: FINISH_UPDATE_NOTE })
 export const deleteLastNote = note => ({ type: DELETE_LAST_NOTE, payload: note })
+export const deleteAnyNote = note => ({ type: DELETE_ANY_NOTE, payload: note })

@@ -43,8 +43,8 @@ const Login = ({ onClickBackBtn }) => {
                     </div>
 
                     <div className='loginForm_container-btns'>
-                        <input className='btn loginForm_container-btn' type='submit' />
-                        <button className='btn loginForm_container-btn' onClick={() => onClickBackBtn()}>Back</button>
+                        <button className='btn loginForm_container-btn' type='submit'>Submit</button>
+                        <button className='btn loginForm_container-btn' type='button' onClick={e => onClickBackBtn(e)}>Back</button>
                     </div>
                 </div>
             </form>

@@ -4,7 +4,7 @@ import SongInfo from '../SongInfo/SongInfo'
 import { useSelector, useDispatch } from 'react-redux'
 import { showModal } from '../../../Redux/Actions/Modal'
 import { saveNotes, deleteLastNote } from '../../../Redux/Actions/Notes'
-import { isDeleteUser } from '../../../Redux/Actions/Auth'
+import { isDeletingUser } from '../../../Redux/Actions/Auth'
 
 const StaveBtn = ({ showLogout, setShowLogout, showInfo, setShowInfo }) => {
 
@@ -40,7 +40,7 @@ const StaveBtn = ({ showLogout, setShowLogout, showInfo, setShowInfo }) => {
     }
 
     const onClickDeleteAccount = () => {
-        dispatch(isDeleteUser())
+        dispatch(isDeletingUser())
         dispatch(showModal())
     }
 

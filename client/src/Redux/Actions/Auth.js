@@ -16,8 +16,8 @@ import {
     LOAD_USER,
     LOAD_ERROR,
 
-    GET_SONG_INFO,
-    GET_SONGS_INFO
+    GET_USER_SONG,
+    GET_USER_SONGS
 } from '../Constants'
 
 export const loginUser = ({ email, password }) => async dispatch => {
@@ -34,7 +34,7 @@ export const loginUser = ({ email, password }) => async dispatch => {
         // axios.defaults.withCredentials = true
         const res = await axios.post('user/login', body, config)
 
-        //To prevent login into account from 'Search' and loading incorrect song/notes
+        //To prevent login into account from 'Search' page and loading incorrect song/notes
         dispatch(clearAll())
         dispatch({ type: LOGIN_USER, payload: res.data })
     }
@@ -52,9 +52,9 @@ export const logoutUser = () => async dispatch => {
     //Allows CORS requests to be made with credentials(i.e. cookies, authorization headers or TLS client certificates)
     // axios.defaults.withCredentials = true
     axios.post('user/logout')
-    dispatch({ type: LOGOUT_USER })
     dispatch({ type: CLEAR_NOTES })
     dispatch({ type: CLEAR_SONG })
+    dispatch({ type: LOGOUT_USER })
 }
 
 export const registerUser = ({ email, password, confirmPassword, username }) => async dispatch => {
@@ -69,7 +69,7 @@ export const registerUser = ({ email, password, confirmPassword, username }) => 
     try {
         const res = await axios.post('user/register', body, config)
 
-        //To prevent login into account from 'Search' and loading incorrect song/notes
+        //To prevent login into account from 'Search' page and loading incorrect song/notes
         dispatch(clearAll())
         dispatch({ type: REGISTER_SUCCESS, payload: res.data })
     }
@@ -83,8 +83,6 @@ export const registerUser = ({ email, password, confirmPassword, username }) => 
     }
 }
 
-export const isDeleteUser = () => ({ type: IS_DELETING_USER })
-
 export const deleteUser = () => async dispatch => {
     try {
         await axios.delete('user')
@@ -92,10 +90,7 @@ export const deleteUser = () => async dispatch => {
         dispatch(setAlert('Account Removed', 'success'))
     }
     catch (err) {
-        dispatch({
-            type: DELETE_ACCOUNT_ERROR,
-            payload: { msg: err.response.statusText, status: err.response.status }
-        });
+        dispatch({ type: DELETE_ACCOUNT_ERROR, payload: { msg: err.response.statusText, status: err.response.status } });
     }
 }
 
@@ -104,9 +99,9 @@ export const loadUser = userId => async dispatch => {
         let res = await axios.get(`user/${userId}`)
 
         if (res.data.song.length !== 0)
-            dispatch({ type: GET_SONG_INFO, payload: res.data.song[0] })
+            dispatch({ type: GET_USER_SONG, payload: res.data.song[0] })
 
-        dispatch({ type: GET_SONGS_INFO, payload: res.data.song })
+        dispatch({ type: GET_USER_SONGS, payload: res.data.song })
         dispatch({ type: LOAD_USER, payload: res.data.user })
     }
     catch (err) {
@@ -115,4 +110,5 @@ export const loadUser = userId => async dispatch => {
     }
 }
 
-export const isFetching = () => ({ type: IS_FETCHING })
+export const isFetchingUser = () => ({ type: IS_FETCHING })
+export const isDeletingUser = () => ({ type: IS_DELETING_USER })

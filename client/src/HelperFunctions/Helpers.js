@@ -5,15 +5,9 @@ export const dateFormat = date => {
     return `${mo} ${da}, ${ye}`
 }
 
-export const getIndex = (innerloop1, innerloop2, outerloop) =>
-    ((innerloop1 * 8) + innerloop2 - 9) + (32 * outerloop)
-
 export const isRestNote = (idx, type, notes) => {
-    let copy = [...notes]
-    if (idx > -1)
-        return copy[idx].type.slice(copy[idx].type.length - 4) === 'Rest'
-    else if (type)
-        return type.slice(type.length - 4, type.length) === 'Rest'
+    if (idx > -1) return notes[idx].type.slice(notes[idx].type.length - 4) === 'Rest'
+    else if (type) return type.slice(type.length - 4, type.length) === 'Rest'
 }
 
 export const countNumberOfNulls = (array, index, nullCount = 0) => {
@@ -23,6 +17,9 @@ export const countNumberOfNulls = (array, index, nullCount = 0) => {
     }
     return nullCount
 }
+
+export const getNoteColumn = (measure, columnNumber, staffNumber) =>
+    ((measure * 8) + columnNumber - 9) + (32 * staffNumber)
 
 export const editIndex = notesArr =>
     notesArr.findIndex(note => note && note.edit === 'edit-placeholder')

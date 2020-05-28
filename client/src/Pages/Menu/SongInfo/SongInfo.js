@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import './SongInfo.css'
 import Loader from '../../../Images/Loader/Loader'
-import { isFetchingSong } from '../../../Redux/Actions/Notes'
+import { isFetchingNotes } from '../../../Redux/Actions/Notes'
 import { getUserSong, publishSong, redactSong } from '../../../Redux/Actions/Song'
 import { useSelector, useDispatch } from 'react-redux'
 import { dateFormat } from '../../../HelperFunctions/Helpers'
@@ -17,7 +17,7 @@ const SongInformation = ({ showLogout, setShowLogout, setShowInfo, showInfo }) =
     const isNotesLoading = useSelector(state => state.notes.loading)
 
     const onSongInfoChange = e => {
-        dispatch(isFetchingSong())
+        dispatch(isFetchingNotes())
         dispatch(getUserSong(user._id, e.target.value))
     }
 

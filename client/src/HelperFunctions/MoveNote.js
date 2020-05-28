@@ -12,7 +12,7 @@
 //         return type.slice(type.length - 4, type.length) === 'Rest'
 // }
 
-// export const findLetterNoteIndex = (songArr, index) =>
+// export const findLetterIdx = (songArr, index) =>
 //     allNotes.findIndex(note => note === songArr[index].letter)
 
 // export const moveNoteUp = (notes, key) => {
@@ -20,7 +20,7 @@
 //         //Change transform and letter of note
 //         let copy = [...notes]
 //         let idx = editIndex(copy)
-//         let allNotesIdx = findLetterNoteIndex(copy, idx)
+//         let allNotesIdx = findLetterIdx(copy, idx)
 
 //         const changeNaturalLetter = (arr, index, transform) => {
 //             if (transform === 'no-translate') {
@@ -259,7 +259,7 @@
 //         //Change transform and letter of note
 //         let copy = [...notes]
 //         let idx = editIndex(copy)
-//         let allNotesIdx = findLetterNoteIndex(copy, idx)
+//         let allNotesIdx = findLetterIdx(copy, idx)
 
 //         const changeNaturalLetter = (arr, index, transform) => {
 //             if (transform === 'no-translate') {
@@ -510,7 +510,7 @@
 //         //Change transform and letter of note
 //         let copy = [...notes]
 //         let idx = editIndex(copy)
-//         let allNotesIdx = findLetterNoteIndex(copy, idx)
+//         let allNotesIdx = findLetterIdx(copy, idx)
 
 //         const changeNaturalLetter = (arr, index, transform) => {
 //             if (transform === 'move-up') {

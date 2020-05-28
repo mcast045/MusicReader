@@ -53,8 +53,8 @@ const Register = ({ onClickBackBtn }) => {
                         <input type='password' name='confirmPassword' placeholder='Confirm Password' value={register.confirmPassword} onChange={e => onChange(e)} required />
                     </div>
                     <div className='registerForm_container-btns'>
-                        <input className='btn registerForm_container-btn' type='submit' />
-                        <button className='btn registerForm_container-btn' onClick={() => onClickBackBtn()}>Back</button>
+                        <button className='btn loginForm_container-btn' type='submit'>Submit</button>
+                        <button className='btn loginForm_container-btn' type='button' onClick={e => onClickBackBtn(e)}>Back</button>
                     </div>
                 </div>
             </form>

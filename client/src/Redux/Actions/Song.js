@@ -2,45 +2,37 @@ import axios from 'axios';
 import { setAlert } from './Alert'
 import { saveNotes } from './Notes'
 import {
-    GET_SONG_INFO,
-    GET_ALL_SONGS,
-    CREATE_SONG_INFO,
-    DELETE_SONG,
+    GET_NOTES,
+    GET_USER_SONG,
+    GET_PUBLISHED_SONG,
+    GET_ALL_PUBLISHED_SONGS,
+    CREATE_SONG,
+    PUBLISH_SONG,
     UPDATE_KEYSIGNATURE,
     CLEAR_SONG,
     CLEAR_NOTES,
-    PUBLISH_SONG,
-    GET_PUBLISHED_SONG,
-    GET_NOTES,
+    REDACT_SONG,
+    DELETE_SONG,
 } from '../Constants'
 
 export const getUserSong = (userId, songId) => async dispatch => {
     try {
         const res = await axios.get(`songs/${userId}/${songId}`)
 
-        dispatch({
-            type: GET_SONG_INFO,
-            payload: res.data
-        })
+        dispatch({ type: GET_USER_SONG, payload: res.data })
     }
     catch (err) {
-        const errors = err.response.data.errors
-
-        if (errors)
-            errors.forEach(error => dispatch(setAlert(error.msg, 'danger')))
+        dispatch(setAlert('Song Not Found', 'danger'))
     }
 }
 
 export const getAllSongs = () => async dispatch => {
     try {
         const res = await axios.get(`songs/`)
-        dispatch({ type: GET_ALL_SONGS, payload: res.data })
+        dispatch({ type: GET_ALL_PUBLISHED_SONGS, payload: res.data })
     }
     catch (err) {
-        const errors = err.response.data.errors
-
-        if (errors)
-            errors.forEach(error => dispatch(setAlert(error.msg, 'danger')))
+        dispatch(setAlert('Error Loading Songs', 'danger'))
     }
 }
 
@@ -51,23 +43,14 @@ export const createSongInfo = ({ title, tempo, keySignature }) => async dispatch
                 'Content-type': 'application/json'
             }
         }
-
         const body = JSON.stringify({ title, tempo, keySignature })
-
         const res = await axios.post('songs', body, config)
 
-        dispatch({
-            type: CREATE_SONG_INFO,
-            payload: res.data
-        })
-
+        dispatch({ type: CREATE_SONG, payload: res.data })
         dispatch(saveNotes([], res.data._id, false))
     }
     catch (err) {
-        const errors = err.response.data.errors
-
-        if (errors)
-            errors.forEach(error => dispatch(setAlert(error.msg, 'danger')))
+        dispatch(setAlert('Error Creating Song', 'danger'))
     }
 }
 
@@ -75,18 +58,11 @@ export const deleteSong = songId => async dispatch => {
     try {
         await axios.delete(`songs/${songId}`)
 
-        dispatch({
-            type: DELETE_SONG,
-            payload: songId
-        })
-
+        dispatch({ type: DELETE_SONG, payload: songId })
         dispatch(setAlert('Song Removed', 'success'))
     }
     catch (err) {
-        const errors = err.response.data.errors
-
-        if (errors)
-            errors.forEach(error => dispatch(setAlert(error.msg, 'danger')))
+        dispatch(setAlert('Error Deleteing Song ', 'danger'))
     }
 }
 
@@ -96,10 +72,7 @@ export const publishSong = songId => async dispatch => {
         dispatch({ type: PUBLISH_SONG, payload: res.data })
     }
     catch (err) {
-        const errors = err.response.data.errors
-
-        if (errors)
-            errors.forEach(error => dispatch(setAlert(error.msg, 'danger')))
+        dispatch(setAlert('Error Publishing Song', 'danger'))
     }
 }
 
@@ -111,29 +84,23 @@ export const getPublishedSong = songId => async dispatch => {
         dispatch({ type: GET_NOTES, payload: notes.data[0].notes })
     }
     catch (err) {
-        const errors = err.response.data.errors
-
-        if (errors)
-            errors.forEach(error => dispatch(setAlert(error.msg, 'danger')))
+        dispatch(setAlert('Error Receving Songs', 'danger'))
     }
 }
 
 export const redactSong = songId => async dispatch => {
     try {
         const res = await axios.put(`songs/redact/${songId}`)
-        dispatch({ type: PUBLISH_SONG, payload: res.data })
+        dispatch({ type: REDACT_SONG, payload: res.data })
     }
     catch (err) {
-        const errors = err.response.data.errors
-
-        if (errors)
-            errors.forEach(error => dispatch(setAlert(error.msg, 'danger')))
+        dispatch(setAlert('Error Redacting Song', 'danger'))
     }
 }
 
 export const clearAll = () => async dispatch => {
-    dispatch({ type: CLEAR_SONG })
     dispatch({ type: CLEAR_NOTES })
+    dispatch({ type: CLEAR_SONG })
 }
 
 export const updateKeySignature = key => ({ type: UPDATE_KEYSIGNATURE, payload: key })
