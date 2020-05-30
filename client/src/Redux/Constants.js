@@ -42,3 +42,5 @@ export const DELETE_ACCOUNT_ERROR = 'DELETE_ACCOUNT_ERROR'
 
 export const SET_ALERT = 'SET_ALERT'
 export const REMOVE_ALERT = 'REMOVE_ALERT'
+
+export const FLIP_CARD = 'FLIP_CARD'

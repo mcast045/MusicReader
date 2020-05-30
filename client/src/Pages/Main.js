@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { isFetchingUser, loadUser } from '../Redux/Actions/Auth'
 import Sheet from './Sheet/Sheet'
-import Menu from './Menu/Menu'
-import Alert from '../Pages/Alert/Alert'
+import Menu from '../Components/Menu/Menu'
+import Alert from '../Components/Alert/Alert'
 
 const Main = () => {
 

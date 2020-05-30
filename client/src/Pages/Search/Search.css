@@ -7,7 +7,7 @@
 .search .search-menu {
     width: 20%;
     height: 100%;
-    background-color: #999;
+    background-color: var(--menu-bg-color);
 }
 
 .search .search-menu .search-menu_label {
@@ -30,7 +30,7 @@
 .search .search-songs .search-songs_list .search-songs_list-headings {
     padding: 1rem 0;
     font-size: 2rem;
-    background-color: #a1ee7d;
+    background-color: var(--success-color-1);
     grid-column: 1 / -1;
 }
 
@@ -40,11 +40,11 @@
     border-bottom: 1px solid black;
     grid-column: 1 / -1;
     text-decoration: none;
-    color: black;
+    color: var(--dark-color-1);
 }
 
 .search .search-songs .search-songs_list .search-songs_list-item:hover {
-    background-color: orangered;
+    background-color: var(--menu-bg-color);
 }
 
 .search .search-songs .search-songs_list .search-songs_list-headings span,

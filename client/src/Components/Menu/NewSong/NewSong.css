@@ -1,0 +1,66 @@
+.songInputDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.songInputDetails > * {
+    margin-bottom: 1rem;
+}
+
+.songInputDetails .songInputDetails_prop label {
+    display: block;
+    font-size: 1.8rem;
+    margin-bottom: .5rem;
+    color: var(--dark-color-1);
+}
+
+.menu-notes_dropdown {
+    position: relative;
+}
+
+.menu-notes #key-signature {
+    background-color: var(--main-bg-color);
+    display: block;
+    margin: auto;
+    line-height: .1;
+}
+
+.menu-notes .menu-song-title-input {
+    width: 100%;
+    text-align: center;
+    border: none;
+    padding: 1px 0;
+    background-color: transparent;
+    color: var(--main-bg-color);
+    font-size: 2rem;
+}
+
+.tempoInput {
+    display: block;
+    margin: auto;
+    background-color: var(--main-bg-color);
+    color: var(--dark-color-1);
+    border-radius: 10px;
+}
+
+.newSongbtn {
+    background-color: var(--success-color-2);
+    border: 1px solid var(--success-color-2);
+}
+
+.newSongbtn:hover {
+    background-color: var(--success-color-1);
+    color: var(--dark-color-1);
+    border: 1px solid var(--dark-color-1);
+}
+
+.create_btns {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.create_btn:hover {
+    background-color: var(--main-bg-color);
+    color: var(--dark-color-1)
+}

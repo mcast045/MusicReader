@@ -23,9 +23,10 @@ const Search = props => {
         dispatch(getPublishedSong(id))
     }
 
-    const onClickBack = () => {
+    const onClickHome = () => {
         if (!isAuthenticated)
             dispatch(clearAll())
+
         props.history.push('/')
     }
 
@@ -37,7 +38,7 @@ const Search = props => {
                         <label className='search-menu_label'>Song Title: </label>
                         <input type='text' name='songName' />
                         <button className='btn search-menu_btn'>Select</button>
-                        <button className='btn search-menu_btn' onClick={() => onClickBack()}>Home</button>
+                        <button className='btn search-menu_btn' onClick={() => onClickHome()}>Home</button>
                     </div>
 
                     <div className='search-songs'>

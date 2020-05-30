@@ -1,13 +1,12 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import './Sheet.css'
 import { useSelector, useDispatch } from 'react-redux'
-import Modal from '../Menu/SheetBtn/Modal/Modal'
-import Staff from './Staff/Staff'
-import Tab from './Tab/Tab'
-import PageHeader from './PageHeader/PageHeader'
-import SheetHeader from './StaffHeader/Clef&Tab/Clef&Tab'
+import Modal from '../../Components/Modal/Modal'
+import Staff from '../../Components/Sheet/Staff/Staff'
+import Tab from '../../Components/Sheet/Tab/Tab'
+import PageHeader from '../../Components/Sheet/PageHeader/PageHeader'
+import SheetHeader from '../../Components/Sheet/StaffHeader/Clef&Tab/Clef&Tab'
 import { getPublishedSong } from '../../Redux/Actions/Song'
-
 
 const Sheet = ({ match, viewOnly, showLogout, setShowLogout, newSongClickState, setIsShowingMenu, isShowingMenu }) => {
     const dispatch = useDispatch()

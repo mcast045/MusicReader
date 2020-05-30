@@ -1,0 +1,88 @@
+.confirm-edit-container {
+    height: 100vh;
+    width: 15rem;
+    padding: 0 1rem;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    padding-top: 1rem;
+    background-color: var(--menu-bg-color);
+}
+
+.displayEdit {
+    display: block;
+}
+.notDisplayEdit {
+    display: none;
+}
+
+.container .confirm-edit-container .confirm-edit-btn .confirm-edit-btn-col button,
+.container .confirm-edit-container .confirm-edit-btn-col-cancel {
+    border: none;
+    color: var(--main-bg-color);
+    transition: all .5s;
+}
+
+
+
+.container .confirm-edit-container .confirm-edit-btn .confirm-edit-btn-col button:hover,
+.container .confirm-edit-container .confirm-edit-btn-col-cancel:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .5);
+    background-color: var(--main-bg-color);
+    color: var(--dark-color-1);
+}
+
+.container .confirm-edit-container .confirm-edit-btn .confirm-edit-btn-col button:active,
+.container .confirm-edit-container .confirm-edit-btn-col-cancel:active {
+    transform: translateY(-1px);
+    box-shadow: 0 .25rem .5rem rgba(0, 0, 0, .3);
+}
+
+.container .confirm-edit-container .showNote {
+    text-align: center;
+    width: 30%;
+    margin: 1rem auto;
+    padding: 1rem;
+    font-size: 2rem;
+    font-weight: 700;
+    border: 1px solid var(--dark-color-1);
+    border-radius: 5px;
+    color: var(--dark-color-1);
+}
+
+.container .confirm-edit-container .showNote h5 {
+    padding: 0;
+    margin: 0;
+    text-decoration: underline;
+}
+
+.container .confirm-edit-container .confirm-edit-btn .confirm-edit-btn-col {
+    display: flex;
+    flex-direction: column;
+}
+.container .confirm-edit-container .confirm-edit-btn .confirm-edit-btn-col:not(:last-child) {
+    margin-bottom: 1rem;
+}
+
+.container .confirm-edit-container .confirm-edit-btn .confirm-edit-btn-col > * {
+    margin-bottom: .5rem;
+}
+
+.container .confirm-edit-container .confirm-edit-btn-col-cancel {
+    padding: .5rem 1rem;
+    display: block;
+    margin: auto;
+    margin-bottom: 2rem;
+    background-color: var(--dark-color-1);
+}
+
+.container .row-container-col-mod {
+    border: 1px solid var(--dark-color-1);
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-evenly;
+    margin: 1rem 0;
+}

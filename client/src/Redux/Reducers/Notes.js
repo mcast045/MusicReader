@@ -17,7 +17,7 @@ const initialState = {
     loading: true,
     isReplacing: false,
     isInserting: false,
-    isEnabled: false
+    isUpdating: false
 };
 
 export default function (state = initialState, action) {
@@ -45,14 +45,14 @@ export default function (state = initialState, action) {
                 loading: false,
                 isReplacing: false,
                 isInserting: false,
-                isEnabled: false
+                isUpdating: false
             }
         case UPDATE_NOTE:
             return {
                 ...state,
                 notes: payload,
                 loading: false,
-                isEnabled: true
+                isUpdating: true
             }
         case REPLACE_NOTE:
             return {
@@ -60,7 +60,7 @@ export default function (state = initialState, action) {
                 notes: payload,
                 loading: false,
                 isReplacing: true,
-                isEnabled: true
+                isUpdating: true
             }
         case INSERT_NOTE:
             return {
@@ -68,7 +68,7 @@ export default function (state = initialState, action) {
                 notes: payload,
                 loading: false,
                 isInserting: true,
-                isEnabled: true
+                isUpdating: true
             }
         case FINISH_UPDATE_NOTE:
             return {
@@ -77,7 +77,7 @@ export default function (state = initialState, action) {
                 isInserting: false,
                 showModal: false,
                 loading: false,
-                isEnabled: false
+                isUpdating: false
             }
         case CLEAR_NOTES:
         case IS_FETCHING_NOTES:

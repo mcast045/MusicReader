@@ -1,3 +1,15 @@
+:root {
+    --main-bg-color:#EAEAEA; 
+    --menu-bg-color: #ccc;
+    --dark-color-1: #000;
+    --light-color-1: #aaa;
+    --danger-color-1: #e74c3c;
+    --success-color-1: #38ef7d;
+    --success-color-2: #45B649;
+
+    --auth-card-height: 52rem;
+}
+
 body{
     padding: 0;
     margin: 0;
@@ -7,6 +19,7 @@ body{
 
 html {
     font-size: 62.5%;
+    background-color: var(--main-bg-color);
 }
 
 .App {
@@ -19,10 +32,10 @@ html {
 }
 
 .btn {
-    background-color: black;
-    border: 1px solid black;
+    background-color: var(--dark-color-1);
+    border: 1px solid var(--dark-color-1);
     border-radius: 50px;
-    color: #eee;
+    color: var(--main-bg-color);
     text-transform: capitalize;
     padding: 2px 1rem;
     font-size: 1.5rem;

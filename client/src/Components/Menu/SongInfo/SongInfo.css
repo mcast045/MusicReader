@@ -1,0 +1,35 @@
+.songInfo_dropdown {
+    width: 100%;
+    background-color: transparent;
+    padding: .5rem 0;
+    margin-bottom: 1rem;
+    border-color: var(--dark-color-1);
+    color: var(--main-bg-color)
+}
+
+.songInfo_dropdown .songInfo_option {
+    background-color: var(--main-bg-color);
+    color: var(--dark-color-1);
+}
+
+.songInfo .songInfo_prop label {
+    display: block;
+    font-size: 2rem;
+    color: var(--main-bg-color)
+}
+
+.songInfo .songInfo_prop div {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    color: var(--main-bg-color)
+} 
+
+.songInfo_btn:hover {
+    background-color: var(--main-bg-color);
+    color: var(--dark-color-1)
+}
+
+.songInfo_btns {
+    display: flex;
+    justify-content: space-evenly;
+}

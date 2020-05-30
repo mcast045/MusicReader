@@ -2,24 +2,26 @@ import React, { Fragment } from 'react'
 import './Auth.css'
 import Login from './Login'
 import Register from './Register'
-import { REMOVE_ALERT } from '../../Redux/Constants'
-import { useDispatch } from 'react-redux'
-import Alert from '../Alert/Alert'
+import Alert from '../../Components/Alert/Alert'
+import ReactCardFlip from 'react-card-flip'
+import { useSelector } from 'react-redux'
 
-const Auth = props => {
-    const dispatch = useDispatch()
+const Auth = () => {
 
-    const onClickBackBtn = () => {
-        props.history.goBack()
-        dispatch({ type: REMOVE_ALERT })
-    }
+    const isFlipped = useSelector(state => state.auth.card)
 
     return (
         <Fragment>
             <Alert />
             <div className='auth'>
-                <Login onClickBackBtn={onClickBackBtn} />
-                <Register onClickBackBtn={onClickBackBtn} />
+                <div className='auth-block card'>
+
+                    <ReactCardFlip isFlipped={isFlipped} flipSpeedBackToFront={1} flipSpeedFrontToBack={1}>
+                        <Fragment><Login /></Fragment>
+                        <Fragment><Register /></Fragment>
+                    </ReactCardFlip>
+
+                </div>
             </div>
         </Fragment>
     );

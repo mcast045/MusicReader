@@ -15,6 +15,7 @@ import {
     CLEAR_SONG,
     LOAD_USER,
     LOAD_ERROR,
+    FLIP_CARD,
 
     GET_USER_SONG,
     GET_USER_SONGS
@@ -108,6 +109,14 @@ export const loadUser = userId => async dispatch => {
         dispatch(setAlert('Error Loading User', 'danger'))
         dispatch({ type: LOAD_ERROR, payload: { msg: 'Error Loading User' } });
     }
+}
+
+export const flipAuthCard = face => async dispatch => {
+    let payload
+    if (face === 'front') payload = true
+    else payload = false
+
+    dispatch({ type: FLIP_CARD, payload: payload })
 }
 
 export const isFetchingUser = () => ({ type: IS_FETCHING })

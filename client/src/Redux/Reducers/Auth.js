@@ -10,7 +10,8 @@ import {
     IS_FETCHING,
     LOAD_USER,
     LOAD_ERROR,
-    HIDE_MODAL
+    HIDE_MODAL,
+    FLIP_CARD
 } from '../Constants'
 
 const initialState = {
@@ -18,6 +19,7 @@ const initialState = {
     user: {},
     loading: true,
     isDeleteUser: false,
+    card: true,
     errors: []
 };
 
@@ -68,6 +70,11 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 isDeleteUser: false
+            }
+        case FLIP_CARD:
+            return {
+                ...state,
+                card: payload
             }
         default:
             return state;
