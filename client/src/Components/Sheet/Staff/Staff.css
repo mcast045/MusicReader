@@ -15,20 +15,6 @@
     position: relative;
 }
 
-.sheet-music li .note-temp-container .edit-placeholder:hover {
-    cursor: pointer;
-}
-
-.sheet-music li .note-temp-container .note-temp-item-btn img,
-.sheet-music li .note-temp-container .note-temp-item-img img {
-    display: none;
-    margin: auto;
-    transform: translateY(-65%);
-    height: 200%;
-    position: relative;
-    z-index: 2;
-}
-
 .sheet-music li .note-temp-container .note-temp-item-btn, 
 .sheet-music li .note-temp-container .note-temp-item-img {
     border: none;
@@ -41,13 +27,12 @@
 .note-temp-container .drag-container-space .note-temp-item-btn .note-staff-image,
 .note-temp-container .drag-container-space .note-temp-item-img .note-staff-image {
     font-weight: 700;
-    font-size: 4rem;
     line-height: 1px;
     transform: translateY(-1rem);
 }
+
 .note-temp-container .drag-container-space .note-temp-item-btn .note-staff-image .note-staff-image-accidental,
 .note-temp-container .drag-container-space .note-temp-item-img .note-staff-image .note-staff-image-accidental {
-    font-size: 2rem;
     line-height: 1px;
     transform: translateY(-1.2rem);
 }
@@ -102,15 +87,10 @@
     font-family: 'Times New Roman', Times, serif;
 }
 
-.Eighth {
-    padding-left: 5px;
-}
-
-.edit-placeholder {
-    color: var(--danger-color-1);
-}
-
+.Eighth {padding-left: 5px;}
+.edit-placeholder {color: var(--danger-color-1);}
 .no-translate {transform: translateY(0);}
+.sheet-music li .note-temp-container .edit-placeholder:hover {cursor: pointer;}
 
 .move-up {
     transform: translateY(-52%);

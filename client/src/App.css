@@ -28,7 +28,7 @@ html {
 }
 
 .App .sheet:not(:first-child) {
-    margin-top: 5rem;
+    margin-top: 2rem;
 }
 
 .btn {
@@ -43,6 +43,8 @@ html {
 }
 *:focus { outline: none}
 
+ul {list-style: none;}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -54,3 +56,14 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+/* UTILITIES */
+.relative {position: relative;}
+.center {text-align: center;}
+
+.nomargin{margin: 0;}
+.nomarginpadding{margin: 0; padding: 0;}
+
+.font-2 {font-size: 2rem;}
+.font-3 {font-size: 3rem;}
+.font-4 {font-size: 4rem;}

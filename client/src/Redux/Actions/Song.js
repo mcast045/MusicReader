@@ -13,6 +13,9 @@ import {
     CLEAR_NOTES,
     REDACT_SONG,
     DELETE_SONG,
+    IS_FETCHING_SONGS,
+    FILTER_SONGS,
+    END_LOAD
 } from '../Constants'
 
 export const getUserSong = (userId, songId) => async dispatch => {
@@ -26,10 +29,10 @@ export const getUserSong = (userId, songId) => async dispatch => {
     }
 }
 
-export const getAllSongs = () => async dispatch => {
+export const getViewableSeachSongs = page => async dispatch => {
     try {
-        const res = await axios.get(`songs/`)
-        dispatch({ type: GET_ALL_PUBLISHED_SONGS, payload: res.data })
+        const res = await axios.get(`songs${page}`)
+        dispatch({ type: GET_ALL_PUBLISHED_SONGS, payload: { published: res.data.published, count: res.data.count } })
     }
     catch (err) {
         dispatch(setAlert('Error Loading Songs', 'danger'))
@@ -98,9 +101,30 @@ export const redactSong = songId => async dispatch => {
     }
 }
 
+export const filterSongs = searchParameters => async dispatch => {
+    try {
+        const config = {
+            headers: {
+                'Content-type': 'application/json'
+            }
+        }
+        const body = JSON.stringify(searchParameters)
+        const res = await axios.post(`songs/filter`, body, config)
+
+        if (res.data.length !== 0)
+            dispatch({ type: FILTER_SONGS, payload: { songs: res.data.song, count: res.data.totalMatches } })
+        else
+            dispatch({ type: END_LOAD })
+    }
+    catch (err) {
+        dispatch(setAlert('Error Redacting Song', 'danger'))
+    }
+}
+
 export const clearAll = () => async dispatch => {
     dispatch({ type: CLEAR_NOTES })
     dispatch({ type: CLEAR_SONG })
 }
 
 export const updateKeySignature = key => ({ type: UPDATE_KEYSIGNATURE, payload: key })
+export const isFetchingSongs = () => ({ type: IS_FETCHING_SONGS })

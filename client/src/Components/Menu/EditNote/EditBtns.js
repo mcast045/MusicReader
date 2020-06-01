@@ -34,8 +34,8 @@ const EditBtns = ({ showLogout, setShowLogout, isShowingMenu, setIsShowingMenu }
     return (
         <div className='confirm-edit-btn'>
             {notes[editIndex(notes)] && notes[editIndex(notes)].letter &&
-                <div className='showNote'>
-                    <h5>Note</h5>
+                <div className='showNote font-2 center'>
+                    <h5 className='nomarginpadding'>Note</h5>
                     {notes[editIndex(notes)].letter}
                 </div>
             }

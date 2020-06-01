@@ -1,0 +1,28 @@
+.search .search-block .search-menu .search-menu-pagination {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.search .search-block .search-menu  .search-menu-pagination .search-menu-pagination-btn,
+.search .search-block .search-menu  .search-menu-pagination .search-menu-pagination-btn-arrow {
+    font-size: 1.5rem;
+    text-decoration: none;
+    padding: .2rem;
+    color: var(--dark-color-1)
+}
+
+.search .search-block .search-menu  .search-menu-pagination .search-menu-pagination-btn {
+    border: 1px solid var(--dark-color-1);
+}
+
+.search .search-block .search-menu  .search-menu-pagination .search-menu-pagination-btn:hover,
+.search .search-block .search-menu  .search-menu-pagination .search-menu-pagination-btn-arrow:hover {
+    background-color: var(--dark-color-1);
+    color: var(--main-bg-color)
+}
+
+.search .search-block .search-menu  .search-menu-pagination .active {
+    background-color: var(--dark-color-1);
+    color: var(--main-bg-color)
+}

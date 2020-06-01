@@ -44,9 +44,9 @@ const Sheet = ({ match, viewOnly, showLogout, setShowLogout, newSongClickState, 
             <PageHeader showLogout={showLogout} viewOnly={viewOnly} setNumOfSheets={setNumOfSheets} />
 
             {numOfSheets.map((staves, numberOfStaves) => (
-                <div key={numberOfStaves} className={viewOnly ? 'sheetView' : 'sheet'}>
+                <div key={numberOfStaves} className={viewOnly ? 'fullScreenStaff' : 'sheet'}>
                     <div className='stave-container'>
-                        <SheetHeader />
+                        <SheetHeader numberOfStaves={numberOfStaves} />
 
                         <div id='mask'></div>
 

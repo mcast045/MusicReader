@@ -9,13 +9,17 @@ import {
     CLEAR_SONG,
     REDACT_SONG,
     DELETE_SONG,
-    LOGOUT_USER
+    LOGOUT_USER,
+    IS_FETCHING_SONGS,
+    FILTER_SONGS,
+    END_LOAD
 } from '../Constants'
 
 const initialState = {
     songs: [],
     currentSong: {},
     songsSearch: [],
+    publishedSongsCount: 0,
     title: 'Your Song Title',
     keySignature: { id: 1, value: 'C-major/A-minor' },
     staffLineNumber: [{ beats: '4', bar: '4' }],
@@ -50,7 +54,8 @@ export default function (state = initialState, action) {
         case GET_ALL_PUBLISHED_SONGS:
             return {
                 ...state,
-                songsSearch: payload,
+                songsSearch: payload.published,
+                publishedSongsCount: payload.count,
                 loading: false
             }
         case CREATE_SONG:
@@ -95,6 +100,23 @@ export default function (state = initialState, action) {
                 loading: false,
                 currentSong: {},
                 songs: []
+            }
+        case IS_FETCHING_SONGS:
+            return {
+                ...state,
+                loading: true
+            }
+        case END_LOAD:
+            return {
+                ...state,
+                loading: false
+            }
+        case FILTER_SONGS:
+            return {
+                ...state,
+                songsSearch: payload.songs,
+                publishedSongsCount: payload.count,
+                loading: false
             }
         default:
             return state;

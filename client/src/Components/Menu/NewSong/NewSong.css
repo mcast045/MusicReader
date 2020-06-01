@@ -15,25 +15,12 @@
     color: var(--dark-color-1);
 }
 
-.menu-notes_dropdown {
-    position: relative;
-}
-
-.menu-notes #key-signature {
-    background-color: var(--main-bg-color);
-    display: block;
-    margin: auto;
-    line-height: .1;
-}
-
 .menu-notes .menu-song-title-input {
     width: 100%;
-    text-align: center;
     border: none;
     padding: 1px 0;
     background-color: transparent;
-    color: var(--main-bg-color);
-    font-size: 2rem;
+    color: var(--dark-color-1);
 }
 
 .tempoInput {

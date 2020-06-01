@@ -52,22 +52,22 @@ const SongInformation = ({ showLogout, setShowLogout, setShowInfo, showInfo }) =
 
                             {user._id && currentSong && currentSong.keySignature && !isNotesLoading &&
                                 <div className='songInfo'>
-                                    <div className='songInfo_prop'>
+                                    <div className='songInfo_prop font-2'>
                                         <label>Title</label>
                                         <div>{currentSong.title}</div>
                                     </div>
 
-                                    <div className='songInfo_prop'>
+                                    <div className='songInfo_prop font-2'>
                                         <label>Tempo</label>
                                         <div>{currentSong.tempo} bpm</div>
                                     </div>
 
-                                    <div className='songInfo_prop'>
+                                    <div className='songInfo_prop font-2'>
                                         <label>Key</label>
                                         <div>{currentSong.keySignature.value}</div>
                                     </div>
 
-                                    <div className='songInfo_prop'>
+                                    <div className='songInfo_prop font-2'>
                                         <label>Date Created</label>
                                         <div>{dateFormat(currentSong.date)}</div>
                                     </div>

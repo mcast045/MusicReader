@@ -12,13 +12,13 @@ const Tab = ({ bars, tabLines, eighthNotes, numberOfStaves }) => {
     return (
         <div className='tab-music-container'>
             {bars.map(measure => (
-                <ul className='tab-music' key={measure}>
+                <ul className='tab-music nomarginpadding' key={measure}>
                     {tabLines.map(rowNumber => (
                         <li key={rowNumber} className={`tab-row-${rowNumber}`}>
                             {eighthNotes.map(columnsPerMeasure => (
                                 <input type='text'
                                     name={`tab-input-${getNoteColumn(measure, columnsPerMeasure, numberOfStaves)}`}
-                                    className='tabLine-input'
+                                    className='tabLine-input center'
                                     readOnly
                                     key={columnsPerMeasure}
                                     value={tabValue(rowNumber, getNoteColumn(measure, columnsPerMeasure, numberOfStaves), notes)} >

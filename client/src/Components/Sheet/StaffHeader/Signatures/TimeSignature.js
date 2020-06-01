@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react'
 import './Signature.css'
 import { useSelector } from 'react-redux'
 
-const TimeSignature = () => {
+const TimeSignature = ({ numberOfStaves }) => {
 
     const key = useSelector(state => state.song.keySignature)
     const staffLineNumber = useSelector(state => state.song.staffLineNumber)
@@ -28,9 +28,9 @@ const TimeSignature = () => {
 
     return (
         <Fragment>
-            {staffLineNumber[0] &&
-                <div className='time-signature-container'>
-                    <ul className={`time-signature ${timeSignatureClassName}`}>
+            {numberOfStaves === 0 &&
+                <div className='time-signature-container relative'>
+                    <ul className={`time-signature font-4 nomarginpadding ${timeSignatureClassName}`}>
                         <li>{staffLineNumber[0].beats}</li>
                         <li>{staffLineNumber[0].bar}</li>
                     </ul>

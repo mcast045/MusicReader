@@ -19,9 +19,7 @@
 
 .menu-notes .menu-section-label,
 .confirm-edit-container .menu-section-label {
-    text-align: center;
     font-size: 1.8rem;
-    margin: 0;
     margin-top: 1rem;
     color: var(--dark-color-1)
 }
@@ -67,24 +65,12 @@
     color: var(--dark-color-1);
 }
 
-.note-container button #Sharp,
-.note-container button #Flat {
-    font-size: 4rem;
-}
-
-.note-container .note-label,
-.tempoInput {
-    text-align: center;
-}
-
-.confirm-edit-container .menu-song-title-input{
+.confirm-edit-container .menu-song-title-input {
     width: 100%;
-    text-align: center;
     border: none;
     padding: 1px 0;
     background-color: var(--main-bg-color);
     color: currentColor;
-    font-size: 2rem;
 }
 
 .mb-1 {

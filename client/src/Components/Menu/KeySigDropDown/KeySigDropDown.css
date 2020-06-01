@@ -1,0 +1,6 @@
+.menu-notes #key-signature {
+    background-color: var(--main-bg-color);
+    display: block;
+    margin: auto;
+    line-height: .1;
+}

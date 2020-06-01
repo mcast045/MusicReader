@@ -22,72 +22,72 @@ const KeySignature = () => {
             {(
                 (key.id === 2 &&
                     <div className='key-signature'>
-                        <span className='sharp1'>&#9839;</span>
+                        <span className='sharp1 font-2'>&#9839;</span>
                     </div>) ||
                 (key.id === 3 &&
                     <div className='key-signature'>
-                        <span className='sharp1'>&#9839;</span>
-                        <span className='sharp2'>&#9839;</span>
+                        <span className='sharp1 font-2'>&#9839;</span>
+                        <span className='sharp2 font-2'>&#9839;</span>
                     </div>) ||
                 (key.id === 4 &&
                     <div className='key-signature'>
-                        <span className='sharp1'>&#9839;</span>
-                        <span className='sharp2'>&#9839;</span>
-                        <span className='sharp3'>&#9839;</span>
+                        <span className='sharp1 font-2'>&#9839;</span>
+                        <span className='sharp2 font-2'>&#9839;</span>
+                        <span className='sharp3 font-2'>&#9839;</span>
                     </div>) ||
                 (key.id === 5 &&
                     <div className='key-signature'>
-                        <span className='sharp1'>&#9839;</span>
-                        <span className='sharp2'>&#9839;</span>
-                        <span className='sharp3'>&#9839;</span>
-                        <span className='sharp4'>&#9839;</span>
+                        <span className='sharp1 font-2'>&#9839;</span>
+                        <span className='sharp2 font-2'>&#9839;</span>
+                        <span className='sharp3 font-2'>&#9839;</span>
+                        <span className='sharp4 font-2'>&#9839;</span>
                     </div>) ||
                 (key.id === 6 &&
                     <div className='key-signature'>
-                        <span className='sharp1'>&#9839;</span>
-                        <span className='sharp2'>&#9839;</span>
-                        <span className='sharp3'>&#9839;</span>
-                        <span className='sharp4'>&#9839;</span>
-                        <span className='sharp5'>&#9839;</span>
+                        <span className='sharp1 font-2'>&#9839;</span>
+                        <span className='sharp2 font-2'>&#9839;</span>
+                        <span className='sharp3 font-2'>&#9839;</span>
+                        <span className='sharp4 font-2'>&#9839;</span>
+                        <span className='sharp5 font-2'>&#9839;</span>
                     </div>) ||
                 (key.id === 7 &&
                     <div className='key-signature'>
-                        <span className='sharp1'>&#9839;</span>
-                        <span className='sharp2'>&#9839;</span>
-                        <span className='sharp3'>&#9839;</span>
-                        <span className='sharp4'>&#9839;</span>
-                        <span className='sharp5'>&#9839;</span>
-                        <span className='sharp6'>&#9839;</span>
+                        <span className='sharp1 font-2'>&#9839;</span>
+                        <span className='sharp2 font-2'>&#9839;</span>
+                        <span className='sharp3 font-2'>&#9839;</span>
+                        <span className='sharp4 font-2'>&#9839;</span>
+                        <span className='sharp5 font-2'>&#9839;</span>
+                        <span className='sharp6 font-2'>&#9839;</span>
                     </div>) ||
                 (key.id === -5 &&
                     <div className='key-signature'>
-                        <span className='flat1'>&#9837;</span>
-                        <span className='flat2'>&#9837;</span>
-                        <span className='flat3'>&#9837;</span>
-                        <span className='flat4'>&#9837;</span>
-                        <span className='flat5'>&#9837;</span>
+                        <span className='flat1 font-3'>&#9837;</span>
+                        <span className='flat2 font-3'>&#9837;</span>
+                        <span className='flat3 font-3'>&#9837;</span>
+                        <span className='flat4 font-3'>&#9837;</span>
+                        <span className='flat5 font-3'>&#9837;</span>
                     </div>) ||
                 (key.id === -4 &&
                     <div className='key-signature'>
-                        <span className='flat1'>&#9837;</span>
-                        <span className='flat2'>&#9837;</span>
-                        <span className='flat3'>&#9837;</span>
-                        <span className='flat4'>&#9837;</span>
+                        <span className='flat1 font-3'>&#9837;</span>
+                        <span className='flat2 font-3'>&#9837;</span>
+                        <span className='flat3 font-3'>&#9837;</span>
+                        <span className='flat4 font-3'>&#9837;</span>
                     </div>) ||
                 (key.id === -3 &&
                     <div className='key-signature'>
-                        <span className='flat1'>&#9837;</span>
-                        <span className='flat2'>&#9837;</span>
-                        <span className='flat3'>&#9837;</span>
+                        <span className='flat1 font-3'>&#9837;</span>
+                        <span className='flat2 font-3'>&#9837;</span>
+                        <span className='flat3 font-3'>&#9837;</span>
                     </div>) ||
                 (key.id === -2 &&
                     <div className='key-signature'>
-                        <span className='flat1'>&#9837;</span>
-                        <span className='flat2'>&#9837;</span>
+                        <span className='flat1 font-3'>&#9837;</span>
+                        <span className='flat2 font-3'>&#9837;</span>
                     </div>) ||
                 (key.id === -1 &&
                     <div className='key-signature'>
-                        <span className='flat1'>&#9837;</span>
+                        <span className='flat1 font-3'>&#9837;</span>
                     </div>))}
         </Fragment>
     );

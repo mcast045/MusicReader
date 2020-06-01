@@ -3,6 +3,7 @@ const Note = require('../models/notesModel')
 const User = require('../models/userModel')
 
 const errorMessage = 'Server Error'
+const ITEMS_PER_PAGE = 10
 
 exports.getUserSong = async (req, res, next) => {
     try {
@@ -27,10 +28,48 @@ exports.getPublishedSong = async (req, res, next) => {
     }
 }
 
+exports.getFilteredSong = async (req, res, next) => {
+    try {
+        const { title, author } = req.body
+        let song
+        let totalMatches
+
+        if (title && author) {
+            song = await Song.find({ title, author, isPublished: true })
+            totalMatches = await Song.countDocuments({ title, author, isPublished: true })
+        }
+
+        else if (title && !author) {
+            song = await Song.find({ title, isPublished: true })
+            totalMatches = await Song.countDocuments({ title, isPublished: true })
+        }
+
+        else if (!title && author) {
+            song = await Song.find({ author, isPublished: true })
+            totalMatches = await Song.countDocuments({ author, isPublished: true })
+        }
+
+
+        res.json({ song, totalMatches })
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(500).send(errorMessage)
+    }
+}
+
 exports.getPublishedSongs = async (req, res, next) => {
     try {
+        const page = +req.query.page || 1
+
+        const totalPublishedSongs = await Song.countDocuments({ isPublished: true })
+
         const publishedSongs = await Song.find({ isPublished: true })
-        res.json(publishedSongs)
+            .sort({ date: -1 })
+            .skip((page - 1) * ITEMS_PER_PAGE)
+            .limit(ITEMS_PER_PAGE)
+
+        res.json({ published: publishedSongs, count: totalPublishedSongs })
     }
     catch (err) {
         console.log(err)

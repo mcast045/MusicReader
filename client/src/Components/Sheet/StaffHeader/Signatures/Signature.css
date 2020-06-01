@@ -1,15 +1,4 @@
-.time-signature-container {
-    position: relative;
-}
-
-.time-signature-container ul{
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
 .time-signature li {
-    font-size: 4rem;
     font-family: 'Boogaloo', cursive;
 }
 
@@ -45,69 +34,58 @@
     left: 90px;
 }
 
-.key-signature .sharp1{
-    font-size: 2rem;
+.key-signature .sharp1 {
     position: absolute;
     top: 67px;
     left: 45px;
 }
-.key-signature .sharp2{
-    font-size: 2rem;
+.key-signature .sharp2 {
     position: absolute;
     top: 98px;
     left: 53px;
 }
-.key-signature .sharp3{
-    font-size: 2rem;
+.key-signature .sharp3 {
     position: absolute;
     top: 56px;
     left: 61px;
 }
-.key-signature .sharp4{
-    font-size: 2rem;
+.key-signature .sharp4 {
     position: absolute;
     top: 88px;
     left: 69px;
 }
-.key-signature .sharp5{
-    font-size: 2rem;
+.key-signature .sharp5 {
     position: absolute;
     top: 118px;
     left: 77px;
 }
-.key-signature .sharp6{
-    font-size: 2rem;
+.key-signature .sharp6 {
     position: absolute;
     top: 77px;
     left: 85px;
 }
 
-.key-signature .flat1{
-    font-size: 3rem;
+.key-signature .flat1 {
     position: absolute;
     top: 94.5px;
     left: 45px;
 }
-.key-signature .flat2{
-    font-size: 3rem;
+.key-signature .flat2 {
     position: absolute;
     top: 67px;
     left: 53px;
 }
-.key-signature .flat3{
-    font-size: 3rem;
+.key-signature .flat3 {
     position: absolute;
     top: 110px;
     left: 61px;
 }
-.key-signature .flat4{
-    font-size: 3rem;
+.key-signature .flat4 {
     position: absolute;
     top: 73.5px;
     left: 69px;
 }
-.key-signature .flat5{
-    font-size: 3rem;
+.key-signature .flat5 {
     position: absolute;
     top: 115px;
     left: 77px;

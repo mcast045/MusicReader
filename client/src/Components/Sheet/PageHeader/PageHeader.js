@@ -27,12 +27,12 @@ const SheetHeader = ({ setNumOfSheets, viewOnly, showLogout }) => {
                 <div className='sheet-header'>
                     {(user._id && currentSong && !isNotesLoading) || (!user._id && viewOnly && !isNotesLoading) ?
                         <div className='song-information'>
-                            <h2 className='main_song_header'>{currentSong.title}</h2>
-                            <h3 className='username'><span>{`by: ${currentSong.author}`}</span></h3>
+                            <h2 className='main_song_header font-4 nomargin'>{currentSong.title}</h2>
+                            <h3 className='username nomargin'><span>{`by: ${currentSong.author}`}</span></h3>
                         </div> :
                         <div className='song-information'>
-                            <h2 className='main_song_header logout'>Developer tools</h2>
-                            <h3 className='username logout'>by: <span>The Beatles</span></h3>
+                            <h2 className='main_song_header nomargin logout'>Developer tools</h2>
+                            <h3 className='username nomargin logout'>by: <span>The Beatles</span></h3>
                         </div>
                     }
 
@@ -40,14 +40,14 @@ const SheetHeader = ({ setNumOfSheets, viewOnly, showLogout }) => {
                         < div className='userSignIn'>
                             <Link to='/auth' className='userSignIn_link' onClick={() => dispatch(flipAuthCard('back'))}>Login</Link>
                             <Link to='/auth' className='userSignIn_link' onClick={() => dispatch(flipAuthCard('front'))}>Register</Link>
-                            {!isUpdating && <Link to='/search' className='search-songs'>Search</Link>}
+                            {!isUpdating && <Link to='/search?page=1' className='search-songs'>Search</Link>}
                             {viewOnly && <Link to='/' onClick={() => dispatch(clearAll())} className='search-songs'>Home</Link>}
                         </div>
                     }
                     {user._id && (showLogout || viewOnly) && !isNotesLoading &&
                         <div className='userSignIn'>
                             <Link to='/' className='userSignIn_link' onClick={() => onClickLogoutUser()}>Logout</Link>
-                            {!isUpdating && <Link to='/search' className='search-songs'>Search</Link>}
+                            {!isUpdating && <Link to='/search?page=1' className='search-songs'>Search</Link>}
                             {viewOnly && <Link to='/' onClick={() => dispatch(clearAll())} className='search-songs'>Home</Link>}
                         </div>
                     }

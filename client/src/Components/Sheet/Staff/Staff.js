@@ -74,7 +74,7 @@ const Staff = ({ viewOnly, showLogout, setShowLogout, setIsShowingMenu, isShowin
     return (
         <div className='sheet-music-container'>
             {bars.map(measure => (
-                <ul id={(measure + (numberOfStaves * 4))} className='sheet-music' key={measure}>
+                <ul id={(measure + (numberOfStaves * 4))} className='sheet-music nomarginpadding' key={measure}>
                     {staffLines.map(rowNumber => (
                         <li key={rowNumber} style={hideLedgerLinesOnLoad(rowNumber)}>
                             {eighthNotes.map(columnsPerMeasure => (
@@ -101,10 +101,10 @@ const Staff = ({ viewOnly, showLogout, setShowLogout, setIsShowingMenu, isShowin
                                                 <div
                                                     alt='Note'
                                                     draggable='false'
-                                                    className={`note-staff-image ${notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].type}`}
+                                                    className={`note-staff-image font-4 ${notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].type}`}
                                                     style={notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && { display: 'block' }}>
 
-                                                    <span className='note-staff-image-accidental'>{notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].accidental}</span>
+                                                    <span className='note-staff-image-accidental font-2'>{notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].accidental}</span>
                                                     {notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].notePath}
                                                     {(notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].type === 'Dotted-WholeRest' || notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].type === 'Dotted-HalfRest' || notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].type === 'Dotted-QuarterRest') && <span className='rest-dotted'>.</span>}
                                                 </div>

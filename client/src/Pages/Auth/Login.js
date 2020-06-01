@@ -38,16 +38,16 @@ const Login = () => {
                 <form className='loginForm' onSubmit={e => onSubmit(e)}>
 
                     <div className='loginForm_container'>
-                        <p className='loginForm_label'>Login</p>
+                        <p className='loginForm_label font-4 nomargin'>Login</p>
 
                         <div className='loginForm_container-inputs'>
-                            <div className='loginForm_container-input-div'>
-                                <span className="envelope">&#9993;</span>
+                            <div className='loginForm_container-input-div relative'>
+                                <span className="envelope font-2">&#9993;</span>
                                 <input type='email' name='email' placeholder='Email' value={login.email} onChange={e => onChange(e)} required />
                             </div>
 
-                            <div className='loginForm_container-input-div'>
-                                <span className='lock' role='img' aria-label='Key'>&#x1f511;</span>
+                            <div className='loginForm_container-input-div relative'>
+                                <span className='lock font-2' role='img' aria-label='Key'>&#x1f511;</span>
                                 <input type='password' name='password' placeholder='Password' value={login.password} onChange={e => onChange(e)} required />
                             </div>
                         </div>

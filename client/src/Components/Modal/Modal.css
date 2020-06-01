@@ -29,17 +29,12 @@
 
 .modal .modal-content-container header {
     margin: auto;
-    text-align: center;
-    font-size: 3rem;
     font-weight: 700;
     border-bottom: 1px solid black;
     text-transform: uppercase;
     color: var(--danger-color-1);
 }
 
-.modal .modal-content-container p {
-    font-size: 2rem;
-}
 .modal .modal-content-container p span {
     text-transform: uppercase;
     font-weight: 700;

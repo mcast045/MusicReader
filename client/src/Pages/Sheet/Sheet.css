@@ -19,13 +19,6 @@
     background-color:var(--main-bg-color);
 }
 
-.sheet-music-container ul,
-.tab-music {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
 .sheet-music,
 .tab-music {
     width: 25%;
@@ -43,7 +36,7 @@
 }
 
 .sheet-music li .note-temp-container,
-.tab-music li input{
+.tab-music li input {
     height: 2rem;
     width: 10%;
 }

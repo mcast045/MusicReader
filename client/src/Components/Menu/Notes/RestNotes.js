@@ -146,7 +146,7 @@ const RestNotes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu,
 
     return (
         <div className='notes-section mb-1'>
-            <h3 className='menu-section-label'>Rest Notes</h3>
+            <h3 className='menu-section-label center'>Rest Notes</h3>
             <div className='row-container-col'>
                 <div className='row'>
                     <div className='note-container'>
@@ -181,7 +181,7 @@ const RestNotes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu,
                 </div>
 
                 <div className='row'>
-                    <h3 className='menu-section-label'>Dotted</h3>
+                    <h3 className='menu-section-label center nomargin'>Dotted</h3>
                 </div>
                 <div className='row'>
                     <div className='note-container'>

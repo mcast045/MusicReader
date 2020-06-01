@@ -185,7 +185,7 @@ const Notes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu, cre
 
     return (
         <div className='notes-section mb-1'>
-            <h3 className='menu-section-label'>Notes</h3>
+            <h3 className='menu-section-label center nomargin'>Notes</h3>
             <div className='row-container-col'>
                 <div className='row'>
                     <div className='note-container'>
@@ -221,7 +221,7 @@ const Notes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu, cre
 
 
                 <div className='row'>
-                    <h3 className='menu-section-label'>Dotted</h3>
+                    <h3 className='menu-section-label center'>Dotted</h3>
                 </div>
                 <div className='row'>
                     <div className='note-container'>

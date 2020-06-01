@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const songController = require('../controller/songsController')
 
+router.post('/filter', songController.getFilteredSong)
 router.get('/:id/:songId', songController.getUserSong)
 router.get('/:songId', songController.getPublishedSong)
 router.get('/', songController.getPublishedSongs)
