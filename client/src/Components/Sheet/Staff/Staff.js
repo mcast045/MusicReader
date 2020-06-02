@@ -29,7 +29,7 @@ const Staff = ({ viewOnly, showLogout, setShowLogout, setIsShowingMenu, isShowin
 
     //Assigns an edit key to the note object
     const assignEdit = i => {
-        if (!viewOnly && !isUpdating) {
+        if (!viewOnly) {
             let copy = [...notes]
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
@@ -109,6 +109,7 @@ const Staff = ({ viewOnly, showLogout, setShowLogout, setIsShowingMenu, isShowin
                                                     {(notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].type === 'Dotted-WholeRest' || notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].type === 'Dotted-HalfRest' || notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].type === 'Dotted-QuarterRest') && <span className='rest-dotted'>.</span>}
                                                 </div>
                                             </button>}
+
                                     </div>
                                 </div>
                             ))}

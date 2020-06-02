@@ -3,6 +3,7 @@ import './btn.css'
 import { useSelector } from 'react-redux'
 
 const NonAuthBtn = ({ removeLastNote, clearSheet, }) => {
+
     const isUpdating = useSelector(state => state.notes.isUpdating)
 
     return (

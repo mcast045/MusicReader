@@ -46,8 +46,8 @@ const SearchMenu = ({ query }) => {
 
             <div className='search-menu_btns'>
                 <Link to={searchParameters.title || searchParameters.author ? QUERY_PAGE_RESET : query} className='btn search-menu_btn' onClick={() => onClickSearch()}><span role='img' aria-label='Search'>&#x1f50d;</span></Link>
-                <Link to={QUERY_PAGE_RESET} className='btn search-menu_btn' onClick={() => clearFilter()}><span role='img' aria-label='Search'>Clear</span></Link>
-                <Link to='/' className='btn search-menu_btn' onClick={() => onClickHome()} >Home</Link>
+                <Link to={QUERY_PAGE_RESET} className='btn search-menu_btn search-menu_btn-clear' onClick={() => clearFilter()}>Clear</Link>
+                <Link to='/' className='btn search-menu_btn search-menu_btn-home' onClick={() => onClickHome()} >Home</Link>
             </div>
 
             <Pagination query={query} QUERY_PAGE_RESET={QUERY_PAGE_RESET} />

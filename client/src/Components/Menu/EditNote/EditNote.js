@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { finishUpdatingNote, updateNote } from '../../../Redux/Actions/Notes'
 import { editIndex } from '../../../HelperFunctions/Helpers'
 
-const EditNote = ({ showLogout, setShowLogout, replaceNoteInSong, insertNoteInSong, addToSongArray, createNull, setIsShowingMenu, isShowingMenu }) => {
+const EditNote = ({ showLogout, setShowLogout, createNull, setIsShowingMenu, isShowingMenu }) => {
 
     const dispatch = useDispatch()
     const notes = useSelector(state => state.notes.notes)
@@ -31,8 +31,8 @@ const EditNote = ({ showLogout, setShowLogout, replaceNoteInSong, insertNoteInSo
                 <Buttons showLogout={showLogout} setShowLogout={setShowLogout} isShowingMenu={isShowingMenu} setIsShowingMenu={setIsShowingMenu} />
                 {(isReplacing || isInserting) &&
                     <Fragment>
-                        <Notes showLogout={showLogout} setShowLogout={setShowLogout} isShowingMenu={isShowingMenu} setIsShowingMenu={setIsShowingMenu} insertNoteInSong={insertNoteInSong} replaceNoteInSong={replaceNoteInSong} addToSongArray={addToSongArray} createNull={createNull} />
-                        <Rest showLogout={showLogout} setShowLogout={setShowLogout} isShowingMenu={isShowingMenu} setIsShowingMenu={setIsShowingMenu} insertNoteInSong={insertNoteInSong} replaceNoteInSong={replaceNoteInSong} addToSongArray={addToSongArray} createNull={createNull} />
+                        <Notes showLogout={showLogout} setShowLogout={setShowLogout} isShowingMenu={isShowingMenu} setIsShowingMenu={setIsShowingMenu} createNull={createNull} />
+                        <Rest showLogout={showLogout} setShowLogout={setShowLogout} isShowingMenu={isShowingMenu} setIsShowingMenu={setIsShowingMenu} createNull={createNull} />
                     </Fragment>}
                 <button className='btn confirm-edit-btn-col-cancel' onClick={() => confirmCancel()}>Cancel</button>
             </div>

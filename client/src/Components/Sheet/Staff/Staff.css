@@ -15,6 +15,10 @@
     position: relative;
 }
 
+.sheet-music li .note-temp-container .note-temp-item-btn {
+    padding: 0;
+}
+
 .sheet-music li .note-temp-container .note-temp-item-btn, 
 .sheet-music li .note-temp-container .note-temp-item-img {
     border: none;
@@ -75,7 +79,7 @@
 .rest-dotted {
     position: absolute;
     bottom: 18px;
-    left: 20px;
+    left: 25px;
 }
 
 .Dotted-Half,

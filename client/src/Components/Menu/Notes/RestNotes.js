@@ -1,8 +1,11 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { finishUpdatingNote } from '../../../Redux/Actions/Notes';
+import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { finishUpdatingNote } from '../../../Redux/Actions/Notes'
+import { addToSongArray, replaceNoteInSong, insertNoteInSong } from '../../../HelperFunctions/NoteManipulation'
+import { createNull } from '../../../HelperFunctions/Helpers'
+import { WHOLE_REST_NOTE, HALF_REST_NOTE, QUARTER_REST_NOTE, EIGHTH_REST_NOTE } from '../../../HelperFunctions/SourceCodeEncodings'
 
-const RestNotes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu, createNull, addToSongArray, replaceNoteInSong, insertNoteInSong }) => {
+const RestNotes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu }) => {
 
     const dispatch = useDispatch()
 
@@ -13,17 +16,17 @@ const RestNotes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu,
 
     const onClickWholeRestNote = () => {
         let nullArray = createNull(8)
-        addToSongArray("\uD834\uDD3B", 'WholeRest', null, 6, nullArray)
+        addToSongArray(notes, WHOLE_REST_NOTE, 'WholeRest', null, 6, nullArray)
 
         if (isReplacing) {
-            replaceNoteInSong(notes, "\uD834\uDD3B", 'WholeRest', nullArray)
+            replaceNoteInSong(notes, WHOLE_REST_NOTE, 'WholeRest', nullArray)
             dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
 
         if (isInserting) {
-            insertNoteInSong(notes, "\uD834\uDD3B", 'WholeRest', nullArray)
+            insertNoteInSong(notes, WHOLE_REST_NOTE, 'WholeRest', nullArray)
             dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
@@ -31,17 +34,17 @@ const RestNotes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu,
     }
     const onClickDottedWholeRestNote = () => {
         let nullArray = createNull(12)
-        addToSongArray("\uD834\uDD3B", 'Dotted-WholeRest', null, 6, nullArray)
+        addToSongArray(notes, WHOLE_REST_NOTE, 'Dotted-WholeRest', null, 6, nullArray)
 
         if (isReplacing) {
-            replaceNoteInSong(notes, "\uD834\uDD3B", 'Dotted-WholeRest', nullArray)
+            replaceNoteInSong(notes, WHOLE_REST_NOTE, 'Dotted-WholeRest', nullArray)
             dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
 
         if (isInserting) {
-            insertNoteInSong(notes, "\uD834\uDD3B", 'Dotted-WholeRest', nullArray)
+            insertNoteInSong(notes, WHOLE_REST_NOTE, 'Dotted-WholeRest', nullArray)
             dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
@@ -52,17 +55,17 @@ const RestNotes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu,
 
     const onClickHalfRestNote = () => {
         let nullArray = createNull(4)
-        addToSongArray("\uD834\uDD3C", 'HalfRest', null, 6, nullArray)
+        addToSongArray(notes, HALF_REST_NOTE, 'HalfRest', null, 6, nullArray)
 
         if (isReplacing) {
-            replaceNoteInSong(notes, "\uD834\uDD3C", 'HalfRest', nullArray)
+            replaceNoteInSong(notes, HALF_REST_NOTE, 'HalfRest', nullArray)
             dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
 
         if (isInserting) {
-            insertNoteInSong(notes, "\uD834\uDD3C", 'HalfRest', nullArray)
+            insertNoteInSong(notes, HALF_REST_NOTE, 'HalfRest', nullArray)
             dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
@@ -71,17 +74,17 @@ const RestNotes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu,
 
     const onClickDottedeHalfRestNote = () => {
         let nullArray = createNull(6)
-        addToSongArray("\uD834\uDD3C", 'Dotted-HalfRest', null, 6, nullArray)
+        addToSongArray(notes, HALF_REST_NOTE, 'Dotted-HalfRest', null, 6, nullArray)
 
         if (isReplacing) {
-            replaceNoteInSong(notes, "\uD834\uDD3C", 'Dotted-HalfRest', nullArray)
+            replaceNoteInSong(notes, HALF_REST_NOTE, 'Dotted-HalfRest', nullArray)
             dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
 
         if (isInserting) {
-            insertNoteInSong(notes, "\uD834\uDD3C", 'Dotted-HalfRest', nullArray)
+            insertNoteInSong(notes, HALF_REST_NOTE, 'Dotted-HalfRest', nullArray)
             dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
@@ -90,17 +93,17 @@ const RestNotes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu,
 
     const onClickQuarterRestNote = () => {
         let nullArray = createNull(2)
-        addToSongArray("\uD834\uDD3D", 'QuarterRest', null, 6, nullArray)
+        addToSongArray(notes, QUARTER_REST_NOTE, 'QuarterRest', null, 6, nullArray)
 
         if (isReplacing) {
-            replaceNoteInSong(notes, "\uD834\uDD3D", 'QuarterRest', nullArray)
+            replaceNoteInSong(notes, QUARTER_REST_NOTE, 'QuarterRest', nullArray)
             dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
 
         if (isInserting) {
-            insertNoteInSong(notes, "\uD834\uDD3D", 'QuarterRest', nullArray)
+            insertNoteInSong(notes, QUARTER_REST_NOTE, 'QuarterRest', nullArray)
             dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
@@ -109,17 +112,17 @@ const RestNotes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu,
 
     const onClickDottedQuarterRestNote = () => {
         let nullArray = createNull(3)
-        addToSongArray("\uD834\uDD3D", 'Dotted-QuarterRest', null, 6, nullArray)
+        addToSongArray(notes, QUARTER_REST_NOTE, 'Dotted-QuarterRest', null, 6, nullArray)
 
         if (isReplacing) {
-            replaceNoteInSong(notes, "\uD834\uDD3D", 'Dotted-QuarterRest', nullArray)
+            replaceNoteInSong(notes, QUARTER_REST_NOTE, 'Dotted-QuarterRest', nullArray)
             dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
 
         if (isInserting) {
-            insertNoteInSong(notes, "\uD834\uDD3D", 'Dotted-QuarterRest', nullArray)
+            insertNoteInSong(notes, QUARTER_REST_NOTE, 'Dotted-QuarterRest', nullArray)
             dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
@@ -127,17 +130,17 @@ const RestNotes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu,
     }
 
     const onClickEighthRestNote = () => {
-        addToSongArray("\uD834\uDD3E", 'EighthRest', null, 6)
+        addToSongArray(notes, EIGHTH_REST_NOTE, 'EighthRest', null, 6)
 
         if (isReplacing) {
-            replaceNoteInSong(notes, "\uD834\uDD3E", 'EighthRest')
+            replaceNoteInSong(notes, EIGHTH_REST_NOTE, 'EighthRest')
             dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
 
         if (isInserting) {
-            insertNoteInSong(notes, "\uD834\uDD3E", 'EighthRest')
+            insertNoteInSong(notes, EIGHTH_REST_NOTE, 'EighthRest')
             dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
@@ -181,7 +184,7 @@ const RestNotes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu,
                 </div>
 
                 <div className='row'>
-                    <h3 className='menu-section-label center nomargin'>Dotted</h3>
+                    <h3 className='menu-section-label dotted-label center nomargin'>Dotted</h3>
                 </div>
                 <div className='row'>
                     <div className='note-container'>

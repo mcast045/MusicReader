@@ -13,8 +13,8 @@
 #mask {
     position: absolute;
     top: 0px;
-    left:-1px;
-    width:5px;
+    left:-5px;
+    width:10px;
     height: 21.9%;
     background-color:var(--main-bg-color);
 }
@@ -49,4 +49,23 @@
 .sheet-music:first-child,
 .tab-music:first-child {
     width: 30%;
+}
+
+@media only screen and (max-width: 1340px) {
+    .sheet-music,
+    .tab-music {
+        width: 45%;
+    }
+
+    .sheet-music:first-child,
+    .tab-music:first-child {
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 800px)  {
+    .sheet-music:first-child,
+    .tab-music:first-child {
+        width: 95%;
+    }
 }

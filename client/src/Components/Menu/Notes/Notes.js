@@ -1,8 +1,11 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { finishUpdatingNote } from '../../../Redux/Actions/Notes'
+import { addToSongArray, replaceNoteInSong, insertNoteInSong } from '../../../HelperFunctions/NoteManipulation'
+import { createNull } from '../../../HelperFunctions/Helpers'
+import { WHOLE_NOTE, HALF_NOTE, QUARTER_NOTE, EIGHTH_NOTE } from '../../../HelperFunctions/SourceCodeEncodings'
 
-const Notes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu, createNull, addToSongArray, replaceNoteInSong, insertNoteInSong }) => {
+const Notes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu }) => {
 
     const dispatch = useDispatch()
 
@@ -14,45 +17,47 @@ const Notes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu, cre
 
     const onClickWholeNote = () => {
         let nullArray = createNull(8)
+
         if (key.id < -1)
-            addToSongArray("\uD834\uDD5D", 'Whole', 'D#', 5, nullArray)
+            addToSongArray(notes, WHOLE_NOTE, 'Whole', 'D#', 5, nullArray)
         else if (key.id !== 7 || key.id === -1)
-            addToSongArray("\uD834\uDD5D", 'Whole', 'E', 5, nullArray)
+            addToSongArray(notes, WHOLE_NOTE, 'Whole', 'E', 5, nullArray)
         else if (key.id === 7)
-            addToSongArray("\uD834\uDD5D", 'Whole', 'F', 5, nullArray)
+            addToSongArray(notes, WHOLE_NOTE, 'Whole', 'F', 5, nullArray)
 
         if (isReplacing) {
-            replaceNoteInSong(notes, "\uD834\uDD5D", 'Whole', nullArray)
+            replaceNoteInSong(notes, WHOLE_NOTE, 'Whole', nullArray)
             dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
 
         if (isInserting) {
-            insertNoteInSong(notes, "\uD834\uDD5D", 'Whole', nullArray)
+            insertNoteInSong(notes, WHOLE_NOTE, 'Whole', nullArray)
             dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
     }
+
     const onClickDottedWholeNote = () => {
         let nullArray = createNull(12)
         if (key.id < -1)
-            addToSongArray(`${"\uD834\uDD5D"}.`, 'Dotted-Whole', 'D#', 5, nullArray)
+            addToSongArray(notes, `${WHOLE_NOTE}.`, 'Dotted-Whole', 'D#', 5, nullArray)
         else if (key.id !== 7 || key.id === -1)
-            addToSongArray(`${"\uD834\uDD5D"}.`, 'Dotted-Whole', 'E', 5, nullArray)
+            addToSongArray(notes, `${WHOLE_NOTE}.`, 'Dotted-Whole', 'E', 5, nullArray)
         else if (key.id === 7)
-            addToSongArray(`${"\uD834\uDD5D"}.`, 'Dotted-Whole', 'F', 5, nullArray)
+            addToSongArray(notes, `${WHOLE_NOTE}.`, 'Dotted-Whole', 'F', 5, nullArray)
 
         if (isReplacing) {
-            replaceNoteInSong(notes, `${"\uD834\uDD5D"}.`, 'Dotted-Whole', nullArray)
+            replaceNoteInSong(notes, `${WHOLE_NOTE}.`, 'Dotted-Whole', nullArray)
             dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
 
         if (isInserting) {
-            insertNoteInSong(notes, `${"\uD834\uDD5D"}.`, 'Dotted-Whole', nullArray)
+            insertNoteInSong(notes, `${WHOLE_NOTE}.`, 'Dotted-Whole', nullArray)
             dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
@@ -63,45 +68,48 @@ const Notes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu, cre
 
     const onClickHalfNote = () => {
         let nullArray = createNull(4)
+
         if (key.id < -1)
-            addToSongArray("\uD834\uDD5E", 'Half', 'D#', 5, nullArray)
+            addToSongArray(notes, HALF_NOTE, 'Half', 'D#', 5, nullArray)
         else if (key.id !== 7 || key.id === -1)
-            addToSongArray("\uD834\uDD5E", 'Half', 'E', 5, nullArray)
+            addToSongArray(notes, HALF_NOTE, 'Half', 'E', 5, nullArray)
         else if (key.id === 7)
-            addToSongArray("\uD834\uDD5E", 'Half', 'F', 5, nullArray)
+            addToSongArray(notes, HALF_NOTE, 'Half', 'F', 5, nullArray)
 
         if (isReplacing) {
-            replaceNoteInSong(notes, "\uD834\uDD5E", 'Half', nullArray)
+            replaceNoteInSong(notes, HALF_NOTE, 'Half', nullArray)
             dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
 
         if (isInserting) {
-            insertNoteInSong(notes, "\uD834\uDD5E", 'Half', nullArray)
+            insertNoteInSong(notes, HALF_NOTE, 'Half', nullArray)
             dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
     }
+
     const onClickDottedHalfNote = () => {
         let nullArray = createNull(5)
+
         if (key.id < -1)
-            addToSongArray(`${"\uD834\uDD5E"}.`, 'Dotted-Half', 'D#', 5, nullArray)
+            addToSongArray(notes, `${HALF_NOTE}.`, 'Dotted-Half', 'D#', 5, nullArray)
         else if (key.id !== 7 || key.id === -1)
-            addToSongArray(`${"\uD834\uDD5E"}.`, 'Dotted-Half', 'E', 5, nullArray)
+            addToSongArray(notes, `${HALF_NOTE}.`, 'Dotted-Half', 'E', 5, nullArray)
         else if (key.id === 7)
-            addToSongArray(`${"\uD834\uDD5E"}.`, 'Dotted-Half', 'F', 5, nullArray)
+            addToSongArray(notes, `${HALF_NOTE}.`, 'Dotted-Half', 'F', 5, nullArray)
 
         if (isReplacing) {
-            replaceNoteInSong(notes, `${"\uD834\uDD5E"}.`, 'Dotted-Half', nullArray)
+            replaceNoteInSong(notes, `${HALF_NOTE}.`, 'Dotted-Half', nullArray)
             dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
 
         if (isInserting) {
-            insertNoteInSong(notes, `${"\uD834\uDD5E"}.`, 'Dotted-Half', nullArray)
+            insertNoteInSong(notes, `${HALF_NOTE}.`, 'Dotted-Half', nullArray)
             dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
@@ -113,45 +121,48 @@ const Notes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu, cre
 
     const onClickQuarterNote = () => {
         let nullArray = createNull(2)
+
         if (key.id < -1)
-            addToSongArray("\uD834\uDD5F", 'Quarter', 'D#', 5, nullArray)
+            addToSongArray(notes, QUARTER_NOTE, 'Quarter', 'D#', 5, nullArray)
         else if (key.id !== 7 || key.id === -1)
-            addToSongArray("\uD834\uDD5F", 'Quarter', 'E', 5, nullArray)
+            addToSongArray(notes, QUARTER_NOTE, 'Quarter', 'E', 5, nullArray)
         else if (key.id === 7)
-            addToSongArray("\uD834\uDD5F", 'Quarter', 'F', 5, nullArray)
+            addToSongArray(notes, QUARTER_NOTE, 'Quarter', 'F', 5, nullArray)
 
         if (isReplacing) {
-            replaceNoteInSong(notes, "\uD834\uDD5F", 'Quarter', nullArray)
+            replaceNoteInSong(notes, QUARTER_NOTE, 'Quarter', nullArray)
             dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
 
         if (isInserting) {
-            insertNoteInSong(notes, "\uD834\uDD5F", 'Quarter', nullArray)
+            insertNoteInSong(notes, QUARTER_NOTE, 'Quarter', nullArray)
             dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
     }
+
     const onClickDottedQuarterNote = () => {
         let nullArray = createNull(3)
+
         if (key.id < -1)
-            addToSongArray(`${"\uD834\uDD5F"}.`, 'Dotted-Quarter', 'D#', 5, nullArray)
+            addToSongArray(notes, `${QUARTER_NOTE}.`, 'Dotted-Quarter', 'D#', 5, nullArray)
         else if (key.id !== 7 || key.id === -1)
-            addToSongArray(`${"\uD834\uDD5F"}.`, 'Dotted-Quarter', 'E', 5, nullArray)
+            addToSongArray(notes, `${QUARTER_NOTE}.`, 'Dotted-Quarter', 'E', 5, nullArray)
         else if (key.id === 7)
-            addToSongArray(`${"\uD834\uDD5F"}.`, 'Dotted-Quarter', 'F', 5, nullArray)
+            addToSongArray(notes, `${QUARTER_NOTE}.`, 'Dotted-Quarter', 'F', 5, nullArray)
 
         if (isReplacing) {
-            replaceNoteInSong(notes, `${"\uD834\uDD5F"}.`, 'Dotted-Quarter', nullArray)
+            replaceNoteInSong(notes, `${QUARTER_NOTE}.`, 'Dotted-Quarter', nullArray)
             dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
 
         if (isInserting) {
-            insertNoteInSong(notes, `${"\uD834\uDD5F"}.`, 'Dotted-Quarter', nullArray)
+            insertNoteInSong(notes, `${QUARTER_NOTE}.`, 'Dotted-Quarter', nullArray)
             dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
@@ -162,21 +173,21 @@ const Notes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu, cre
 
     const onClickEighthNote = () => {
         if (key.id < -1)
-            addToSongArray("\uD834\uDD60", 'Eighth', 'D#', 5)
+            addToSongArray(notes, EIGHTH_NOTE, 'Eighth', 'D#', 5)
         else if (key.id !== 7 || key.id === -1)
-            addToSongArray("\uD834\uDD60", 'Eighth', 'E', 5)
+            addToSongArray(notes, EIGHTH_NOTE, 'Eighth', 'E', 5)
         else if (key.id === 7)
-            addToSongArray("\uD834\uDD60", 'Eighth', 'F', 5)
+            addToSongArray(notes, EIGHTH_NOTE, 'Eighth', 'F', 5)
 
         if (isReplacing) {
-            replaceNoteInSong(notes, "\uD834\uDD60", 'Eighth')
+            replaceNoteInSong(notes, EIGHTH_NOTE, 'Eighth')
             dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
         }
 
         if (isInserting) {
-            insertNoteInSong(notes, "\uD834\uDD60", 'Eighth')
+            insertNoteInSong(notes, EIGHTH_NOTE, 'Eighth')
             dispatch(finishUpdatingNote())
             setIsShowingMenu(!isShowingMenu)
             setShowLogout(!showLogout)
@@ -186,8 +197,9 @@ const Notes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu, cre
     return (
         <div className='notes-section mb-1'>
             <h3 className='menu-section-label center nomargin'>Notes</h3>
+
             <div className='row-container-col'>
-                <div className='row'>
+                <div className='row grid-row-1'>
                     <div className='note-container'>
                         <h3 className='note-label'>Whole</h3>
                         <button disabled={isUpdating && !isReplacing && !isInserting} className='btn-translate-whole-note' onClick={() => onClickWholeNote()}>
@@ -203,7 +215,7 @@ const Notes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu, cre
                     </div>
                 </div>
 
-                <div className='row mb-1'>
+                <div className='row grid-row-2 mb-1'>
                     <div className='note-container'>
                         <h3 className='note-label'>Quarter</h3>
                         <button disabled={isUpdating && !isReplacing && !isInserting} onClick={() => onClickQuarterNote()}>
@@ -219,10 +231,7 @@ const Notes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu, cre
                     </div>
                 </div>
 
-
-                <div className='row'>
-                    <h3 className='menu-section-label center'>Dotted</h3>
-                </div>
+                <h3 className='menu-section-label dotted-label center'>Dotted</h3>
                 <div className='row'>
                     <div className='note-container'>
                         <h3 className='note-label'>Whole</h3>

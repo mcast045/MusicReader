@@ -9,7 +9,8 @@ import {
     INSERT_NOTE,
     FINISH_UPDATE_NOTE,
     CLEAR_NOTES,
-    IS_FETCHING_NOTES
+    IS_FETCHING_NOTES,
+    MAKE_CHORD
 } from '../Constants'
 
 const initialState = {

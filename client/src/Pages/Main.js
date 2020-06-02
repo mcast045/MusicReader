@@ -25,8 +25,10 @@ const Main = () => {
     return (
         <div>
             <Alert />
-            <Menu showInfo={showInfo} setShowInfo={setShowInfo} showLogout={showLogout} setShowLogout={setShowLogout} newSongClickState={newSongClickState} setNewSongClickState={setNewSongClickState} setIsShowingMenu={setIsShowingMenu} isShowingMenu={isShowingMenu} />
-            <Sheet showInfo={showInfo} setShowInfo={setShowInfo} showLogout={showLogout} setShowLogout={setShowLogout} newSongClickState={newSongClickState} isShowingMenu={isShowingMenu} setIsShowingMenu={setIsShowingMenu} />
+            <div className='main'>
+                <Menu showInfo={showInfo} setShowInfo={setShowInfo} showLogout={showLogout} setShowLogout={setShowLogout} newSongClickState={newSongClickState} setNewSongClickState={setNewSongClickState} setIsShowingMenu={setIsShowingMenu} isShowingMenu={isShowingMenu} />
+                <Sheet showInfo={showInfo} setShowInfo={setShowInfo} showLogout={showLogout} setShowLogout={setShowLogout} newSongClickState={newSongClickState} isShowingMenu={isShowingMenu} setIsShowingMenu={setIsShowingMenu} />
+            </div>
         </div>
     );
 }

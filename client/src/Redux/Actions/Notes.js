@@ -1,4 +1,5 @@
-import axios from 'axios';
+import axios from 'axios'
+import { editIndex } from '../../HelperFunctions/Helpers'
 import { setAlert } from './Alert'
 import {
     GET_NOTES,
@@ -11,6 +12,7 @@ import {
     INSERT_NOTE,
     FINISH_UPDATE_NOTE,
     IS_FETCHING_NOTES,
+    MAKE_CHORD
 } from '../Constants'
 
 export const getUserNotes = songId => async dispatch => {

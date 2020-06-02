@@ -50,3 +50,32 @@
 .search-menu-container > * {
     justify-self: center;
 }
+
+@media only screen and (max-width: 1140px) {
+    .search .search-block {
+        width: 90%;
+    }
+}
+
+@media only screen and (max-width: 945px) {
+    .search .search-songs .search-songs_list,
+    .search .search-songs .search-songs_list .search-songs_list-headings,
+    .search .search-songs .search-songs_list .search-songs_list-item,
+    .search-menu-container  {
+        grid-template-columns: repeat(4, 1fr);
+        grid-column-gap: 1fr;
+        align-items: center;
+    }
+
+    .search-songs_tempo-heading,
+    .search-songs_tempo {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 760px) {
+    .search .search-songs .search-songs_list .search-songs_list-headings,
+    .search .search-songs .search-songs_list .search-songs_list-item  {
+            font-size: 1.5rem;
+        }
+}

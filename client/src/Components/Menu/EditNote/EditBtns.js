@@ -53,6 +53,11 @@ const EditBtns = ({ showLogout, setShowLogout, isShowingMenu, setIsShowingMenu }
                     <button className='btn' onClick={() => confirmRemove()}>Remove Note</button>
                 </div>
             }
+
+            {/* <div className='confirm-edit-btn-col'>
+                <button className='btn' onClick={() => onClickAddNote(notes)}>Add Note</button>
+            </div> */}
+
             {!isRestNote(editIndex(notes), null, notes) &&
                 <Accidental allNotes={allNotes} findLetterIdx={findLetterIdx} moveNoteBetween={moveNoteBetween} moveNoteDown={moveNoteDown} moveNoteUp={moveNoteUp} isRestNote={isRestNote} />
             }

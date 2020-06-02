@@ -2,6 +2,7 @@ import store from '../Redux/Store'
 import { allNotes } from './UpdateNoteLetter'
 import { updateNote } from '../Redux/Actions/Notes'
 import { editIndex, isRestNote } from './Helpers'
+import { SHARP_NOTE, FLAT_NOTE } from './SourceCodeEncodings'
 
 export const findLetterIdx = (songArr, index) =>
     allNotes.findIndex(note => note === songArr[index].letter)
@@ -15,7 +16,7 @@ export const moveNoteUp = (notes, key) => {
 
         const changeNaturalLetter = (arr, index, transform) => {
             if (transform === 'no-translate') {
-                if (notes[idx].accidental === "\u266D") {
+                if (notes[idx].accidental === FLAT_NOTE) {
                     if (key.id < -1 && arr[index] === 'C#')
                         return 'D#'
                     else if (key.id < -2 && arr[index] === 'F#')
@@ -64,7 +65,7 @@ export const moveNoteUp = (notes, key) => {
                     return arr[index + 1].length === 1 ? arr[index + 1] : arr[index + 2]
             }
             else if (transform === 'move-down') {
-                if (notes[idx].accidental === "\u266D") {
+                if (notes[idx].accidental === FLAT_NOTE) {
                     if (key.id > 1 && arr[index] === 'C#')
                         return 'F#'
                     else if (key.id > 3 && arr[index] === 'D#')
@@ -74,7 +75,7 @@ export const moveNoteUp = (notes, key) => {
                     return allNotes[allNotesIdx + 4].length !== 1 ? allNotes[allNotesIdx + 3] : allNotes[allNotesIdx + 4]
                 }
 
-                else if (notes[idx].accidental === "\u266F") {
+                else if (notes[idx].accidental === SHARP_NOTE) {
                     if (key.id < 0) {
                         if (arr[index] === 'D#')
                             return 'F'
@@ -126,10 +127,10 @@ export const moveNoteUp = (notes, key) => {
                     if (copy[idx].accidental === null)
                         copy[idx] = { ...copy[idx], transform: 'move-up', letter: changeNaturalLetter(allNotes, allNotesIdx, copy[idx].transform) }
                     //Changing Sharp notes
-                    else if (copy[idx].accidental === "\u266F")
+                    else if (copy[idx].accidental === SHARP_NOTE)
                         copy[idx] = { ...copy[idx], accidental: null, transform: 'move-up', letter: changeNaturalLetter(allNotes, allNotesIdx, copy[idx].transform) }
                     //Changing Flat notes
-                    else if (copy[idx].accidental === "\u266D") {
+                    else if (copy[idx].accidental === FLAT_NOTE) {
                         copy[idx] = { ...copy[idx], accidental: null, transform: 'move-up', letter: changeNaturalLetter(allNotes, allNotesIdx, copy[idx].transform) }
                     }
                 }
@@ -146,10 +147,10 @@ export const moveNoteUp = (notes, key) => {
                             copy[idx] = { ...copy[idx], transform: 'move-up', letter: allNotes[allNotes.length - allNotesIdx - 2] }
                     }
                     //Changing Sharp notes - 'G#' to 'A'
-                    else if (copy[idx].accidental === "\u266F")
+                    else if (copy[idx].accidental === SHARP_NOTE)
                         copy[idx] = { ...copy[idx], accidental: null, transform: 'move-up', letter: allNotes[0] }
                     //Changing Sharp notes - 'G#' to 'A#'
-                    else if (copy[idx].accidental === "\u266D") {
+                    else if (copy[idx].accidental === FLAT_NOTE) {
                         //'G#' to 'B'
                         if (key.id > 0 && copy[idx].letter === allNotes[11])
                             copy[idx] = { ...copy[idx], accidental: null, transform: 'move-up', letter: allNotes[2] }
@@ -165,10 +166,10 @@ export const moveNoteUp = (notes, key) => {
                     if (copy[idx].accidental === null)
                         copy[idx] = { ...copy[idx], transform: 'move-up', letter: changeNaturalLetter(allNotes, allNotesIdx, copy[idx].transform) }
                     //Changing Sharp notes
-                    else if (copy[idx].accidental === "\u266F")
+                    else if (copy[idx].accidental === SHARP_NOTE)
                         copy[idx] = { ...copy[idx], accidental: null, transform: 'move-up', letter: changeNaturalLetter(allNotes, allNotesIdx, copy[idx].transform) }
                     //Changing Flat notes
-                    else if (copy[idx].accidental === "\u266D")
+                    else if (copy[idx].accidental === FLAT_NOTE)
                         copy[idx] = { ...copy[idx], accidental: null, transform: 'move-up', letter: changeNaturalLetter(allNotes, allNotesIdx, copy[idx].transform) }
                 }
                 else {
@@ -207,7 +208,7 @@ export const moveNoteUp = (notes, key) => {
                     }
 
 
-                    else if (copy[idx].accidental === "\u266F") {
+                    else if (copy[idx].accidental === SHARP_NOTE) {
                         //'G#' to 'A#' 
                         if (key.id < 0 && copy[idx].letter === allNotes[11])
                             copy[idx] = { ...copy[idx], accidental: null, transform: 'move-up', letter: allNotes[1] }
@@ -226,7 +227,7 @@ export const moveNoteUp = (notes, key) => {
                     }
 
 
-                    else if (copy[idx].accidental === "\u266D") {
+                    else if (copy[idx].accidental === FLAT_NOTE) {
                         //'F#' to 'B' 
                         if (key.id < 0 && copy[idx].letter === allNotes[9])
                             copy[idx] = { ...copy[idx], accidental: null, transform: 'move-up', letter: allNotes[1] }
@@ -254,10 +255,10 @@ export const moveNoteDown = (notes, key) => {
 
         const changeNaturalLetter = (arr, index, transform) => {
             if (transform === 'no-translate') {
-                if (notes[idx].accidental === "\u266D")
+                if (notes[idx].accidental === FLAT_NOTE)
                     return arr[index - 1].length === 1 ? arr[index - 1] : arr[index - 2]
 
-                else if (notes[idx].accidental === "\u266F") {
+                else if (notes[idx].accidental === SHARP_NOTE) {
                     if (key.id < -1 && arr[index] === 'F#')
                         return 'D#'
                     else if (key.id < 0 && arr[index] === 'F#')
@@ -294,7 +295,7 @@ export const moveNoteDown = (notes, key) => {
                             index--
                         else if ((key.id > 3 && (notes[idx].letter === 'G#')) || (key.id === 7 && (notes[idx].letter === 'F')))
                             return arr[index - 2]
-                        if (notes[idx].accidental === "\u266F") {
+                        if (notes[idx].accidental === SHARP_NOTE) {
                             if (key.id > 1 && notes[idx].letter === 'G#')
                                 return arr[index - 2]
                             else if ((key.id > 2 && notes[idx].letter === 'D#'))
@@ -320,7 +321,7 @@ export const moveNoteDown = (notes, key) => {
                 }
             }
             else if (transform === 'move-up') {
-                if (notes[idx].accidental === "\u266D") {
+                if (notes[idx].accidental === FLAT_NOTE) {
                     if (key.id > 1 && copy[idx].letter === 'G#')
                         return 'F#'
                     else if (key.id > 2 && copy[idx].letter === 'D#')
@@ -335,7 +336,7 @@ export const moveNoteDown = (notes, key) => {
                         return 'E'
                     return allNotes[allNotesIdx - 4].length === 1 ? allNotes[allNotesIdx - 3] : allNotes[allNotesIdx - 4]
                 }
-                if (notes[idx].accidental === "\u266F") {
+                if (notes[idx].accidental === SHARP_NOTE) {
                     if (key.id < 0) {
                         if (arr[index] === 'D#')
                             return 'A#'
@@ -399,10 +400,10 @@ export const moveNoteDown = (notes, key) => {
                     if (copy[idx].accidental === null)
                         copy[idx] = { ...copy[idx], transform: 'move-down', letter: changeNaturalLetter(allNotes, allNotesIdx, copy[idx].transform) }
                     //Changing Sharp notes
-                    else if (copy[idx].accidental === "\u266F")
+                    else if (copy[idx].accidental === SHARP_NOTE)
                         copy[idx] = { ...copy[idx], accidental: null, transform: 'move-down', letter: changeNaturalLetter(allNotes, allNotesIdx, copy[idx].transform) }
                     //Changing Flat notes
-                    else if (copy[idx].accidental === "\u266D")
+                    else if (copy[idx].accidental === FLAT_NOTE)
                         copy[idx] = { ...copy[idx], accidental: null, transform: 'move-down', letter: changeNaturalLetter(allNotes, allNotesIdx, copy[idx].transform) }
                 }
                 //Change note from 'A' to 'G'
@@ -419,10 +420,10 @@ export const moveNoteDown = (notes, key) => {
                             copy[idx] = { ...copy[idx], transform: 'move-down', letter: allNotes[11] }
                     }
                     //'A#' to 'G' or 'A#' to 'G#'
-                    else if (copy[idx].accidental === "\u266F")
+                    else if (copy[idx].accidental === SHARP_NOTE)
                         key.id > 3 ? copy[idx] = { ...copy[idx], accidental: null, transform: 'move-down', letter: allNotes[11] } : copy[idx] = { ...copy[idx], accidental: null, transform: 'move-down', letter: allNotes[10] }
                     //'A#' to 'A'
-                    else if (copy[idx].accidental === "\u266D")
+                    else if (copy[idx].accidental === FLAT_NOTE)
                         copy[idx].letter === allNotes[1] ? copy[idx] = { ...copy[idx], accidental: null, transform: 'move-down', letter: allNotes[0] } : copy[idx] = { ...copy[idx], accidental: null, transform: 'move-down', letter: allNotes[allNotes.length - allNotesIdx] }
                 }
             }
@@ -432,10 +433,10 @@ export const moveNoteDown = (notes, key) => {
                     if (copy[idx].accidental === null)
                         copy[idx] = { ...copy[idx], transform: 'move-down', letter: changeNaturalLetter(allNotes, allNotesIdx, copy[idx].transform) }
                     //Changing Sharp notes
-                    else if (copy[idx].accidental === "\u266F")
+                    else if (copy[idx].accidental === SHARP_NOTE)
                         copy[idx] = { ...copy[idx], accidental: null, transform: 'move-down', letter: changeNaturalLetter(allNotes, allNotesIdx, copy[idx].transform) }
                     //Changing Flat notes
-                    else if (copy[idx].accidental === "\u266D")
+                    else if (copy[idx].accidental === FLAT_NOTE)
                         copy[idx] = { ...copy[idx], accidental: null, transform: 'move-down', letter: changeNaturalLetter(allNotes, allNotesIdx, copy[idx].transform) }
                 }
                 else {
@@ -470,7 +471,7 @@ export const moveNoteDown = (notes, key) => {
                         else if (key.id < -3 && copy[idx].letter === allNotes[3])
                             copy[idx] = { ...copy[idx], transform: 'move-down', letter: allNotes[11] }
                     }
-                    else if (copy[idx].accidental === "\u266F") {
+                    else if (copy[idx].accidental === SHARP_NOTE) {
                         //'A#' to 'F' or 'A' to 'F'
                         if (copy[idx].letter === allNotes[1])
                             key.id > 1 ? copy[idx] = { ...copy[idx], accidental: null, transform: 'move-down', letter: allNotes[9] } : copy[idx] = { ...copy[idx], accidental: null, transform: 'move-down', letter: allNotes[8] }
@@ -478,7 +479,7 @@ export const moveNoteDown = (notes, key) => {
                         else if (copy[idx].letter === allNotes[3])
                             copy[idx] = { ...copy[idx], transform: 'move-down', letter: allNotes[11] }
                     }
-                    else if (copy[idx].accidental === "\u266D") {
+                    else if (copy[idx].accidental === FLAT_NOTE) {
                         //'A#' to 'G#'
                         if (key.id > 3 && copy[idx].letter === allNotes[1])
                             copy[idx] = { ...copy[idx], accidental: null, transform: 'move-down', letter: allNotes[11] }
@@ -505,7 +506,7 @@ export const moveNoteBetween = (notes, key) => {
 
         const changeNaturalLetter = (arr, index, transform) => {
             if (transform === 'move-up') {
-                if (notes[idx].accidental === "\u266D")
+                if (notes[idx].accidental === FLAT_NOTE)
                     return arr[index - 1].length === 1 ? arr[index - 1] : arr[index - 2]
 
                 //Sharp Key-Signature
@@ -533,7 +534,7 @@ export const moveNoteBetween = (notes, key) => {
 
                 //Flat Key-Signature
                 if (key.id < 0) {
-                    if (notes[idx].accidental === "\u266F") {
+                    if (notes[idx].accidental === SHARP_NOTE) {
                         if (key.id < 0 && arr[index] === 'G#')
                             return 'F'
                         else if (key.id < -1 && arr[index] === 'F#')
@@ -558,7 +559,7 @@ export const moveNoteBetween = (notes, key) => {
                 }
             }
             else if (transform === 'move-down') {
-                if (notes[idx].accidental === "\u266D") {
+                if (notes[idx].accidental === FLAT_NOTE) {
                     if (key.id > 1 && copy[idx].letter === arr[6])
                         return 'F#'
                     else if (key.id > 2 && copy[idx].letter === arr[1])
@@ -617,10 +618,10 @@ export const moveNoteBetween = (notes, key) => {
                 if (copy[idx].accidental === null)
                     copy[idx] = { ...copy[idx], transform: 'no-translate', letter: changeNaturalLetter(allNotes, allNotesIdx, copy[idx].transform) }
                 //Changing Sharp notes
-                else if (copy[idx].accidental === "\u266F")
+                else if (copy[idx].accidental === SHARP_NOTE)
                     copy[idx] = { ...copy[idx], accidental: null, transform: 'no-translate', letter: changeNaturalLetter(allNotes, allNotesIdx, copy[idx].transform) }
                 //Changing Flat notes
-                else if (copy[idx].accidental === "\u266D")
+                else if (copy[idx].accidental === FLAT_NOTE)
                     copy[idx] = { ...copy[idx], accidental: null, transform: 'no-translate', letter: changeNaturalLetter(allNotes, allNotesIdx, copy[idx].transform) }
             }
             else {
@@ -634,10 +635,10 @@ export const moveNoteBetween = (notes, key) => {
                         copy[idx] = { ...copy[idx], transform: 'no-translate', letter: allNotes[10] }
                 }
                 //Changing Sharp notes - 'A#' to 'G#'
-                else if (copy[idx].accidental === "\u266F")
+                else if (copy[idx].accidental === SHARP_NOTE)
                     key.id > 3 ? copy[idx] = { ...copy[idx], accidental: null, transform: 'no-translate', letter: allNotes[11] } : copy[idx] = { ...copy[idx], accidental: null, transform: 'no-translate', letter: allNotes[10] }
                 //Changing Flat notes - 'B' to 'A#'
-                else if (copy[idx].accidental === "\u266D")
+                else if (copy[idx].accidental === FLAT_NOTE)
                     copy[idx] = { ...copy[idx], accidental: null, transform: 'no-translate', letter: allNotes[0] }
             }
         }
@@ -647,10 +648,10 @@ export const moveNoteBetween = (notes, key) => {
                 if (copy[idx].accidental === null)
                     copy[idx] = { ...copy[idx], transform: 'no-translate', letter: changeNaturalLetter(allNotes, allNotesIdx, copy[idx].transform) }
                 //Changing Sharp notes
-                else if (copy[idx].accidental === "\u266F")
+                else if (copy[idx].accidental === SHARP_NOTE)
                     copy[idx] = { ...copy[idx], accidental: null, transform: 'no-translate', letter: changeNaturalLetter(allNotes, allNotesIdx, copy[idx].transform) }
                 //Changing Flat notes
-                else if (copy[idx].accidental === "\u266D")
+                else if (copy[idx].accidental === FLAT_NOTE)
                     copy[idx] = { ...copy[idx], accidental: null, transform: 'no-translate', letter: changeNaturalLetter(allNotes, allNotesIdx, copy[idx].transform) }
             }
             //Changing note from 'G' to 'A'
@@ -669,10 +670,10 @@ export const moveNoteBetween = (notes, key) => {
                         copy[idx] = { ...copy[idx], transform: 'no-translate', letter: allNotes[allNotes.length - allNotesIdx - 2] }
                 }
                 //Changing Sharp notes - 'G#' to 'A#'
-                else if (copy[idx].accidental === "\u266F")
+                else if (copy[idx].accidental === SHARP_NOTE)
                     copy[idx] = { ...copy[idx], accidental: null, transform: 'no-translate', letter: allNotes[0] }
                 //Changing Flat notes - 'G#/A-flat' to 'A#/G-flat'
-                else if (copy[idx].accidental === "\u266D") {
+                else if (copy[idx].accidental === FLAT_NOTE) {
                     if (key.id > 0 && copy[idx].letter === allNotes[11])
                         copy[idx] = { ...copy[idx], accidental: null, transform: 'no-translate', letter: allNotes[2] }
                     else if (key.id < 0 && copy[idx].letter === allNotes[11])

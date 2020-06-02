@@ -35,3 +35,56 @@
     justify-content: space-between;
     align-items: center;
 }
+
+@media only screen and (max-width: 890px) {
+    .sheet-header .userSignIn .userSignIn_link,
+    .sheet-header .userSignIn a {
+        font-size: 1rem;
+    }
+}
+
+@media only screen and (max-width: 740px) {
+    .sheet-header .userSignIn .userSignIn_link {
+        display: none;
+    }
+
+    .sheet-header {
+        flex-flow: row-reverse;
+        justify-content: space-between;
+        align-items: center;
+        margin-left: 0;
+        margin-right: 50%;
+    }
+
+    .song-information {
+        transform: translateX(50%);
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .song-information {
+        transform: translateX(0);
+    }
+
+    .song-information .main_song_header {
+        font-size: 3rem;
+    }
+
+    .song-information .username {
+        font-size: .8rem;
+    }
+
+    .sheet-header {
+        margin: 0;
+        width: 100%;
+        flex-flow: column;
+    }
+
+    .sheet-header .userSignIn a {
+        /* width: 100%; */
+        font-size: 1.5rem;
+        font-weight: 700;
+        /* display: flex;
+        justify-content: space-around; */
+    }
+}

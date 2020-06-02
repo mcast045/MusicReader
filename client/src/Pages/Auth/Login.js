@@ -3,7 +3,6 @@ import { loginUser, flipAuthCard } from '../../Redux/Actions/Auth'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router'
 import LoginSvg from '../../Images/Login.svg'
-import Loader from '../../Images/Loader/Loader'
 
 const Login = () => {
 
@@ -11,7 +10,6 @@ const Login = () => {
 
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
 
-    const [svgLoad, setSvgLoad] = useState(true)
     const [login, setLogin] = useState({
         email: '',
         password: ''
@@ -31,33 +29,30 @@ const Login = () => {
     return (
         <div className='login card_face card_face--front'>
             <div className="loginSvg">
-                <object data={LoginSvg} type="image/svg+xml" onLoad={() => setSvgLoad(false)}>Music Image</object>
+                <object data={LoginSvg} type="image/svg+xml">Music Image</object>
             </div>
 
-            {svgLoad ? <Loader /> :
-                <form className='loginForm' onSubmit={e => onSubmit(e)}>
+            <form className='loginForm' onSubmit={e => onSubmit(e)}>
 
-                    <div className='loginForm_container'>
-                        <p className='loginForm_label font-4 nomargin'>Login</p>
+                <div className='loginForm_container'>
+                    <p className='loginForm_label font-4 nomargin'>Login</p>
 
-                        <div className='loginForm_container-inputs'>
-                            <div className='loginForm_container-input-div relative'>
-                                <span className="envelope font-2">&#9993;</span>
-                                <input type='email' name='email' placeholder='Email' value={login.email} onChange={e => onChange(e)} required />
-                            </div>
-
-                            <div className='loginForm_container-input-div relative'>
-                                <span className='lock font-2' role='img' aria-label='Key'>&#x1f511;</span>
-                                <input type='password' name='password' placeholder='Password' value={login.password} onChange={e => onChange(e)} required />
-                            </div>
+                    <div className='loginForm_container-inputs'>
+                        <div className='loginForm_container-input-div relative'>
+                            <span className="envelope font-2">&#9993;</span>
+                            <input type='email' name='email' placeholder='Email' value={login.email} onChange={e => onChange(e)} required />
                         </div>
-                        <button className='loginForm_container-btn' type='submit'>Submit</button>
-                        <button onClick={() => dispatch(flipAuthCard('front'))} className='loginForm_container-createAccount' type='button'>Create Account &rarr;</button>
-                    </div>
-                </form>
-            }
-        </div>
 
+                        <div className='loginForm_container-input-div relative'>
+                            <span className='lock font-2' role='img' aria-label='Key'>&#x1f511;</span>
+                            <input type='password' name='password' placeholder='Password' value={login.password} onChange={e => onChange(e)} required />
+                        </div>
+                    </div>
+                    <button className='loginForm_container-btn' type='submit'>Submit</button>
+                    <button onClick={() => dispatch(flipAuthCard('front'))} className='loginForm_container-createAccount' type='button'>Create Account &rarr;</button>
+                </div>
+            </form>
+        </div>
     );
 }
 
