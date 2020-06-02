@@ -68,7 +68,6 @@
     .search .search-block .search-menu .search-menu_btns {
         flex-direction: column;
         grid-column: 2 / span 1;
-        width: 30%;
     }
 
     .search-block .search-menu .search-menu_btns .search-menu_btn-clear {

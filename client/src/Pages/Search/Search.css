@@ -63,8 +63,6 @@
     .search .search-songs .search-songs_list .search-songs_list-item,
     .search-menu-container  {
         grid-template-columns: repeat(4, 1fr);
-        grid-column-gap: 1fr;
-        align-items: center;
     }
 
     .search-songs_tempo-heading,
@@ -77,5 +75,24 @@
     .search .search-songs .search-songs_list .search-songs_list-headings,
     .search .search-songs .search-songs_list .search-songs_list-item  {
             font-size: 1.5rem;
+        }
+
+    .search-songs_date-heading,
+    .search-songs_date {
+        display: none;
+    }
+
+    .search .search-songs .search-songs_list,
+    .search .search-songs .search-songs_list .search-songs_list-headings,
+    .search .search-songs .search-songs_list .search-songs_list-item,
+    .search-menu-container  {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media only screen and (max-width: 440px) {
+    .search .search-songs .search-songs_list .search-songs_list-headings,
+    .search .search-songs .search-songs_list .search-songs_list-item  {
+            font-size: 1rem;
         }
 }
