@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { tabValue } from '../../../HelperFunctions/MapNoteToTab'
 import { getNoteColumn } from '../../../HelperFunctions/Helpers'
 
-const Tab = ({ bars, tabLines, eighthNotes, numberOfStaves, screenSize }) => {
+const Tab = ({ bars, tabLines, eighthNotes, numberOfStaves }) => {
 
     const notes = useSelector(state => state.notes.notes)
 

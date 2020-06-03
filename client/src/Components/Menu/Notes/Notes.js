@@ -4,8 +4,9 @@ import { finishUpdatingNote } from '../../../Redux/Actions/Notes'
 import { addToSongArray, replaceNoteInSong, insertNoteInSong } from '../../../HelperFunctions/NoteManipulation'
 import { createNull } from '../../../HelperFunctions/Helpers'
 import { WHOLE_NOTE, HALF_NOTE, QUARTER_NOTE, EIGHTH_NOTE } from '../../../HelperFunctions/SourceCodeEncodings'
+import { isShowingMenu, isShowLogout } from '../../../Redux/Actions/Util'
 
-const Notes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu }) => {
+const Notes = () => {
 
     const dispatch = useDispatch()
 
@@ -14,6 +15,8 @@ const Notes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu }) =
     const isInserting = useSelector(state => state.notes.isInserting)
     const isUpdating = useSelector(state => state.notes.isUpdating)
     const key = useSelector(state => state.song.keySignature)
+    const currentMenuState = useSelector(state => state.util.isShowingMenu)
+    const currentLogoutState = useSelector(state => state.util.isShowingLogout)
 
     const onClickWholeNote = () => {
         let nullArray = createNull(8)
@@ -28,15 +31,15 @@ const Notes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu }) =
         if (isReplacing) {
             replaceNoteInSong(notes, WHOLE_NOTE, 'Whole', nullArray)
             dispatch(finishUpdatingNote())
-            setIsShowingMenu(!isShowingMenu)
-            setShowLogout(!showLogout)
+            dispatch(isShowingMenu(!currentMenuState))
+            dispatch(isShowLogout(!currentLogoutState))
         }
 
         if (isInserting) {
             insertNoteInSong(notes, WHOLE_NOTE, 'Whole', nullArray)
             dispatch(finishUpdatingNote())
-            setIsShowingMenu(!isShowingMenu)
-            setShowLogout(!showLogout)
+            dispatch(isShowingMenu(!currentMenuState))
+            dispatch(isShowLogout(!currentLogoutState))
         }
     }
 
@@ -52,15 +55,15 @@ const Notes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu }) =
         if (isReplacing) {
             replaceNoteInSong(notes, `${WHOLE_NOTE}.`, 'Dotted-Whole', nullArray)
             dispatch(finishUpdatingNote())
-            setIsShowingMenu(!isShowingMenu)
-            setShowLogout(!showLogout)
+            dispatch(isShowingMenu(!currentMenuState))
+            dispatch(isShowLogout(!currentLogoutState))
         }
 
         if (isInserting) {
             insertNoteInSong(notes, `${WHOLE_NOTE}.`, 'Dotted-Whole', nullArray)
             dispatch(finishUpdatingNote())
-            setIsShowingMenu(!isShowingMenu)
-            setShowLogout(!showLogout)
+            dispatch(isShowingMenu(!currentMenuState))
+            dispatch(isShowLogout(!currentLogoutState))
         }
     }
 
@@ -79,15 +82,15 @@ const Notes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu }) =
         if (isReplacing) {
             replaceNoteInSong(notes, HALF_NOTE, 'Half', nullArray)
             dispatch(finishUpdatingNote())
-            setIsShowingMenu(!isShowingMenu)
-            setShowLogout(!showLogout)
+            dispatch(isShowingMenu(!currentMenuState))
+            dispatch(isShowLogout(!currentLogoutState))
         }
 
         if (isInserting) {
             insertNoteInSong(notes, HALF_NOTE, 'Half', nullArray)
             dispatch(finishUpdatingNote())
-            setIsShowingMenu(!isShowingMenu)
-            setShowLogout(!showLogout)
+            dispatch(isShowingMenu(!currentMenuState))
+            dispatch(isShowLogout(!currentLogoutState))
         }
     }
 
@@ -104,15 +107,15 @@ const Notes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu }) =
         if (isReplacing) {
             replaceNoteInSong(notes, `${HALF_NOTE}.`, 'Dotted-Half', nullArray)
             dispatch(finishUpdatingNote())
-            setIsShowingMenu(!isShowingMenu)
-            setShowLogout(!showLogout)
+            dispatch(isShowingMenu(!currentMenuState))
+            dispatch(isShowLogout(!currentLogoutState))
         }
 
         if (isInserting) {
             insertNoteInSong(notes, `${HALF_NOTE}.`, 'Dotted-Half', nullArray)
             dispatch(finishUpdatingNote())
-            setIsShowingMenu(!isShowingMenu)
-            setShowLogout(!showLogout)
+            dispatch(isShowingMenu(!currentMenuState))
+            dispatch(isShowLogout(!currentLogoutState))
         }
     }
 
@@ -132,15 +135,15 @@ const Notes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu }) =
         if (isReplacing) {
             replaceNoteInSong(notes, QUARTER_NOTE, 'Quarter', nullArray)
             dispatch(finishUpdatingNote())
-            setIsShowingMenu(!isShowingMenu)
-            setShowLogout(!showLogout)
+            dispatch(isShowingMenu(!currentMenuState))
+            dispatch(isShowLogout(!currentLogoutState))
         }
 
         if (isInserting) {
             insertNoteInSong(notes, QUARTER_NOTE, 'Quarter', nullArray)
             dispatch(finishUpdatingNote())
-            setIsShowingMenu(!isShowingMenu)
-            setShowLogout(!showLogout)
+            dispatch(isShowingMenu(!currentMenuState))
+            dispatch(isShowLogout(!currentLogoutState))
         }
     }
 
@@ -157,15 +160,15 @@ const Notes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu }) =
         if (isReplacing) {
             replaceNoteInSong(notes, `${QUARTER_NOTE}.`, 'Dotted-Quarter', nullArray)
             dispatch(finishUpdatingNote())
-            setIsShowingMenu(!isShowingMenu)
-            setShowLogout(!showLogout)
+            dispatch(isShowingMenu(!currentMenuState))
+            dispatch(isShowLogout(!currentLogoutState))
         }
 
         if (isInserting) {
             insertNoteInSong(notes, `${QUARTER_NOTE}.`, 'Dotted-Quarter', nullArray)
             dispatch(finishUpdatingNote())
-            setIsShowingMenu(!isShowingMenu)
-            setShowLogout(!showLogout)
+            dispatch(isShowingMenu(!currentMenuState))
+            dispatch(isShowLogout(!currentLogoutState))
         }
     }
 
@@ -182,15 +185,15 @@ const Notes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu }) =
         if (isReplacing) {
             replaceNoteInSong(notes, EIGHTH_NOTE, 'Eighth')
             dispatch(finishUpdatingNote())
-            setIsShowingMenu(!isShowingMenu)
-            setShowLogout(!showLogout)
+            dispatch(isShowingMenu(!currentMenuState))
+            dispatch(isShowLogout(!currentLogoutState))
         }
 
         if (isInserting) {
             insertNoteInSong(notes, EIGHTH_NOTE, 'Eighth')
             dispatch(finishUpdatingNote())
-            setIsShowingMenu(!isShowingMenu)
-            setShowLogout(!showLogout)
+            dispatch(isShowingMenu(!currentMenuState))
+            dispatch(isShowLogout(!currentLogoutState))
         }
     }
 

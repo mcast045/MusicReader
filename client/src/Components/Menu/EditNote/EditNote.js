@@ -6,13 +6,16 @@ import Buttons from './EditBtns'
 import { useSelector, useDispatch } from 'react-redux'
 import { finishUpdatingNote, updateNote } from '../../../Redux/Actions/Notes'
 import { editIndex } from '../../../HelperFunctions/Helpers'
+import { isShowingMenu, isShowLogout } from '../../../Redux/Actions/Util'
 
-const EditNote = ({ showLogout, setShowLogout, createNull, setIsShowingMenu, isShowingMenu }) => {
+const EditNote = () => {
 
     const dispatch = useDispatch()
     const notes = useSelector(state => state.notes.notes)
     const isReplacing = useSelector(state => state.notes.isReplacing)
     const isInserting = useSelector(state => state.notes.isInserting)
+    const currentMenuState = useSelector(state => state.util.isShowingMenu)
+    const currentLogoutState = useSelector(state => state.util.isShowingLogout)
 
     const confirmCancel = () => {
         let copy = [...notes]
@@ -21,18 +24,18 @@ const EditNote = ({ showLogout, setShowLogout, createNull, setIsShowingMenu, isS
         copy[idx] = { ...copy[idx], draggable: false }
         dispatch(updateNote(copy))
         dispatch(finishUpdatingNote())
-        setIsShowingMenu(!isShowingMenu)
-        setShowLogout(!showLogout)
+        dispatch(isShowingMenu(!currentMenuState))
+        dispatch(isShowLogout(!currentLogoutState))
     }
 
     return (
         <div className='container'>
             <div className='confirm-edit-container'>
-                <Buttons showLogout={showLogout} setShowLogout={setShowLogout} isShowingMenu={isShowingMenu} setIsShowingMenu={setIsShowingMenu} />
+                <Buttons />
                 {(isReplacing || isInserting) &&
                     <Fragment>
-                        <Notes showLogout={showLogout} setShowLogout={setShowLogout} isShowingMenu={isShowingMenu} setIsShowingMenu={setIsShowingMenu} createNull={createNull} />
-                        <Rest showLogout={showLogout} setShowLogout={setShowLogout} isShowingMenu={isShowingMenu} setIsShowingMenu={setIsShowingMenu} createNull={createNull} />
+                        <Notes />
+                        <Rest />
                     </Fragment>}
                 <button className='btn confirm-edit-btn-col-cancel' onClick={() => confirmCancel()}>Cancel</button>
             </div>

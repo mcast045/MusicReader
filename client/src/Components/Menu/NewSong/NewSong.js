@@ -3,12 +3,16 @@ import './NewSong.css'
 import KeySigDropDown from '../KeySigDropDown/KeySigDropDown'
 import { getUserSong, createSongInfo, clearAll } from '../../../Redux/Actions/Song'
 import { useDispatch, useSelector } from 'react-redux'
+import { isNewSongMenu, isShowLogout } from '../../../Redux/Actions/Util'
 
-const NewSongMenu = ({ showLogout, setShowLogout, showInfo, newSongClickState, setNewSongClickState }) => {
+const NewSongMenu = () => {
 
     const dispatch = useDispatch()
     const user = useSelector(state => state.auth.user)
     const currentSong = useSelector(state => state.song.currentSong)
+    const currentNewSongMenuState = useSelector(state => state.util.newSongClickState)
+    const currentLogoutState = useSelector(state => state.util.isShowingLogout)
+    const currentSongInfoMenuState = useSelector(state => state.util.isShowingInfo)
 
     const initialState = {
         tempo: 0,
@@ -20,7 +24,7 @@ const NewSongMenu = ({ showLogout, setShowLogout, showInfo, newSongClickState, s
 
     const newSongOnClick = (isCancelBtn) => {
         setNewSongInfo(initialState)
-        setShowLogout(!showLogout)
+        dispatch(isShowLogout(!currentLogoutState))
 
         //To save last current used song before clearing data
         if (currentSong)
@@ -31,7 +35,7 @@ const NewSongMenu = ({ showLogout, setShowLogout, showInfo, newSongClickState, s
         if (isCancelBtn)
             dispatch(getUserSong(user._id, previousSong))
 
-        setNewSongClickState(!newSongClickState)
+        dispatch(isNewSongMenu(!currentNewSongMenuState))
     }
 
     const newSongInfoChange = e =>
@@ -40,14 +44,14 @@ const NewSongMenu = ({ showLogout, setShowLogout, showInfo, newSongClickState, s
     const newSong = () => {
         dispatch(createSongInfo(newSongInfo))
         setNewSongInfo(initialState)
-        setNewSongClickState(!newSongClickState)
-        setShowLogout(!showLogout)
+        dispatch(isNewSongMenu(!currentNewSongMenuState))
+        dispatch(isShowLogout(!currentLogoutState))
     }
 
     return (
         <Fragment>
             <div className='songInputDetails'>
-                {newSongClickState &&
+                {currentNewSongMenuState &&
                     <Fragment>
                         <div className='songInputDetails_prop'>
                             <label>Title</label>
@@ -82,11 +86,11 @@ const NewSongMenu = ({ showLogout, setShowLogout, showInfo, newSongClickState, s
                     </Fragment>
                 }
 
-                {!newSongClickState && !showInfo &&
+                {!currentNewSongMenuState && !currentSongInfoMenuState &&
                     <button className='btn newSongbtn' onClick={() => newSongOnClick(false)}>New Song</button>
                 }
 
-                {newSongClickState &&
+                {currentNewSongMenuState &&
                     <div className='create_btns'>
                         <button className='btn create_btn' onClick={() => newSong()}>Submit</button>
                         <button className='btn create_btn' onClick={() => newSongOnClick(true)}>Cancel</button>

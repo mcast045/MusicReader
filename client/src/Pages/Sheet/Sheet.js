@@ -8,7 +8,7 @@ import PageHeader from '../../Components/Sheet/PageHeader/PageHeader'
 import SheetHeader from '../../Components/Sheet/StaffHeader/Clef&Tab/Clef&Tab'
 import { getPublishedSong } from '../../Redux/Actions/Song'
 
-const Sheet = ({ match, viewOnly, showLogout, setShowLogout, newSongClickState, setIsShowingMenu, isShowingMenu }) => {
+const Sheet = ({ match, viewOnly }) => {
 
     const dispatch = useDispatch()
     const notes = useSelector(state => state.notes.notes)
@@ -51,7 +51,7 @@ const Sheet = ({ match, viewOnly, showLogout, setShowLogout, newSongClickState, 
 
     return (
         <Fragment>
-            <PageHeader showLogout={showLogout} viewOnly={viewOnly} setNumOfSheets={setNumOfSheets} />
+            <PageHeader viewOnly={viewOnly} setNumOfSheets={setNumOfSheets} />
 
             {numOfSheets.map((staves, numberOfStaves) => (
                 <div key={numberOfStaves} className={viewOnly ? 'fullScreenStaff' : 'sheet'}>
@@ -60,13 +60,13 @@ const Sheet = ({ match, viewOnly, showLogout, setShowLogout, newSongClickState, 
 
                         <div id='mask'></div>
 
-                        <Staff viewOnly={viewOnly} showLogout={showLogout} setShowLogout={setShowLogout} isShowingMenu={isShowingMenu} setIsShowingMenu={setIsShowingMenu} numberOfStaves={numberOfStaves} bars={bars} staffLines={staffLines} eighthNotes={eighthNotes} />
-                        <Tab screenSize={screenSize} newSongClickState={newSongClickState} numberOfStaves={numberOfStaves} eighthNotes={eighthNotes} bars={bars} tabLines={tabLines} />
+                        <Staff viewOnly={viewOnly} numberOfStaves={numberOfStaves} bars={bars} staffLines={staffLines} eighthNotes={eighthNotes} />
+                        <Tab screenSize={screenSize} numberOfStaves={numberOfStaves} eighthNotes={eighthNotes} bars={bars} tabLines={tabLines} />
                     </div>
                 </div>
             ))}
 
-            <Modal setShowLogout={setShowLogout} setNumOfSheets={setNumOfSheets} />
+            <Modal setNumOfSheets={setNumOfSheets} />
         </Fragment >
     );
 }

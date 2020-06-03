@@ -4,8 +4,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import { saveNotes } from '../../../Redux/Actions/Notes'
 import { showModal } from '../../../Redux/Actions/Modal'
 import { isDeletingUser } from '../../../Redux/Actions/Auth'
+import { isShowLogout, isShowInfo } from '../../../Redux/Actions/Util'
 
-const AuthBtn = ({ removeLastNote, clearSheet, showLogout, setShowLogout, showInfo, setShowInfo }) => {
+const AuthBtn = ({ removeLastNote, clearSheet }) => {
 
     const dispatch = useDispatch()
 
@@ -13,14 +14,16 @@ const AuthBtn = ({ removeLastNote, clearSheet, showLogout, setShowLogout, showIn
     const isUpdating = useSelector(state => state.notes.isUpdating)
     const isSongsLoading = useSelector(state => state.song.loading)
     const currentSong = useSelector(state => state.song.currentSong)
+    const currentLogoutState = useSelector(state => state.util.isShowingLogout)
+    const currentSongInfoMenuState = useSelector(state => state.util.isShowingInfo)
 
     const saveSheet = isSaveBtn =>
         dispatch(saveNotes(notes, currentSong._id, isSaveBtn))
 
     const onClickMySongs = () => {
         saveSheet(false)
-        setShowInfo(!showInfo)
-        setShowLogout(!showLogout)
+        dispatch(isShowInfo(!currentSongInfoMenuState))
+        dispatch(isShowLogout(!currentLogoutState))
     }
 
     const onClickDeleteAccount = () => {

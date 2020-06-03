@@ -6,7 +6,7 @@ import { logoutUser, flipAuthCard } from '../../../Redux/Actions/Auth'
 import { clearAll } from '../../../Redux/Actions/Song'
 import { useSelector, useDispatch } from 'react-redux'
 
-const SheetHeader = ({ setNumOfSheets, viewOnly, showLogout }) => {
+const SheetHeader = ({ setNumOfSheets, viewOnly }) => {
 
     const dispatch = useDispatch()
 
@@ -15,6 +15,7 @@ const SheetHeader = ({ setNumOfSheets, viewOnly, showLogout }) => {
     const currentSong = useSelector(state => state.song.currentSong)
     const staffLineNumber = useSelector(state => state.song.staffLineNumber)
     const user = useSelector(state => state.auth.user)
+    const currentLogoutState = useSelector(state => state.util.isShowingLogout)
 
     const onClickLogoutUser = () => {
         setNumOfSheets(staffLineNumber)
@@ -44,7 +45,7 @@ const SheetHeader = ({ setNumOfSheets, viewOnly, showLogout }) => {
                             {viewOnly && <Link to='/' onClick={() => dispatch(clearAll())} className='search-songs'>Home</Link>}
                         </div>
                     }
-                    {user._id && (showLogout || viewOnly) && !isNotesLoading &&
+                    {user._id && (currentLogoutState || viewOnly) && !isNotesLoading &&
                         <div className='userSignIn'>
                             <Link to='/' className='userSignIn_link' onClick={() => onClickLogoutUser()}>Logout</Link>
                             {!isUpdating && <Link to='/search?page=1' className='search-songs'>Search</Link>}

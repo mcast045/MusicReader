@@ -18,6 +18,13 @@ export const countNumberOfNulls = (array, index, nullCount = 0) => {
     return nullCount
 }
 
+export const createNull = num => {
+    let array = []
+    for (let i = 1; i < num; i++)
+        array.push(null)
+    return array
+}
+
 export const getNoteColumn = (measure, columnNumber, staffNumber) => {
     const screenSize = window.screen.width
     let columnsPerStaff = 32
@@ -32,10 +39,3 @@ export const getNoteColumn = (measure, columnNumber, staffNumber) => {
 
 export const editIndex = notesArr =>
     notesArr.findIndex(note => note && note.edit === 'edit-placeholder')
-
-export const createNull = num => {
-    let array = []
-    for (let i = 1; i < num; i++)
-        array.push(null)
-    return array
-}

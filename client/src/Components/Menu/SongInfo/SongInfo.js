@@ -6,8 +6,9 @@ import { getUserSong, publishSong, redactSong } from '../../../Redux/Actions/Son
 import { useSelector, useDispatch } from 'react-redux'
 import { dateFormat } from '../../../HelperFunctions/Helpers'
 import { setAlert } from '../../../Redux/Actions/Alert'
+import { isShowLogout, isShowInfo } from '../../../Redux/Actions/Util'
 
-const SongInformation = ({ showLogout, setShowLogout, setShowInfo, showInfo }) => {
+const SongInformation = () => {
     const dispatch = useDispatch()
 
     const user = useSelector(state => state.auth.user)
@@ -15,6 +16,8 @@ const SongInformation = ({ showLogout, setShowLogout, setShowInfo, showInfo }) =
     const currentSong = useSelector(state => state.song.currentSong)
     const songLoading = useSelector(state => state.song.loading)
     const isNotesLoading = useSelector(state => state.notes.loading)
+    const currentLogoutState = useSelector(state => state.util.isShowingLogout)
+    const currentSongInfomenuState = useSelector(state => state.util.isShowingInfo)
 
     const onSongInfoChange = e => {
         dispatch(isFetchingNotes())
@@ -22,8 +25,8 @@ const SongInformation = ({ showLogout, setShowLogout, setShowInfo, showInfo }) =
     }
 
     const onClickEdit = () => {
-        setShowInfo(!showInfo)
-        setShowLogout(!showLogout)
+        dispatch(isShowInfo(!currentSongInfomenuState))
+        dispatch(isShowLogout(!currentLogoutState))
     }
 
     const onClickPublish = () => {
@@ -40,7 +43,7 @@ const SongInformation = ({ showLogout, setShowLogout, setShowInfo, showInfo }) =
         <Fragment>
             {user._id && songLoading && songs.length > 0 ? <Loader /> :
                 <Fragment>
-                    {showInfo && currentSong &&
+                    {currentSongInfomenuState && currentSong &&
                         <div>
                             {songs.length > 0 &&
                                 <select defaultValue='none' onChange={e => onSongInfoChange(e)} className='songInfo_dropdown'>

@@ -7,13 +7,14 @@ import { useSelector, useDispatch } from 'react-redux'
 import { showModal } from '../../../Redux/Actions/Modal'
 import { deleteLastNote } from '../../../Redux/Actions/Notes'
 
-const StaveBtn = ({ showLogout, setShowLogout, showInfo, setShowInfo }) => {
+const StaveBtn = () => {
 
     const dispatch = useDispatch()
     const notes = useSelector(state => state.notes.notes)
     const isNotesLoading = useSelector(state => state.notes.loading)
     const currentSong = useSelector(state => state.song.currentSong)
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
+    const currentSongInfoMenuState = useSelector(state => state.util.isShowingInfo)
 
     const clearSheet = () => {
         if (isAuthenticated)
@@ -30,14 +31,16 @@ const StaveBtn = ({ showLogout, setShowLogout, showInfo, setShowInfo }) => {
         dispatch(deleteLastNote(notesUpdate))
     }
 
+    console.log(currentSongInfoMenuState)
+
     return (
         <Fragment>
-            {currentSong && <SongInfo showLogout={showLogout} setShowLogout={setShowLogout} showInfo={showInfo} setShowInfo={setShowInfo} />}
+            {currentSong && <SongInfo />}
             <div className='btn-sheets'>
-                {!showInfo &&
+                {!currentSongInfoMenuState &&
                     <Fragment>
                         {!isAuthenticated && <NonAuthBtn clearSheet={clearSheet} removeLastNote={removeLastNote} />}
-                        {isAuthenticated && !isNotesLoading && <AuthBtn clearSheet={clearSheet} removeLastNote={removeLastNote} showLogout={showLogout} setShowLogout={setShowLogout} showInfo={showInfo} setShowInfo={setShowInfo} />}
+                        {isAuthenticated && !isNotesLoading && <AuthBtn clearSheet={clearSheet} removeLastNote={removeLastNote} />}
                     </Fragment>
                 }
             </div>

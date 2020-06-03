@@ -5,30 +5,33 @@ import StaffBtn from './SheetBtn/btn'
 import Notes from './Notes/Notes'
 import Rest from './Notes/RestNotes'
 import NewSong from './NewSong/NewSong'
-import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux'
 
-const Menu = ({ showInfo, setShowInfo, showLogout, setShowLogout, newSongClickState, setNewSongClickState, isShowingMenu, setIsShowingMenu }) => {
+const Menu = () => {
 
     const user = useSelector(state => state.auth.user)
+    const currentMenuState = useSelector(state => state.util.isShowingMenu)
+    const currentNewSongMenuState = useSelector(state => state.util.newSongClickState)
+    const currentSongInfoMenuState = useSelector(state => state.util.isShowingInfo)
 
     return (
         <div>
-            {isShowingMenu ?
+            {currentMenuState ?
                 <div className='menu-notes'>
-                    {user._id && <NewSong showLogout={showLogout} setShowLogout={setShowLogout} showInfo={showInfo} setShowInfo={setShowInfo} setNewSongClickState={setNewSongClickState} newSongClickState={newSongClickState} />}
-                    {!newSongClickState &&
+                    {user._id && <NewSong />}
+                    {!currentNewSongMenuState &&
                         <Fragment>
-                            <StaffBtn showLogout={showLogout} setShowLogout={setShowLogout} setShowInfo={setShowInfo} showInfo={showInfo} />
-                            {!showInfo &&
+                            <StaffBtn />
+                            {!currentSongInfoMenuState &&
                                 <Fragment>
-                                    <Notes showLogout={showLogout} setShowLogout={setShowLogout} />
-                                    <Rest showLogout={showLogout} setShowLogout={setShowLogout} />
+                                    <Notes />
+                                    <Rest />
                                 </Fragment>
                             }
                         </Fragment>
                     }
                 </div> :
-                <Edit showLogout={showLogout} setShowLogout={setShowLogout} isShowingMenu={isShowingMenu} setIsShowingMenu={setIsShowingMenu} />
+                <Edit />
             }
         </div>
     );

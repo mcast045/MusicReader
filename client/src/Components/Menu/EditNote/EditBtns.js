@@ -1,18 +1,22 @@
 import React from 'react'
 import Accidental from './Accidental'
 import { useSelector, useDispatch } from 'react-redux'
-import { deleteAnyNote, replaceNote, insertNote } from '../../../Redux/Actions/Notes'
+import { deleteAnyNote, replaceNote, insertNote, makeChord } from '../../../Redux/Actions/Notes'
 import { allNotes } from '../../../HelperFunctions/UpdateNoteLetter'
 import { isRestNote, countNumberOfNulls, editIndex } from '../../../HelperFunctions/Helpers'
 import { moveNoteBetween, moveNoteDown, moveNoteUp, findLetterIdx } from '../../../HelperFunctions/MoveNote'
+import { WHOLE_NOTE, HALF_NOTE, QUARTER_NOTE, EIGHTH_NOTE } from '../../../HelperFunctions/SourceCodeEncodings'
+import { isShowingMenu, isShowLogout } from '../../../Redux/Actions/Util'
 
-const EditBtns = ({ showLogout, setShowLogout, isShowingMenu, setIsShowingMenu }) => {
+const EditBtns = () => {
 
     const dispatch = useDispatch()
     const notes = useSelector(state => state.notes.notes)
     const key = useSelector(state => state.song.keySignature)
     const isReplacing = useSelector(state => state.notes.isReplacing)
     const isInserting = useSelector(state => state.notes.isInserting)
+    const currentMenuState = useSelector(state => state.util.isShowingMenu)
+    const currentLogoutState = useSelector(state => state.util.isShowingLogout)
 
     //If button has already been clicked for specific note
     //the button will be disabled to prevent the key(letter) from changing incorrectly
@@ -27,9 +31,25 @@ const EditBtns = ({ showLogout, setShowLogout, isShowingMenu, setIsShowingMenu }
         let idx = editIndex(notes)
         copy.splice(idx, countNumberOfNulls(copy, idx, 1))
         dispatch(deleteAnyNote(copy))
-        setIsShowingMenu(!isShowingMenu)
-        setShowLogout(!showLogout)
+        dispatch(isShowingMenu(!currentMenuState))
+        dispatch(isShowLogout(!currentLogoutState))
     }
+
+    // const addNoteToChord = (notes, currentNoteObj, newNoteEntity, type, letter, row) => {
+    //     let updateChord = { ...currentNoteObj, chordNote: [{ notePath: newNoteEntity, type, letter, row, draggable: false, transform: 'no-translate', accidental: null }] }
+    //     dispatch(makeChord(notes, updateChord))
+    // }
+
+    // const onClickAddNote = (notes) => {
+    //     let currentNote = notes[editIndex(notes)]
+
+    //     if (currentNote.notePath === WHOLE_NOTE) {
+    //         if (key.id < 0)
+    //             addNoteToChord(notes, currentNote, WHOLE_NOTE, 'Whole', 'F', 1)
+    //         else if (key.id > 0)
+    //             addNoteToChord(notes, currentNote, WHOLE_NOTE, 'Whole', 'F#', 1)
+    //     }
+    // }
 
     return (
         <div className='confirm-edit-btn'>

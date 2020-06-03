@@ -4,8 +4,9 @@ import { finishUpdatingNote } from '../../../Redux/Actions/Notes'
 import { addToSongArray, replaceNoteInSong, insertNoteInSong } from '../../../HelperFunctions/NoteManipulation'
 import { createNull } from '../../../HelperFunctions/Helpers'
 import { WHOLE_REST_NOTE, HALF_REST_NOTE, QUARTER_REST_NOTE, EIGHTH_REST_NOTE } from '../../../HelperFunctions/SourceCodeEncodings'
+import { isShowingMenu, isShowLogout } from '../../../Redux/Actions/Util'
 
-const RestNotes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu }) => {
+const RestNotes = () => {
 
     const dispatch = useDispatch()
 
@@ -13,6 +14,8 @@ const RestNotes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu 
     const isReplacing = useSelector(state => state.notes.isReplacing)
     const isInserting = useSelector(state => state.notes.isInserting)
     const isUpdating = useSelector(state => state.notes.isUpdating)
+    const currentMenuState = useSelector(state => state.util.isShowingMenu)
+    const currentLogoutState = useSelector(state => state.util.isShowingLogout)
 
     const onClickWholeRestNote = () => {
         let nullArray = createNull(8)
@@ -21,15 +24,15 @@ const RestNotes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu 
         if (isReplacing) {
             replaceNoteInSong(notes, WHOLE_REST_NOTE, 'WholeRest', nullArray)
             dispatch(finishUpdatingNote())
-            setIsShowingMenu(!isShowingMenu)
-            setShowLogout(!showLogout)
+            dispatch(isShowingMenu(currentMenuState))
+            dispatch(isShowLogout(!currentLogoutState))
         }
 
         if (isInserting) {
             insertNoteInSong(notes, WHOLE_REST_NOTE, 'WholeRest', nullArray)
             dispatch(finishUpdatingNote())
-            setIsShowingMenu(!isShowingMenu)
-            setShowLogout(!showLogout)
+            dispatch(isShowingMenu(currentMenuState))
+            dispatch(isShowLogout(!currentLogoutState))
         }
     }
     const onClickDottedWholeRestNote = () => {
@@ -39,15 +42,15 @@ const RestNotes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu 
         if (isReplacing) {
             replaceNoteInSong(notes, WHOLE_REST_NOTE, 'Dotted-WholeRest', nullArray)
             dispatch(finishUpdatingNote())
-            setIsShowingMenu(!isShowingMenu)
-            setShowLogout(!showLogout)
+            dispatch(isShowingMenu(currentMenuState))
+            dispatch(isShowLogout(!currentLogoutState))
         }
 
         if (isInserting) {
             insertNoteInSong(notes, WHOLE_REST_NOTE, 'Dotted-WholeRest', nullArray)
             dispatch(finishUpdatingNote())
-            setIsShowingMenu(!isShowingMenu)
-            setShowLogout(!showLogout)
+            dispatch(isShowingMenu(currentMenuState))
+            dispatch(isShowLogout(!currentLogoutState))
         }
     }
 
@@ -60,15 +63,15 @@ const RestNotes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu 
         if (isReplacing) {
             replaceNoteInSong(notes, HALF_REST_NOTE, 'HalfRest', nullArray)
             dispatch(finishUpdatingNote())
-            setIsShowingMenu(!isShowingMenu)
-            setShowLogout(!showLogout)
+            dispatch(isShowingMenu(currentMenuState))
+            dispatch(isShowLogout(!currentLogoutState))
         }
 
         if (isInserting) {
             insertNoteInSong(notes, HALF_REST_NOTE, 'HalfRest', nullArray)
             dispatch(finishUpdatingNote())
-            setIsShowingMenu(!isShowingMenu)
-            setShowLogout(!showLogout)
+            dispatch(isShowingMenu(currentMenuState))
+            dispatch(isShowLogout(!currentLogoutState))
         }
     }
 
@@ -79,15 +82,15 @@ const RestNotes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu 
         if (isReplacing) {
             replaceNoteInSong(notes, HALF_REST_NOTE, 'Dotted-HalfRest', nullArray)
             dispatch(finishUpdatingNote())
-            setIsShowingMenu(!isShowingMenu)
-            setShowLogout(!showLogout)
+            dispatch(isShowingMenu(currentMenuState))
+            dispatch(isShowLogout(!currentLogoutState))
         }
 
         if (isInserting) {
             insertNoteInSong(notes, HALF_REST_NOTE, 'Dotted-HalfRest', nullArray)
             dispatch(finishUpdatingNote())
-            setIsShowingMenu(!isShowingMenu)
-            setShowLogout(!showLogout)
+            dispatch(isShowingMenu(currentMenuState))
+            dispatch(isShowLogout(!currentLogoutState))
         }
     }
 
@@ -98,15 +101,15 @@ const RestNotes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu 
         if (isReplacing) {
             replaceNoteInSong(notes, QUARTER_REST_NOTE, 'QuarterRest', nullArray)
             dispatch(finishUpdatingNote())
-            setIsShowingMenu(!isShowingMenu)
-            setShowLogout(!showLogout)
+            dispatch(isShowingMenu(currentMenuState))
+            dispatch(isShowLogout(!currentLogoutState))
         }
 
         if (isInserting) {
             insertNoteInSong(notes, QUARTER_REST_NOTE, 'QuarterRest', nullArray)
             dispatch(finishUpdatingNote())
-            setIsShowingMenu(!isShowingMenu)
-            setShowLogout(!showLogout)
+            dispatch(isShowingMenu(currentMenuState))
+            dispatch(isShowLogout(!currentLogoutState))
         }
     }
 
@@ -117,15 +120,15 @@ const RestNotes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu 
         if (isReplacing) {
             replaceNoteInSong(notes, QUARTER_REST_NOTE, 'Dotted-QuarterRest', nullArray)
             dispatch(finishUpdatingNote())
-            setIsShowingMenu(!isShowingMenu)
-            setShowLogout(!showLogout)
+            dispatch(isShowingMenu(currentMenuState))
+            dispatch(isShowLogout(!currentLogoutState))
         }
 
         if (isInserting) {
             insertNoteInSong(notes, QUARTER_REST_NOTE, 'Dotted-QuarterRest', nullArray)
             dispatch(finishUpdatingNote())
-            setIsShowingMenu(!isShowingMenu)
-            setShowLogout(!showLogout)
+            dispatch(isShowingMenu(currentMenuState))
+            dispatch(isShowLogout(!currentLogoutState))
         }
     }
 
@@ -135,15 +138,15 @@ const RestNotes = ({ showLogout, setShowLogout, setIsShowingMenu, isShowingMenu 
         if (isReplacing) {
             replaceNoteInSong(notes, EIGHTH_REST_NOTE, 'EighthRest')
             dispatch(finishUpdatingNote())
-            setIsShowingMenu(!isShowingMenu)
-            setShowLogout(!showLogout)
+            dispatch(isShowingMenu(currentMenuState))
+            dispatch(isShowLogout(!currentLogoutState))
         }
 
         if (isInserting) {
             insertNoteInSong(notes, EIGHTH_REST_NOTE, 'EighthRest')
             dispatch(finishUpdatingNote())
-            setIsShowingMenu(!isShowingMenu)
-            setShowLogout(!showLogout)
+            dispatch(isShowingMenu(currentMenuState))
+            dispatch(isShowLogout(!currentLogoutState))
         }
     }
 

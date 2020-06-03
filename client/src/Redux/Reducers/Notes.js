@@ -37,6 +37,12 @@ export default function (state = initialState, action) {
                 ...state,
                 loading: false
             }
+        case MAKE_CHORD:
+            return {
+                ...state,
+                notes: payload,
+                loading: false,
+            }
         case ADD_NOTE:
         case DELETE_LAST_NOTE:
         case DELETE_ANY_NOTE:

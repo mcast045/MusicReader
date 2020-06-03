@@ -36,6 +36,7 @@ export const GET_PUBLISHED_SONG = 'GET_PUBLISHED_SONG'
 
 export const SAVE_NOTES = 'SAVE_NOTES'
 export const GET_NOTES = 'GET_NOTES'
+export const MAKE_CHORD = 'MAKE_CHORD'
 
 export const FILTER_SONGS = 'FILTER_SONGS'
 export const DELETE_SONG = 'DELETE_SONG'
@@ -47,3 +48,9 @@ export const REMOVE_ALERT = 'REMOVE_ALERT'
 
 export const FLIP_CARD = 'FLIP_CARD'
 export const END_LOAD = 'END_LOAD'
+
+
+export const SHOW_MENU = 'SHOW_MENU'
+export const SHOW_NEW_SONG_MENU = 'SHOW_NEW_SONG_MENU'
+export const SHOW_LOGOUT = 'SHOW_LOGOUT'
+export const SHOW_SONG_INFO = 'SHOW_SONG_INFO'
