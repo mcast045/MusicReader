@@ -153,36 +153,3 @@ const Staff = ({ viewOnly, bars, staffLines, eighthNotes, numberOfStaves }) => {
 }
 
 export default Staff;
-
-
-// {notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].chordNote[editIndex(notes)] && rowNumber === notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].chordNote[editIndex(notes)].row &&
-//         <button
-//             draggable={!viewOnly && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].draggable}
-//             id={`note-btn-${getNoteColumn(measure, columnsPerMeasure, numberOfStaves)}`}
-//             disabled={isUpdating}
-//             className={`${!viewOnly ? 'note-temp-item-btn' : 'note-temp-item-img'}  ${notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].transform} ${notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].edit}`}
-//             style={notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && { display: 'block' }}
-//             onClick={() => assignEdit(getNoteColumn(measure, columnsPerMeasure, numberOfStaves))}>
-
-//             <div
-//                 alt='Note'
-//                 draggable='false'
-//                 className={`note-staff-image font-4 ${notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].type}`}
-//                 style={notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && { display: 'block' }}>
-
-//                 <span className='note-staff-image-accidental font-2'>{notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].accidental}</span>
-//                 {notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].notePath}
-//                 {(notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].type === 'Dotted-WholeRest' || notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].type === 'Dotted-HalfRest' || notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].type === 'Dotted-QuarterRest') && <span className='rest-dotted'>.</span>}
-//             </div>
-//         </button>
-// }
-
-// {
-//     notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].chordNote && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].chordNote.map((note, i) => (
-//         <Fragment>
-//             <span className='note-staff-image-accidental font-2'>{notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].chordNote[i].accidental}</span>
-//             {notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].notePath}
-//             {(notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].type === 'Dotted-WholeRest' || notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].type === 'Dotted-HalfRest' || notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].type === 'Dotted-QuarterRest') && <span className='rest-dotted'>.</span>}
-//         </Fragment>
-//     ))
-// }

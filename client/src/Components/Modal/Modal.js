@@ -37,18 +37,20 @@ const Modal = ({ setNumOfSheets }) => {
 
     return (
         <Fragment>
-            <div className='modal' style={{ display: isShowModal ? 'block' : 'none' }}>
-                <div className='modal-container'>
-                    <div className='modal-content-container font-2 center'>
-                        <header className='font-3'>Warning</header>
-                        <p>You can <span>not</span> undo this action.</p>
-                        <div className='modal-content-btn'>
-                            <button className='btn modal-btn' onClick={() => onClickOK()}>OK</button>
-                            <button className='btn modal-btn' onClick={() => onClickCancel()}>Cancel</button>
+            {isShowModal &&
+                <div className='modal'>
+                    <div className='modal-container'>
+                        <div className='modal-content-container font-2 center'>
+                            <header className='font-3'>Warning</header>
+                            <p>You can <span>not</span> undo this action.</p>
+                            <div className='modal-content-btn'>
+                                <button className='btn modal-btn' onClick={() => onClickOK()}>OK</button>
+                                <button className='btn modal-btn' onClick={() => onClickCancel()}>Cancel</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            }
         </Fragment >
     );
 }

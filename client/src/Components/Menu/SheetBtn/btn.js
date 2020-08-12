@@ -31,8 +31,6 @@ const StaveBtn = () => {
         dispatch(deleteLastNote(notesUpdate))
     }
 
-    console.log(currentSongInfoMenuState)
-
     return (
         <Fragment>
             {currentSong && <SongInfo />}

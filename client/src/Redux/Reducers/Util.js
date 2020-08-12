@@ -18,7 +18,6 @@ export default function (state = initialState, action) {
 
     switch (type) {
         case SHOW_MENU:
-            console.log('redux: ' + payload)
             return {
                 ...state,
                 isShowingMenu: payload

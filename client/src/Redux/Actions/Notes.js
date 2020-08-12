@@ -52,6 +52,16 @@ export const saveNotes = (notes, songId, isSaveBtn) => async dispatch => {
     }
 }
 
+export const makeChord = (notes, note) => async dispatch => {
+    try {
+        notes[editIndex(notes)] = note
+        dispatch({ type: MAKE_CHORD, payload: notes })
+    }
+    catch (err) {
+        dispatch(setAlert('Unable To Add Note', 'danger'))
+    }
+}
+
 export const isFetchingNotes = () => ({ type: IS_FETCHING_NOTES })
 export const addNote = note => ({ type: ADD_NOTE, payload: note })
 export const updateNote = note => ({ type: UPDATE_NOTE, payload: note })

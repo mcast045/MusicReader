@@ -61,7 +61,7 @@ const Sheet = ({ match, viewOnly }) => {
                         <div id='mask'></div>
 
                         <Staff viewOnly={viewOnly} numberOfStaves={numberOfStaves} bars={bars} staffLines={staffLines} eighthNotes={eighthNotes} />
-                        <Tab screenSize={screenSize} numberOfStaves={numberOfStaves} eighthNotes={eighthNotes} bars={bars} tabLines={tabLines} />
+                        <Tab screenSize={screenSize} numberOfStaves={numberOfStaves} bars={bars} tabLines={tabLines} eighthNotes={eighthNotes} />
                     </div>
                 </div>
             ))}

@@ -149,7 +149,7 @@ const Accidental = () => {
 
             <div className='note-container'>
                 <h3 className='note-label'>Natural</h3>
-                <button onClick={e => accidentalNote(e)} disabled={notes[editIndex(notes)] && (notes[editIndex(notes)].accidental === NATURAL_NOTE || notes[editIndex(notes)].accidental === null)}>
+                <button onClick={e => accidentalNote(e)} disabled={notes[editIndex(notes)] && (notes[editIndex(notes)].accidental === NATURAL_NOTE)}>
                     <span id='Natural' className='note-menu-image' title='Shortcut: Press 2'>&#9838;</span>
                 </button>
             </div>
