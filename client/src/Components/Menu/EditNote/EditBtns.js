@@ -3,7 +3,7 @@ import Accidental from './Accidental'
 import { useSelector, useDispatch } from 'react-redux'
 import { deleteAnyNote, replaceNote, insertNote, updateNote, makeChord } from '../../../Redux/Actions/Notes'
 import { allNotes } from '../../../HelperFunctions/UpdateNoteLetter'
-import { isRestNote, countNumberOfNulls, editIndex } from '../../../HelperFunctions/Helpers'
+import { isRestNote, countNumberOfNulls, editIndex, getDifferentTabPosition } from '../../../HelperFunctions/Helpers'
 import { moveNoteBetween, moveNoteDown, moveNoteUp } from '../../../HelperFunctions/MoveNote'
 import { WHOLE_NOTE, HALF_NOTE, QUARTER_NOTE, EIGHTH_NOTE } from '../../../HelperFunctions/SourceCodeEncodings'
 import { isShowingMenu, isShowLogout } from '../../../Redux/Actions/Util'
@@ -35,20 +35,20 @@ const EditBtns = () => {
         dispatch(isShowLogout(!currentLogoutState))
     }
 
-    const getDifferentTabPosition = () => {
-        let copy = [...notes]
-        let idx = editIndex(copy)
-        copy[idx].position < 3 ? copy[idx].position++ : copy[idx].position = 1
+    // const getDifferentTabPosition = () => {
+    //     let copy = [...notes]
+    //     let idx = editIndex(copy)
+    //     copy[idx].position < 3 ? copy[idx].position++ : copy[idx].position = 1
 
-        //Move position to 1 or 2 if only 2 tab positions are possible
-        if (((copy[idx].row === 2 || copy[idx].row === 3) && (copy[idx].letter === 'B' || copy[idx].letter === 'C' || copy[idx].letter === 'C#')) || (copy[idx].row === 9 && (copy[idx].letter === 'C' || copy[idx].letter === 'C#')) || (copy[idx].row === 10 && copy[idx].letter !== 'G#') || (copy[idx].row === 11 && (copy[idx].letter === 'A#' || copy[idx].letter === 'A')))
-            copy[idx].position === 2 ? copy[idx].position = 2 : copy[idx].position = 1
-        //Do not change position if only 1 tab position is possible
-        else if (copy[idx].row === 1 || copy[idx].row === 12 || (copy[idx].row === 2 && (copy[idx].letter === 'D' || copy[idx].letter === 'D#' || copy[idx].letter === 'E')) || (copy[idx].row === 10 && copy[idx].letter === 'G#') || (copy[idx].row === 11 && (copy[idx].letter !== 'A' || copy[idx].letter !== 'A#')))
-            copy[idx].position = 1
+    //     //Move position to 1 or 2 if only 2 tab positions are possible
+    //     if (((copy[idx].row === 2 || copy[idx].row === 3) && (copy[idx].letter === 'B' || copy[idx].letter === 'C' || copy[idx].letter === 'C#')) || (copy[idx].row === 9 && (copy[idx].letter === 'C' || copy[idx].letter === 'C#')) || (copy[idx].row === 10 && copy[idx].letter !== 'G#') || (copy[idx].row === 11 && (copy[idx].letter === 'A#' || copy[idx].letter === 'A')))
+    //         copy[idx].position === 2 ? copy[idx].position = 2 : copy[idx].position = 1
+    //     //Do not change position if only 1 tab position is possible
+    //     else if (copy[idx].row === 1 || copy[idx].row === 12 || (copy[idx].row === 2 && (copy[idx].letter === 'D' || copy[idx].letter === 'D#' || copy[idx].letter === 'E')) || (copy[idx].row === 10 && copy[idx].letter === 'G#') || (copy[idx].row === 11 && (copy[idx].letter !== 'A' || copy[idx].letter !== 'A#')))
+    //         copy[idx].position = 1
 
-        dispatch(updateNote(copy))
-    }
+    //     dispatch(updateNote(copy))
+    // }
 
     // const addNoteToChord = (notes, currentNoteObj, newNoteEntity, type, letter, row) => {
     //     let updateChord = { ...currentNoteObj, chordNote: [{ notePath: newNoteEntity, type, letter, row, draggable: false, transform: 'no-translate', accidental: null }] }
@@ -89,11 +89,13 @@ const EditBtns = () => {
                 </div>
             }
 
-            <div className='confirm-edit-btn-col'>
-                <button className='btn' onClick={() => getDifferentTabPosition()}>
-                    Move Tab
-                </button>
-            </div>
+            {!isRestNote(editIndex(notes), null, notes) &&
+                <div className='confirm-edit-btn-col'>
+                    <button className='btn' onClick={() => getDifferentTabPosition(notes)}>
+                        <span title='Shortcut: Press T'>Move Tab</span>
+                    </button>
+                </div>
+            }
 
             {/* <div className='confirm-edit-btn-col'>
                 <button className='btn' onClick={() => onClickAddNote(notes)}>Add Note</button>

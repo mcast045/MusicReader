@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux'
 import { updateNoteLetter, allNotes } from '../../../HelperFunctions/UpdateNoteLetter'
-import { isRestNote, editIndex } from '../../../HelperFunctions/Helpers'
+import { isRestNote, editIndex, getDifferentTabPosition } from '../../../HelperFunctions/Helpers'
 import { SHARP_NOTE, NATURAL_NOTE, FLAT_NOTE } from '../../../HelperFunctions/SourceCodeEncodings'
 import { findLetterIdx, moveNoteBetween, moveNoteDown, moveNoteUp } from '../../../HelperFunctions/MoveNote'
 
@@ -99,25 +99,27 @@ const Accidental = () => {
         }
     }
 
-    const useKey = (kbKey, isMovingUp) => {
+    const useKey = (kbKey, keyFunction) => {
         const isKeyMatch = e =>
             kbKey.toLowerCase() === e.key.toLowerCase()
 
         useEffect(() => {
             const onDown = e => {
                 if (isKeyMatch(e)) {
-                    if (isMovingUp === 'Sharp' && notes[editIndex(notes)].accidental !== SHARP_NOTE)
+                    if (keyFunction === 'Sharp' && notes[editIndex(notes)].accidental !== SHARP_NOTE)
                         accidentalNote(e, 'Sharp')
-                    else if (isMovingUp === 'Flat' && notes[editIndex(notes)].accidental !== FLAT_NOTE)
+                    else if (keyFunction === 'Flat' && notes[editIndex(notes)].accidental !== FLAT_NOTE)
                         accidentalNote(e, 'Flat')
-                    else if (isMovingUp === 'Natural' && notes[editIndex(notes)].accidental !== NATURAL_NOTE)
+                    else if (keyFunction === 'Natural' && notes[editIndex(notes)].accidental !== NATURAL_NOTE)
                         accidentalNote(e, 'Natural')
-                    else if (isMovingUp === 'Up')
+                    else if (keyFunction === 'Up')
                         moveNoteUp(notes, key)
-                    else if (isMovingUp === 'Down')
+                    else if (keyFunction === 'Down')
                         moveNoteDown(notes, key)
-                    else if (isMovingUp === 'Between')
+                    else if (keyFunction === 'Between')
                         moveNoteBetween(notes, key)
+                    else if (keyFunction === 'tabChange')
+                        getDifferentTabPosition(notes)
                 }
             }
 
@@ -125,7 +127,7 @@ const Accidental = () => {
                 window.addEventListener('keydown', onDown)
                 return () => { window.removeEventListener('keydown', onDown) }
             }
-        }, [kbKey, isMovingUp, isKeyMatch])
+        }, [kbKey, keyFunction, isKeyMatch])
     }
 
     useKey('1', 'Sharp')
@@ -135,6 +137,8 @@ const Accidental = () => {
     useKey('q', 'Up')
     useKey('z', 'Down')
     useKey('a', 'Between')
+
+    useKey('t', 'tabChange')
 
     return (
         <div className='row-container-col-mod'>

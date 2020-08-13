@@ -9,10 +9,6 @@ const Tab = ({ bars, tabLines, eighthNotes, numberOfStaves }) => {
 
     const notes = useSelector(state => state.notes.notes)
 
-    const tabOnClick = () => {
-        console.log('asdf')
-    }
-
     return (
         <div className='tab-music-container'>
             {bars.map(measure => (

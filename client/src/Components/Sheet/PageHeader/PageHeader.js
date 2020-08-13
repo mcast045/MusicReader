@@ -45,7 +45,7 @@ const SheetHeader = ({ setNumOfSheets, viewOnly }) => {
                             {viewOnly && <Link to='/' onClick={() => dispatch(clearAll())} className='search-songs'>Home</Link>}
                         </div>
                     }
-                    {user._id && (currentLogoutState || viewOnly) && !isNotesLoading &&
+                    {user._id && (currentLogoutState || viewOnly) &&
                         <div className='userSignIn'>
                             <Link to='/' className='userSignIn_link' onClick={() => onClickLogoutUser()}>Logout</Link>
                             {!isUpdating && <Link to='/search?page=1' className='search-songs'>Search</Link>}

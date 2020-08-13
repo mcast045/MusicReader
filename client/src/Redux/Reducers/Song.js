@@ -71,7 +71,7 @@ export default function (state = initialState, action) {
                 keySignature: { id: 1, value: 'C-major/A-minor' },
                 songs: state.songs.filter(song => song._id !== payload),
                 currentSong:
-                    state.songs.length > 0 ?
+                    state.songs.length > 1 ?
                         state.songs[state.songs.findIndex(song => (song._id === payload) - 1)] :
                         {},
                 loading: false
