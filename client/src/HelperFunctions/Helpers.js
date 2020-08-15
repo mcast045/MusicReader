@@ -47,14 +47,14 @@ export const editIndex = notesArr =>
 export const getDifferentTabPosition = notes => {
     let copy = [...notes]
     let idx = editIndex(copy)
-    copy[idx].position < 3 ? copy[idx].position++ : copy[idx].position = 1
+    copy[idx].tabPosition < 3 ? copy[idx].tabPosition++ : copy[idx].tabPosition = 1
 
     //Move position to 1 or 2 if only 2 tab positions are possible
     if (((copy[idx].row === 2 || copy[idx].row === 3) && (copy[idx].letter === 'B' || copy[idx].letter === 'C' || copy[idx].letter === 'C#')) || (copy[idx].row === 9 && (copy[idx].letter === 'C' || copy[idx].letter === 'C#')) || (copy[idx].row === 10 && copy[idx].letter !== 'G#') || (copy[idx].row === 11 && (copy[idx].letter === 'A#' || copy[idx].letter === 'A')))
-        copy[idx].position === 2 ? copy[idx].position = 2 : copy[idx].position = 1
+        copy[idx].tabPosition === 2 ? copy[idx].tabPosition = 2 : copy[idx].tabPosition = 1
     //Do not change position if only 1 tab position is possible
     else if (copy[idx].row === 1 || copy[idx].row === 12 || (copy[idx].row === 2 && (copy[idx].letter === 'D' || copy[idx].letter === 'D#' || copy[idx].letter === 'E')) || (copy[idx].row === 10 && copy[idx].letter === 'G#') || (copy[idx].row === 11 && (copy[idx].letter !== 'A' || copy[idx].letter !== 'A#')))
-        copy[idx].position = 1
+        copy[idx].tabPosition = 1
 
     store.dispatch(updateNote(copy))
 }

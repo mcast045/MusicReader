@@ -3,11 +3,9 @@ const bodyParser = require('body-parser')
 const User = require('./models/userModel')
 const sessionsImport = require('./middleware/Session')
 const path = require('path')
+const connectDB = require('./config/db')
 
 const app = express()
-
-//DB file
-const connectDB = require('./config/db')
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());

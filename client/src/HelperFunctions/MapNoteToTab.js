@@ -1,5 +1,5 @@
 export const tabValue = (tabLine, noteIdx, notes) => {
-    if (notes[noteIdx] && notes[noteIdx].position === 1) {
+    if (notes[noteIdx] && notes[noteIdx].tabPosition === 1) {
         if (notes[noteIdx].row === 1) {
             if (notes[noteIdx].letter === 'F#') return tabLine === 1 ? '14' : ''
             else if (notes[noteIdx].letter === 'F') return tabLine === 1 ? '13' : ''
@@ -89,7 +89,7 @@ export const tabValue = (tabLine, noteIdx, notes) => {
 
 
 
-    else if (notes[noteIdx] && notes[noteIdx].position === 2) {
+    else if (notes[noteIdx] && notes[noteIdx].tabPosition === 2) {
         if (notes[noteIdx].row === 1) {
             if (notes[noteIdx].letter === 'F#') return tabLine === 1 ? '14' : ''
             else if (notes[noteIdx].letter === 'F') return tabLine === 1 ? '13' : ''
@@ -178,7 +178,7 @@ export const tabValue = (tabLine, noteIdx, notes) => {
     }
 
 
-    else if (notes[noteIdx] && notes[noteIdx].position === 3) {
+    else if (notes[noteIdx] && notes[noteIdx].tabPosition === 3) {
         if (notes[noteIdx].row === 1) {
             if (notes[noteIdx].letter === 'F#') return tabLine === 1 ? '14' : ''
             else if (notes[noteIdx].letter === 'F') return tabLine === 1 ? '13' : ''

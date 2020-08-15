@@ -22,7 +22,7 @@ const notesSchema = new Schema({
             accidental: {
                 type: String
             },
-            position: {
+            tabPosition: {
                 type: Number
             },
             row: {
