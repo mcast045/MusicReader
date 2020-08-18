@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'axios'
 import { setAlert } from './Alert'
 import { clearAll } from './Song'
 import {
@@ -91,7 +91,7 @@ export const deleteUser = () => async dispatch => {
         dispatch(setAlert('Account Removed', 'success'))
     }
     catch (err) {
-        dispatch({ type: DELETE_ACCOUNT_ERROR, payload: { msg: err.response.statusText, status: err.response.status } });
+        dispatch({ type: DELETE_ACCOUNT_ERROR, payload: { msg: err.response.statusText, status: err.response.status } })
     }
 }
 
@@ -107,7 +107,7 @@ export const loadUser = userId => async dispatch => {
     }
     catch (err) {
         dispatch(setAlert('Error Loading User', 'danger'))
-        dispatch({ type: LOAD_ERROR, payload: { msg: 'Error Loading User' } });
+        dispatch({ type: LOAD_ERROR, payload: { msg: 'Error Loading User' } })
     }
 }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import GIF from './loader.gif'
 import './Loader.css'
 
@@ -7,7 +7,7 @@ const Loader = () => {
         <div className='loader-container'>
             <img src={GIF} alt='Loading...' className='loader' />
         </div>
-    );
+    )
 }
 
-export default Loader;
+export default Loader

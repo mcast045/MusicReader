@@ -52,7 +52,7 @@ const Modal = ({ setNumOfSheets }) => {
                 </div>
             }
         </Fragment >
-    );
+    )
 }
 
-export default Modal;
+export default Modal

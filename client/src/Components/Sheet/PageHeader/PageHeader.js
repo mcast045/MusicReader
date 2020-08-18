@@ -55,7 +55,7 @@ const SheetHeader = ({ setNumOfSheets, viewOnly }) => {
                 </div>
             }
         </Fragment>
-    );
+    )
 }
 
-export default SheetHeader;
+export default SheetHeader

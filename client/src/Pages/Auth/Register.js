@@ -61,7 +61,7 @@ const Register = () => {
                 <object data={RegisterSvg} type="image/svg+xml">Music Image</object>
             </div>
         </div>
-    );
+    )
 }
 
-export default Register;
+export default Register

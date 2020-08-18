@@ -39,7 +39,7 @@ const AuthBtn = ({ removeLastNote, clearSheet }) => {
             <button className='btn clearBtn' disabled={isUpdating} onClick={() => clearSheet()}>Delete Song</button>
             <button className='btn' onClick={() => onClickDeleteAccount()}>Delete Account</button>
         </Fragment>
-    );
+    )
 }
 
-export default AuthBtn;
+export default AuthBtn

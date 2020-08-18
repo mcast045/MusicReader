@@ -8,8 +8,8 @@ export const dateFormat = date => {
     return `${mo} ${da}, ${ye}`
 }
 
-export const isRestNote = (idx, type, notes) => {
-    if (idx > -1) return notes[idx].type.slice(notes[idx].type.length - 4) === 'Rest'
+export const isRestNote = (column, type, notes) => {
+    if (column > -1) return notes[column] && notes[column][0].type.slice(notes[column][0].type.length - 4) === 'Rest'
     else if (type) return type.slice(type.length - 4, type.length) === 'Rest'
 }
 
@@ -44,17 +44,18 @@ export const editIndex = notesArr =>
     notesArr.findIndex(note => note && note.edit === 'edit-placeholder')
 
 
-export const getDifferentTabPosition = notes => {
-    let copy = [...notes]
-    let idx = editIndex(copy)
-    copy[idx].tabPosition < 3 ? copy[idx].tabPosition++ : copy[idx].tabPosition = 1
+export const getDifferentTabPosition = (notes, editColumn) => {
+    const copy = [...notes]
+    const notetoUpdate = copy[editColumn][editIndex(notes[editColumn])]
+
+    notetoUpdate.tabPosition < 3 ? notetoUpdate.tabPosition++ : notetoUpdate.tabPosition = 1
 
     //Move position to 1 or 2 if only 2 tab positions are possible
-    if (((copy[idx].row === 2 || copy[idx].row === 3) && (copy[idx].letter === 'B' || copy[idx].letter === 'C' || copy[idx].letter === 'C#')) || (copy[idx].row === 9 && (copy[idx].letter === 'C' || copy[idx].letter === 'C#')) || (copy[idx].row === 10 && copy[idx].letter !== 'G#') || (copy[idx].row === 11 && (copy[idx].letter === 'A#' || copy[idx].letter === 'A')))
-        copy[idx].tabPosition === 2 ? copy[idx].tabPosition = 2 : copy[idx].tabPosition = 1
+    if (((notetoUpdate.row === 2 || notetoUpdate.row === 3) && (notetoUpdate.letter === 'B' || notetoUpdate.letter === 'C' || notetoUpdate.letter === 'C#')) || (notetoUpdate.row === 9 && (notetoUpdate.letter === 'C' || notetoUpdate.letter === 'C#')) || (notetoUpdate.row === 10 && notetoUpdate.letter !== 'G#') || (notetoUpdate.row === 11 && (notetoUpdate.letter === 'A#' || notetoUpdate.letter === 'A')))
+        notetoUpdate.tabPosition === 2 ? notetoUpdate.tabPosition = 2 : notetoUpdate.tabPosition = 1
     //Do not change position if only 1 tab position is possible
-    else if (copy[idx].row === 1 || copy[idx].row === 12 || (copy[idx].row === 2 && (copy[idx].letter === 'D' || copy[idx].letter === 'D#' || copy[idx].letter === 'E')) || (copy[idx].row === 10 && copy[idx].letter === 'G#') || (copy[idx].row === 11 && (copy[idx].letter !== 'A' || copy[idx].letter !== 'A#')))
-        copy[idx].tabPosition = 1
+    else if (notetoUpdate.row === 1 || notetoUpdate.row === 12 || (notetoUpdate.row === 2 && (notetoUpdate.letter === 'D' || notetoUpdate.letter === 'D#' || notetoUpdate.letter === 'E')) || (notetoUpdate.row === 10 && notetoUpdate.letter === 'G#') || (notetoUpdate.row === 11 && (notetoUpdate.letter !== 'A' || notetoUpdate.letter !== 'A#')))
+        notetoUpdate.tabPosition = 1
 
     store.dispatch(updateNote(copy))
 }

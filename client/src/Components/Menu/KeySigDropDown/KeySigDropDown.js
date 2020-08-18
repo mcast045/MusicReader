@@ -46,7 +46,7 @@ const KeySigDropDown = ({ setNewSongInfo, newSongInfo }) => {
                 <option value='Dflat-major/Bflat-minor'>D&#9837;-major/B&#9837;-minor</option>
             </select>
         </div>
-    );
+    )
 }
 
-export default KeySigDropDown;
+export default KeySigDropDown

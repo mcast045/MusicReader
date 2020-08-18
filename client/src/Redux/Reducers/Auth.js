@@ -21,11 +21,11 @@ const initialState = {
     isDeleteUser: false,
     card: true,
     errors: []
-};
+}
 
 export default function (state = initialState, action) {
 
-    const { type, payload } = action;
+    const { type, payload } = action
 
     switch (type) {
         case LOGIN_USER:
@@ -77,6 +77,6 @@ export default function (state = initialState, action) {
                 card: payload
             }
         default:
-            return state;
+            return state
     }
 }

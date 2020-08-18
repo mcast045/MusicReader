@@ -8,6 +8,7 @@ import { getNoteColumn } from '../../../HelperFunctions/Helpers'
 const Tab = ({ bars, tabLines, eighthNotes, numberOfStaves }) => {
 
     const notes = useSelector(state => state.notes.notes)
+    const isUpdating = useSelector(state => state.notes.isUpdating)
 
     return (
         <div className='tab-music-container'>
@@ -17,19 +18,21 @@ const Tab = ({ bars, tabLines, eighthNotes, numberOfStaves }) => {
                         <li key={rowNumber} className={`tab-row-${rowNumber}`}>
                             {eighthNotes.map(columnsPerMeasure => (
                                 <input type='text'
+                                    key={columnsPerMeasure}
                                     name={`tab-input-${getNoteColumn(measure, columnsPerMeasure, numberOfStaves)}`}
                                     className='tabLine-input center'
                                     readOnly
-                                    key={columnsPerMeasure}
-                                    value={tabValue(rowNumber, getNoteColumn(measure, columnsPerMeasure, numberOfStaves), notes)} >
+                                    // Or statement prevents 'changing an uncontrolled input of type text to be controlled'
+                                    value={(notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].map(tab => (
+                                        tabValue(rowNumber, tab))).join('')) || ''}>
                                 </input>
                             ))}
                         </li>
                     ))}
                 </ul>
             ))}
-        </div >
+        </div>
     )
 }
 
-export default Tab;
+export default Tab

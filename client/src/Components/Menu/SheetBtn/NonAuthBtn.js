@@ -11,7 +11,7 @@ const NonAuthBtn = ({ removeLastNote, clearSheet, }) => {
             <button className='btn' disabled={isUpdating} onClick={() => removeLastNote()}>Delete Last Note</button>
             <button className='btn clearBtn' disabled={isUpdating} onClick={() => clearSheet()}>Clear All</button>
         </Fragment>
-    );
+    )
 }
 
-export default NonAuthBtn;
+export default NonAuthBtn

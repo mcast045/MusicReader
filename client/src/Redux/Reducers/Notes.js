@@ -10,20 +10,21 @@ import {
     FINISH_UPDATE_NOTE,
     CLEAR_NOTES,
     IS_FETCHING_NOTES,
-    MAKE_CHORD
+    EDIT_COLUMN
 } from '../Constants'
 
 const initialState = {
     notes: [],
+    editColumnNumber: -1,
     loading: true,
     isReplacing: false,
     isInserting: false,
     isUpdating: false
-};
+}
 
 export default function (state = initialState, action) {
 
-    const { type, payload } = action;
+    const { type, payload } = action
 
     switch (type) {
         case GET_NOTES:
@@ -36,12 +37,6 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 loading: false
-            }
-        case MAKE_CHORD:
-            return {
-                ...state,
-                notes: payload,
-                loading: false,
             }
         case ADD_NOTE:
         case DELETE_LAST_NOTE:
@@ -82,9 +77,14 @@ export default function (state = initialState, action) {
                 ...state,
                 isReplacing: false,
                 isInserting: false,
-                showModal: false,
                 loading: false,
                 isUpdating: false
+            }
+        case EDIT_COLUMN:
+            return {
+                ...state,
+                editColumnNumber: payload,
+                loading: false
             }
         case CLEAR_NOTES:
         case IS_FETCHING_NOTES:
@@ -94,6 +94,6 @@ export default function (state = initialState, action) {
                 notes: []
             }
         default:
-            return state;
+            return state
     }
 }

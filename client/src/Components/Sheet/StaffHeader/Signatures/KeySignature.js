@@ -90,7 +90,7 @@ const KeySignature = () => {
                         <span className='flat1 font-3'>&#9837;</span>
                     </div>))}
         </Fragment>
-    );
+    )
 }
 
-export default KeySignature;
+export default KeySignature

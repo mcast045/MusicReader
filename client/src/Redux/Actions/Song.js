@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'axios'
 import { setAlert } from './Alert'
 import { saveNotes } from './Notes'
 import {

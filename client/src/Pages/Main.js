@@ -29,7 +29,7 @@ const Main = () => {
                 <Sheet />
             </div>
         </div>
-    );
+    )
 }
 
-export default Main;
+export default Main

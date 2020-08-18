@@ -1,6 +1,6 @@
-import React from 'react';
-import './App.css';
-import { Switch, Route } from 'react-router-dom';
+import React from 'react'
+import './App.css'
+import { Switch, Route } from 'react-router-dom'
 import Main from './Pages/Main'
 import Auth from './Pages/Auth/Auth'
 import Search from './Pages/Search/Search'
@@ -17,7 +17,7 @@ function App() {
         <Route path='/:id' render={(props) => <Staff {...props} viewOnly={true} />} />
       </Switch>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

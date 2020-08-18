@@ -65,7 +65,7 @@ const Search = props => {
                 </div>
             }
         </div>
-    );
+    )
 }
 
-export default Search;
+export default Search

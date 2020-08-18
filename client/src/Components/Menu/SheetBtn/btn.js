@@ -24,8 +24,8 @@ const StaveBtn = () => {
     }
 
     const removeLastNote = () => {
-        let notesUpdate = [...notes]
-        let idx = notesUpdate.reverse().findIndex(note => note && note.notePath)
+        const notesUpdate = [...notes]
+        const idx = notesUpdate.reverse().map(note => note && note.length > 0).findIndex(note => note)
         notesUpdate.splice(0, idx + 1)
         notesUpdate.reverse()
         dispatch(deleteLastNote(notesUpdate))
@@ -43,7 +43,7 @@ const StaveBtn = () => {
                 }
             </div>
         </Fragment>
-    );
+    )
 }
 
-export default StaveBtn;
+export default StaveBtn

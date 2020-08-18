@@ -52,7 +52,7 @@ const SearchMenu = ({ query }) => {
 
             <Pagination query={query} QUERY_PAGE_RESET={QUERY_PAGE_RESET} />
         </div>
-    );
+    )
 }
 
-export default SearchMenu;
+export default SearchMenu

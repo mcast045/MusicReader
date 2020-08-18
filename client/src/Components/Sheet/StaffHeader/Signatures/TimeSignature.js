@@ -37,7 +37,7 @@ const TimeSignature = ({ numberOfStaves }) => {
                 </div>
             }
         </Fragment>
-    );
+    )
 }
 
-export default TimeSignature;
+export default TimeSignature

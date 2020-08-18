@@ -89,7 +89,7 @@ const SongInformation = () => {
                 </Fragment>
             }
         </Fragment >
-    );
+    )
 }
 
-export default SongInformation;
+export default SongInformation

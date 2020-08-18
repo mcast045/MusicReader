@@ -22,7 +22,7 @@ const Cleftab = ({ numberOfStaves }) => {
                 </div>
             </div>
         </Fragment>
-    );
+    )
 }
 
-export default Cleftab;
+export default Cleftab

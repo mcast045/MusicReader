@@ -24,7 +24,7 @@ const Auth = () => {
                 </div>
             </div>
         </Fragment>
-    );
+    )
 }
 
-export default Auth;
+export default Auth

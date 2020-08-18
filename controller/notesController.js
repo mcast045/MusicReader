@@ -20,6 +20,8 @@ exports.postNotes = async (req, res, next) => {
                 notes: songNotes
             })
             const note = await newNote.save()
+
+            console.log(note.notes)
             res.json(note)
         }
     }

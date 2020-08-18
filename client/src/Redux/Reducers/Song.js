@@ -24,11 +24,11 @@ const initialState = {
     keySignature: { id: 1, value: 'C-major/A-minor' },
     staffLineNumber: [{ beats: '4', bar: '4' }],
     loading: true
-};
+}
 
 export default function (state = initialState, action) {
 
-    const { type, payload } = action;
+    const { type, payload } = action
     switch (type) {
         case GET_USER_SONG:
         case PUBLISH_SONG:
@@ -119,6 +119,6 @@ export default function (state = initialState, action) {
                 loading: false
             }
         default:
-            return state;
+            return state
     }
 }

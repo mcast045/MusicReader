@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react'
 import './Staff.css'
 import '../../../Pages/Sheet/Sheet.css'
-import { useSelector, useDispatch } from 'react-redux';
-import { updateNote, getUserNotes } from '../../../Redux/Actions/Notes';
+import { useSelector, useDispatch } from 'react-redux'
+import { updateNote, getUserNotes, currentEditColumn } from '../../../Redux/Actions/Notes'
 import { updateNoteLetter } from '../../../HelperFunctions/UpdateNoteLetter'
 import { getNoteColumn, isRestNote, editIndex } from '../../../HelperFunctions/Helpers'
 import { isShowingMenu, isShowLogout } from '../../../Redux/Actions/Util'
@@ -13,13 +13,14 @@ const Staff = ({ viewOnly, bars, staffLines, eighthNotes, numberOfStaves }) => {
 
     const notes = useSelector(state => state.notes.notes)
     const isUpdating = useSelector(state => state.notes.isUpdating)
+    const editColumn = useSelector(state => state.notes.editColumnNumber)
     const key = useSelector(state => state.song.keySignature)
     const currentSong = useSelector(state => state.song.currentSong)
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
     const currentMenuState = useSelector(state => state.util.isShowingMenu)
     const currentLogoutState = useSelector(state => state.util.isShowingLogout)
 
-    const isMounted = useRef(false);
+    const isMounted = useRef(false)
 
     //Load currentSong notes when user changes song
     //Without isMounted, mounting error when adding notes to new staff lines
@@ -32,18 +33,20 @@ const Staff = ({ viewOnly, bars, staffLines, eighthNotes, numberOfStaves }) => {
     }, [isAuthenticated, currentSong, dispatch, viewOnly])
 
     //Assigns an edit key to the note object
-    const assignEdit = i => {
+    const assignEdit = (column, i) => {
         if (!viewOnly) {
-            let copy = [...notes]
+            const noteToUpdate = [...notes[column]]
+
+            if (isRestNote(column, noteToUpdate.type, notes)) noteToUpdate[i] = { ...noteToUpdate[i], edit: 'edit-placeholder', draggable: false }
+            else noteToUpdate[i] = { ...noteToUpdate[i], edit: 'edit-placeholder', draggable: true }
+
+            //Update only 1 note in the chord
+            notes[column] = [...noteToUpdate]
+
             dispatch(isShowingMenu(!currentMenuState))
             dispatch(isShowLogout(!currentLogoutState))
-
-            if (isRestNote(i, notes[i].type, notes))
-                copy[i] = { ...copy[i], edit: 'edit-placeholder', draggable: false }
-            else
-                copy[i] = { ...copy[i], edit: 'edit-placeholder', draggable: true }
-
-            dispatch(updateNote(copy))
+            dispatch(currentEditColumn(column))
+            dispatch(updateNote(notes))
         }
     }
 
@@ -58,16 +61,21 @@ const Staff = ({ viewOnly, bars, staffLines, eighthNotes, numberOfStaves }) => {
     }
 
     const isCurrentColumn = (j, l, i) => {
-        let idx = editIndex(notes)
-        if (notes[idx] && !isRestNote(idx, notes[idx].type, notes))
-            return (getNoteColumn(j, l, i) === idx)
+        if (notes[editColumn] && !isRestNote(editColumn, notes[editColumn].type, notes))
+            return (getNoteColumn(j, l, i) === editColumn)
     }
 
     const showLedgerLines = (measure, column, staff, rowNumber) => {
-        if (notes[getNoteColumn(measure, column, staff)].row < 5)
-            return rowNumber < 4 ? { borderBottom: '1px solid black' } : null
-        else if (notes[getNoteColumn(measure, column, staff)].row > 8)
-            return (rowNumber > 8 && rowNumber !== 12) ? { borderBottom: '1px solid black' } : null
+        let topLedgerLines = false
+        let bottomLedgerLines = false
+        notes[getNoteColumn(measure, column, staff)].findIndex(note => {
+            if (note.row < 5 && !topLedgerLines) topLedgerLines = true
+            else if (note.row > 8 && !bottomLedgerLines) bottomLedgerLines = true
+        })
+
+        if (topLedgerLines && bottomLedgerLines) return rowNumber < 4 || (rowNumber > 8 && rowNumber !== 12) ? { borderBottom: '1px solid black' } : null
+        else if (bottomLedgerLines) return (rowNumber > 8 && rowNumber !== 12) ? { borderBottom: '1px solid black' } : null
+        else if (topLedgerLines) return rowNumber < 4 ? { borderBottom: '1px solid black' } : null
     }
 
     const hideLedgerLinesOnLoad = rowNumber => {
@@ -86,6 +94,7 @@ const Staff = ({ viewOnly, bars, staffLines, eighthNotes, numberOfStaves }) => {
                                     className='note-temp-container'
                                     key={columnsPerMeasure}
                                     style={isCurrentColumn(measure, columnsPerMeasure, numberOfStaves) && (rowNumber !== 12 && (rowNumber < 4 || rowNumber > 8)) ? { borderBottom: '1px solid black' } : notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && showLedgerLines(measure, columnsPerMeasure, numberOfStaves, rowNumber)}>
+
                                     <div
                                         id={`note-container-${getNoteColumn(measure, columnsPerMeasure, numberOfStaves)}`}
                                         className='drag-container-space'
@@ -93,63 +102,40 @@ const Staff = ({ viewOnly, bars, staffLines, eighthNotes, numberOfStaves }) => {
                                         onDragOver={e => allowDrop(e)}
                                         style={notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && { display: 'block' }}>
 
-                                        {notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && rowNumber === notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].row &&
-                                            <button
-                                                draggable={!viewOnly && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].draggable}
-                                                id={`note-btn-${getNoteColumn(measure, columnsPerMeasure, numberOfStaves)}`}
-                                                disabled={isUpdating}
-                                                className={`${!viewOnly ? 'note-temp-item-btn' : 'note-temp-item-img'}  ${notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].transform} ${notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].edit}`}
-                                                style={notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && { display: 'block' }}
-                                                onClick={() => assignEdit(getNoteColumn(measure, columnsPerMeasure, numberOfStaves))}>
+                                        {notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].map((chordNote, i) => (
+                                            <div key={i}>
+                                                {rowNumber === chordNote.row &&
+                                                    <button
+                                                        draggable={!viewOnly && chordNote.draggable}
+                                                        id={`note-btn-${getNoteColumn(measure, columnsPerMeasure, numberOfStaves)}-${i}`}
+                                                        disabled={(editColumn > -1 && notes[editColumn][editIndex(notes[editColumn])].edit)}
+                                                        className={`${!viewOnly ? 'note-temp-item-btn' : 'note-temp-item-img'}  ${chordNote.transform} ${chordNote.edit}`}
+                                                        style={chordNote && { display: 'block' }}
+                                                        onClick={() => assignEdit(getNoteColumn(measure, columnsPerMeasure, numberOfStaves), i)}>
 
-                                                <div
-                                                    alt='Note'
-                                                    draggable='false'
-                                                    className={`note-staff-image font-4 ${notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].type}`}
-                                                    style={notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && { display: 'block' }}>
+                                                        <div
+                                                            alt='Note'
+                                                            draggable='false'
+                                                            className={`note-staff-image font-4 ${chordNote.type}`}
+                                                            style={chordNote && { display: 'block' }}>
 
-                                                    <span className='note-staff-image-accidental font-2'>{notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].accidental}</span>
-                                                    {notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].notePath}
-                                                    {(notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].type === 'Dotted-WholeRest' || notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].type === 'Dotted-HalfRest' || notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].type === 'Dotted-QuarterRest') && <span className='rest-dotted'>.</span>}
-                                                </div>
-                                            </button>}
+                                                            <span className='note-staff-image-accidental font-2'>{chordNote.accidental}</span>
+                                                            {chordNote.notePath}
+                                                            {(chordNote.type === 'Dotted-WholeRest' || chordNote.type === 'Dotted-HalfRest' || chordNote.type === 'Dotted-QuarterRest') && <span className='rest-dotted dot'>.</span>}
+                                                        </div>
 
-
-                                        {/* {notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] &&
-                                            notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].chordNote &&
-                                            notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].chordNote[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] &&
-                                            rowNumber === notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].chordNote[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].row &&
-
-                                            <button
-                                                draggable={!viewOnly && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].chordNote && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].chordNote[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].draggable}
-                                                id={`note-btn-${getNoteColumn(measure, columnsPerMeasure, numberOfStaves)}`}
-                                                disabled={isUpdating}
-                                                className={`${!viewOnly ? 'note-temp-item-btn' : 'note-temp-item-img'}  ${notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].chordNote && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].chordNote[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].transform} ${notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].chordNote && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].chordNote[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].edit}`}
-                                                style={notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].chordNote && { display: 'block' }}
-                                                onClick={() => assignEdit(getNoteColumn(measure, columnsPerMeasure, numberOfStaves))}>
-
-                                                <div
-                                                    alt='Note'
-                                                    draggable='false'
-                                                    className={`note-staff-image font-4 ${notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].type}`}
-                                                    style={notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].chordNote && { display: 'block' }}>
-
-                                                    <span className='note-staff-image-accidental font-2'>{notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].accidental}</span>
-                                                    {notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].notePath}
-                                                    {(notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].type === 'Dotted-WholeRest' || notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].type === 'Dotted-HalfRest' || notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].type === 'Dotted-QuarterRest') && <span className='rest-dotted'>.</span>}
-                                                </div>
-                                            </button>} */}
-
+                                                    </button>}
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
                             ))}
                         </li>
                     ))}
                 </ul>
-            ))
-            }
-        </div >
-    );
+            ))}
+        </div>
+    )
 }
 
-export default Staff;
+export default Staff

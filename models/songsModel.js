@@ -38,8 +38,8 @@ module.exports = mongoose.model('Song', songSchema)
 
 // class Song {
 //     constructor(title, description, tempo, notes, id) {
-//         this.title = title;
-//         this.description = description;
+//         this.title = title
+//         this.description = description
 //         this.tempo = tempo
 //         this.notes = notes
 //         this._id = id ? new mongodb.ObjectId(id) : null

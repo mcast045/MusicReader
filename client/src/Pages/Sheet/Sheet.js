@@ -12,6 +12,7 @@ const Sheet = ({ match, viewOnly }) => {
 
     const dispatch = useDispatch()
     const notes = useSelector(state => state.notes.notes)
+    const keySignature = useSelector(state => state.song.keySignature)
     const staffLineNumber = useSelector(state => state.song.staffLineNumber)
     let screenSize = window.screen.width
 
@@ -21,6 +22,10 @@ const Sheet = ({ match, viewOnly }) => {
     const tabLines = [1, 2, 3, 4, 5, 6]
     let bars = [1, 2, 3, 4]
     let columnsPerStaff = 32
+
+    //Prevent low end 'D#' note, which has no tab
+    if (keySignature.id < -1)
+        staffLines.pop()
 
     if (screenSize < 800) {
         bars = [1]
@@ -41,7 +46,7 @@ const Sheet = ({ match, viewOnly }) => {
             copyNumOfSheets.pop()
             setNumOfSheets(copyNumOfSheets)
         }
-    }, [notes, numOfSheets])
+    }, [notes, numOfSheets, columnsPerStaff])
 
     //If refreshing or going back into '/search/:id', load song
     useEffect(() => {
@@ -68,7 +73,7 @@ const Sheet = ({ match, viewOnly }) => {
 
             <Modal setNumOfSheets={setNumOfSheets} />
         </Fragment >
-    );
+    )
 }
 
-export default Sheet;
+export default Sheet

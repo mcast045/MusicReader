@@ -12,7 +12,7 @@ const Alert = () => {
                 {alert.msg}
             </div>
         ))
-    );
+    )
 }
 
-export default Alert;
+export default Alert

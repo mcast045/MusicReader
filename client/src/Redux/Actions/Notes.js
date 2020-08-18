@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { editIndex } from '../../HelperFunctions/Helpers'
 import { setAlert } from './Alert'
 import {
     GET_NOTES,
@@ -12,7 +11,7 @@ import {
     INSERT_NOTE,
     FINISH_UPDATE_NOTE,
     IS_FETCHING_NOTES,
-    MAKE_CHORD
+    EDIT_COLUMN
 } from '../Constants'
 
 export const getUserNotes = songId => async dispatch => {
@@ -22,6 +21,12 @@ export const getUserNotes = songId => async dispatch => {
         let notes = []
         if (res.data[0])
             notes = res.data[0].notes
+
+        //Replace [null] with null
+        for (let i = 0; i < notes.length; i++) {
+            if (!notes[i][0])
+                notes[i] = notes[i][0]
+        }
 
         dispatch({ type: GET_NOTES, payload: notes })
     }
@@ -52,16 +57,6 @@ export const saveNotes = (notes, songId, isSaveBtn) => async dispatch => {
     }
 }
 
-export const makeChord = (notes, note) => async dispatch => {
-    try {
-        notes[editIndex(notes)] = note
-        dispatch({ type: MAKE_CHORD, payload: notes })
-    }
-    catch (err) {
-        dispatch(setAlert('Unable To Add Note', 'danger'))
-    }
-}
-
 export const isFetchingNotes = () => ({ type: IS_FETCHING_NOTES })
 export const addNote = note => ({ type: ADD_NOTE, payload: note })
 export const updateNote = note => ({ type: UPDATE_NOTE, payload: note })
@@ -70,3 +65,4 @@ export const insertNote = note => ({ type: INSERT_NOTE, payload: note })
 export const finishUpdatingNote = () => ({ type: FINISH_UPDATE_NOTE })
 export const deleteLastNote = note => ({ type: DELETE_LAST_NOTE, payload: note })
 export const deleteAnyNote = note => ({ type: DELETE_ANY_NOTE, payload: note })
+export const currentEditColumn = columnNumber => ({ type: EDIT_COLUMN, payload: columnNumber })

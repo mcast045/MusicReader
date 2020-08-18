@@ -98,7 +98,7 @@ const NewSongMenu = () => {
                 }
             </div>
         </Fragment>
-    );
+    )
 }
 
-export default NewSongMenu;
+export default NewSongMenu

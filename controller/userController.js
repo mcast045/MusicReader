@@ -51,8 +51,8 @@ exports.registerUser = async (req, res, next) => {
             })
 
             const user = await newUser.save()
-            req.session.isLoggedIn = true;
-            req.session.user = user;
+            req.session.isLoggedIn = true
+            req.session.user = user
             res.json(user)
         }
         else if (existingUser)
@@ -81,8 +81,8 @@ exports.loginUser = async (req, res, next) => {
             return res.status(400).json({ errors: [{ msg: 'Invalid Credentials' }] })
 
         else if (isMatch) {
-            req.session.isLoggedIn = true;
-            req.session.user = user;
+            req.session.isLoggedIn = true
+            req.session.user = user
             res.json(user)
         }
     }
@@ -93,7 +93,7 @@ exports.loginUser = async (req, res, next) => {
 }
 
 exports.logoutUser = (req, res, next) => {
-    req.session.destroy();
+    req.session.destroy()
 }
 
 exports.deleteUser = async (req, res, next) => {
@@ -101,7 +101,7 @@ exports.deleteUser = async (req, res, next) => {
         await Note.deleteMany({ userId: req.session.user._id })
         await Song.deleteMany({ userId: req.session.user._id })
         await User.findByIdAndRemove(req.session.user._id)
-        req.session.destroy();
+        req.session.destroy()
 
         res.json({ msg: 'User deleted' })
     }

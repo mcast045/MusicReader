@@ -14,42 +14,43 @@ const RestNotes = () => {
     const isReplacing = useSelector(state => state.notes.isReplacing)
     const isInserting = useSelector(state => state.notes.isInserting)
     const isUpdating = useSelector(state => state.notes.isUpdating)
+    const editColumn = useSelector(state => state.notes.editColumnNumber)
     const currentMenuState = useSelector(state => state.util.isShowingMenu)
     const currentLogoutState = useSelector(state => state.util.isShowingLogout)
 
     const onClickWholeRestNote = () => {
-        let nullArray = createNull(8)
+        const nullArray = createNull(8)
         addToSongArray(notes, WHOLE_REST_NOTE, 'WholeRest', null, 6, nullArray)
 
         if (isReplacing) {
-            replaceNoteInSong(notes, WHOLE_REST_NOTE, 'WholeRest', nullArray)
+            replaceNoteInSong(notes, WHOLE_REST_NOTE, 'WholeRest', editColumn, nullArray)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenu(currentMenuState))
+            dispatch(isShowingMenu(!currentMenuState))
             dispatch(isShowLogout(!currentLogoutState))
         }
 
         if (isInserting) {
-            insertNoteInSong(notes, WHOLE_REST_NOTE, 'WholeRest', nullArray)
+            insertNoteInSong(notes, WHOLE_REST_NOTE, 'WholeRest', editColumn, nullArray)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenu(currentMenuState))
+            dispatch(isShowingMenu(!currentMenuState))
             dispatch(isShowLogout(!currentLogoutState))
         }
     }
     const onClickDottedWholeRestNote = () => {
-        let nullArray = createNull(12)
+        const nullArray = createNull(12)
         addToSongArray(notes, WHOLE_REST_NOTE, 'Dotted-WholeRest', null, 6, nullArray)
 
         if (isReplacing) {
-            replaceNoteInSong(notes, WHOLE_REST_NOTE, 'Dotted-WholeRest', nullArray)
+            replaceNoteInSong(notes, WHOLE_REST_NOTE, 'Dotted-WholeRest', editColumn, nullArray)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenu(currentMenuState))
+            dispatch(isShowingMenu(!currentMenuState))
             dispatch(isShowLogout(!currentLogoutState))
         }
 
         if (isInserting) {
-            insertNoteInSong(notes, WHOLE_REST_NOTE, 'Dotted-WholeRest', nullArray)
+            insertNoteInSong(notes, WHOLE_REST_NOTE, 'Dotted-WholeRest', editColumn, nullArray)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenu(currentMenuState))
+            dispatch(isShowingMenu(!currentMenuState))
             dispatch(isShowLogout(!currentLogoutState))
         }
     }
@@ -57,77 +58,77 @@ const RestNotes = () => {
 
 
     const onClickHalfRestNote = () => {
-        let nullArray = createNull(4)
+        const nullArray = createNull(4)
         addToSongArray(notes, HALF_REST_NOTE, 'HalfRest', null, 6, nullArray)
 
         if (isReplacing) {
-            replaceNoteInSong(notes, HALF_REST_NOTE, 'HalfRest', nullArray)
+            replaceNoteInSong(notes, HALF_REST_NOTE, 'HalfRest', editColumn, nullArray)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenu(currentMenuState))
+            dispatch(isShowingMenu(!currentMenuState))
             dispatch(isShowLogout(!currentLogoutState))
         }
 
         if (isInserting) {
-            insertNoteInSong(notes, HALF_REST_NOTE, 'HalfRest', nullArray)
+            insertNoteInSong(notes, HALF_REST_NOTE, 'HalfRest', editColumn, nullArray)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenu(currentMenuState))
+            dispatch(isShowingMenu(!currentMenuState))
             dispatch(isShowLogout(!currentLogoutState))
         }
     }
 
     const onClickDottedeHalfRestNote = () => {
-        let nullArray = createNull(6)
+        const nullArray = createNull(6)
         addToSongArray(notes, HALF_REST_NOTE, 'Dotted-HalfRest', null, 6, nullArray)
 
         if (isReplacing) {
-            replaceNoteInSong(notes, HALF_REST_NOTE, 'Dotted-HalfRest', nullArray)
+            replaceNoteInSong(notes, HALF_REST_NOTE, 'Dotted-HalfRest', editColumn, nullArray)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenu(currentMenuState))
+            dispatch(isShowingMenu(!currentMenuState))
             dispatch(isShowLogout(!currentLogoutState))
         }
 
         if (isInserting) {
-            insertNoteInSong(notes, HALF_REST_NOTE, 'Dotted-HalfRest', nullArray)
+            insertNoteInSong(notes, HALF_REST_NOTE, 'Dotted-HalfRest', editColumn, nullArray)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenu(currentMenuState))
+            dispatch(isShowingMenu(!currentMenuState))
             dispatch(isShowLogout(!currentLogoutState))
         }
     }
 
     const onClickQuarterRestNote = () => {
-        let nullArray = createNull(2)
+        const nullArray = createNull(2)
         addToSongArray(notes, QUARTER_REST_NOTE, 'QuarterRest', null, 6, nullArray)
 
         if (isReplacing) {
-            replaceNoteInSong(notes, QUARTER_REST_NOTE, 'QuarterRest', nullArray)
+            replaceNoteInSong(notes, QUARTER_REST_NOTE, 'QuarterRest', editColumn, nullArray)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenu(currentMenuState))
+            dispatch(isShowingMenu(!currentMenuState))
             dispatch(isShowLogout(!currentLogoutState))
         }
 
         if (isInserting) {
-            insertNoteInSong(notes, QUARTER_REST_NOTE, 'QuarterRest', nullArray)
+            insertNoteInSong(notes, QUARTER_REST_NOTE, 'QuarterRest', editColumn, nullArray)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenu(currentMenuState))
+            dispatch(isShowingMenu(!currentMenuState))
             dispatch(isShowLogout(!currentLogoutState))
         }
     }
 
     const onClickDottedQuarterRestNote = () => {
-        let nullArray = createNull(3)
+        const nullArray = createNull(3)
         addToSongArray(notes, QUARTER_REST_NOTE, 'Dotted-QuarterRest', null, 6, nullArray)
 
         if (isReplacing) {
-            replaceNoteInSong(notes, QUARTER_REST_NOTE, 'Dotted-QuarterRest', nullArray)
+            replaceNoteInSong(notes, QUARTER_REST_NOTE, 'Dotted-QuarterRest', editColumn, nullArray)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenu(currentMenuState))
+            dispatch(isShowingMenu(!currentMenuState))
             dispatch(isShowLogout(!currentLogoutState))
         }
 
         if (isInserting) {
-            insertNoteInSong(notes, QUARTER_REST_NOTE, 'Dotted-QuarterRest', nullArray)
+            insertNoteInSong(notes, QUARTER_REST_NOTE, 'Dotted-QuarterRest', editColumn, nullArray)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenu(currentMenuState))
+            dispatch(isShowingMenu(!currentMenuState))
             dispatch(isShowLogout(!currentLogoutState))
         }
     }
@@ -136,16 +137,16 @@ const RestNotes = () => {
         addToSongArray(notes, EIGHTH_REST_NOTE, 'EighthRest', null, 6)
 
         if (isReplacing) {
-            replaceNoteInSong(notes, EIGHTH_REST_NOTE, 'EighthRest')
+            replaceNoteInSong(notes, EIGHTH_REST_NOTE, 'EighthRest', editColumn)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenu(currentMenuState))
+            dispatch(isShowingMenu(!currentMenuState))
             dispatch(isShowLogout(!currentLogoutState))
         }
 
         if (isInserting) {
-            insertNoteInSong(notes, EIGHTH_REST_NOTE, 'EighthRest')
+            insertNoteInSong(notes, EIGHTH_REST_NOTE, 'EighthRest', editColumn)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenu(currentMenuState))
+            dispatch(isShowingMenu(!currentMenuState))
             dispatch(isShowLogout(!currentLogoutState))
         }
     }
@@ -210,7 +211,8 @@ const RestNotes = () => {
                     </div>
                 </div>
             </div>
-        </div>);
+        </div>
+    )
 }
 
-export default RestNotes;
+export default RestNotes

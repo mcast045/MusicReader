@@ -3,11 +3,11 @@ import { SHOW_MODAL, HIDE_MODAL } from '../Constants'
 const initialState = {
     showModal: false,
     loading: true
-};
+}
 
 export default function (state = initialState, action) {
 
-    const { type } = action;
+    const { type } = action
 
     switch (type) {
         case SHOW_MODAL:
@@ -23,6 +23,6 @@ export default function (state = initialState, action) {
                 showModal: false
             }
         default:
-            return state;
+            return state
     }
 }

@@ -1,6 +1,6 @@
 const config = require('config')
-const db = config.get('mongoURI');
-const token = config.get('sessionSecret');
+const db = config.get('mongoURI')
+const token = config.get('sessionSecret')
 const session = require('express-session')
 const MongoDBStore = require('connect-mongodb-session')(session)
 

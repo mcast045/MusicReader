@@ -1,17 +1,18 @@
 import { updateNote } from '../Redux/Actions/Notes'
 import { SHARP_NOTE, NATURAL_NOTE, FLAT_NOTE } from './SourceCodeEncodings'
 import store from '../Redux/Store'
+import { editIndex } from './Helpers'
 
 export const allNotes = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#']
 
 const updateLetterToDispatch = (noteToEditIndex, letter, row, accidental, song) => {
-    let copy = [...song]
-    copy.splice(noteToEditIndex, 1, { ...copy[noteToEditIndex], letter: letter, row: row, accidental: accidental })
+    const copy = [...song]
+    copy[noteToEditIndex][editIndex(copy[noteToEditIndex])] = { ...copy[noteToEditIndex][editIndex(copy[noteToEditIndex])], letter: letter, row: row, accidental: accidental }
     store.dispatch(updateNote(copy))
 }
 
 const transformNote = (form, noteToEditIndex, row, num, accidental, song) => {
-    if (song[noteToEditIndex].transform === form) {
+    if (song[noteToEditIndex][editIndex(song[noteToEditIndex])].transform === form) {
         let letter = allNotes[num]
         updateLetterToDispatch(noteToEditIndex, letter, row, accidental, song)
     }

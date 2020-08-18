@@ -8,10 +8,10 @@ const connectDB = require('./config/db')
 const app = express()
 
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json());
+app.use(bodyParser.json())
 
 //KEPT FOR REFERENCE
-// app.use(cors({ origin: ['http://localhost:3000'], credentials: true })); 
+// app.use(cors({ origin: ['http://localhost:3000'], credentials: true }))
 
 //DB Connection
 connectDB()
@@ -26,8 +26,8 @@ app.use(async (req, res, next) => {
 
     const user = await User.findById(req.session.user._id)
     req.user = user
-    next();
-});
+    next()
+})
 
 app.use('/songs', require('./routes/songs'))
 app.use('/notes', require('./routes/notes'))

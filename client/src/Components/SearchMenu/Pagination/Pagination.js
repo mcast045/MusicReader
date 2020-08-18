@@ -37,7 +37,7 @@ const Pagination = ({ query, QUERY_PAGE_RESET }) => {
 
             <Link className='search-menu-pagination-btn-arrow' to={`?page=${lastPage}`} >{'>'}</Link>
         </div>
-    );
+    )
 }
 
-export default Pagination;
+export default Pagination
