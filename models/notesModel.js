@@ -29,6 +29,9 @@ const notesSchema = new Schema({
                 row: {
                     type: Number
                 },
+                tabRow: {
+                    type: Number
+                }
             }
         ]
     ],

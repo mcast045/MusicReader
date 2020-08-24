@@ -2,7 +2,8 @@ import {
     SHOW_MENU,
     SHOW_NEW_SONG_MENU,
     SHOW_LOGOUT,
-    SHOW_SONG_INFO
+    SHOW_SONG_INFO,
+    SHOW_MENU_AND_LOGOUT
 } from '../Constants'
 
 const initialState = {
@@ -30,6 +31,12 @@ export default function (state = initialState, action) {
         case SHOW_LOGOUT:
             return {
                 ...state,
+                isShowingLogout: payload
+            }
+        case SHOW_MENU_AND_LOGOUT:
+            return {
+                ...state,
+                isShowingMenu: payload,
                 isShowingLogout: payload
             }
         case SHOW_SONG_INFO:

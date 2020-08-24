@@ -52,5 +52,6 @@ export const SHOW_MENU = 'SHOW_MENU'
 export const SHOW_NEW_SONG_MENU = 'SHOW_NEW_SONG_MENU'
 export const SHOW_LOGOUT = 'SHOW_LOGOUT'
 export const SHOW_SONG_INFO = 'SHOW_SONG_INFO'
+export const SHOW_MENU_AND_LOGOUT = 'SHOW_MENU_AND_LOGOUT'
 
 export const EDIT_COLUMN = 'EDIT_COLUMN'

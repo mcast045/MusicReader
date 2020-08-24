@@ -1,11 +1,11 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, Fragment } from 'react'
 import './Staff.css'
 import '../../../Pages/Sheet/Sheet.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { updateNote, getUserNotes, currentEditColumn } from '../../../Redux/Actions/Notes'
 import { updateNoteLetter } from '../../../HelperFunctions/UpdateNoteLetter'
 import { getNoteColumn, isRestNote, editIndex } from '../../../HelperFunctions/Helpers'
-import { isShowingMenu, isShowLogout } from '../../../Redux/Actions/Util'
+import { isShowingMenuAndLogout } from '../../../Redux/Actions/Util'
 
 const Staff = ({ viewOnly, bars, staffLines, eighthNotes, numberOfStaves }) => {
 
@@ -18,7 +18,6 @@ const Staff = ({ viewOnly, bars, staffLines, eighthNotes, numberOfStaves }) => {
     const currentSong = useSelector(state => state.song.currentSong)
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
     const currentMenuState = useSelector(state => state.util.isShowingMenu)
-    const currentLogoutState = useSelector(state => state.util.isShowingLogout)
 
     const isMounted = useRef(false)
 
@@ -43,8 +42,7 @@ const Staff = ({ viewOnly, bars, staffLines, eighthNotes, numberOfStaves }) => {
             //Update only 1 note in the chord
             notes[column] = [...noteToUpdate]
 
-            dispatch(isShowingMenu(!currentMenuState))
-            dispatch(isShowLogout(!currentLogoutState))
+            dispatch(isShowingMenuAndLogout(!currentMenuState))
             dispatch(currentEditColumn(column))
             dispatch(updateNote(notes))
         }
@@ -55,20 +53,23 @@ const Staff = ({ viewOnly, bars, staffLines, eighthNotes, numberOfStaves }) => {
         e.preventDefault()
 
     const drop = (e, row, noteColumn) => {
-        e.preventDefault()
-        let accidental = null
-        updateNoteLetter(row, noteColumn, accidental, notes, key)
+        //Prevent drop if note is already in row
+        if (notes[noteColumn].findIndex(note => note.row === row) === -1) {
+            e.preventDefault()
+            const accidental = null
+            updateNoteLetter(row, noteColumn, accidental, notes, key)
+        }
     }
 
-    const isCurrentColumn = (j, l, i) => {
-        if (notes[editColumn] && !isRestNote(editColumn, notes[editColumn].type, notes))
-            return (getNoteColumn(j, l, i) === editColumn)
+    const isCurrentColumn = (measure, column, staff) => {
+        if (notes[editColumn] && !isRestNote(editColumn, notes[editColumn][0].type, notes))
+            return (getNoteColumn(measure, column, staff) === editColumn)
     }
 
     const showLedgerLines = (measure, column, staff, rowNumber) => {
         let topLedgerLines = false
         let bottomLedgerLines = false
-        notes[getNoteColumn(measure, column, staff)].findIndex(note => {
+        notes[getNoteColumn(measure, column, staff)].forEach(note => {
             if (note.row < 5 && !topLedgerLines) topLedgerLines = true
             else if (note.row > 8 && !bottomLedgerLines) bottomLedgerLines = true
         })
@@ -103,7 +104,7 @@ const Staff = ({ viewOnly, bars, staffLines, eighthNotes, numberOfStaves }) => {
                                         style={notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && { display: 'block' }}>
 
                                         {notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].map((chordNote, i) => (
-                                            <div key={i}>
+                                            <Fragment key={i}>
                                                 {rowNumber === chordNote.row &&
                                                     <button
                                                         draggable={!viewOnly && chordNote.draggable}
@@ -119,13 +120,15 @@ const Staff = ({ viewOnly, bars, staffLines, eighthNotes, numberOfStaves }) => {
                                                             className={`note-staff-image font-4 ${chordNote.type}`}
                                                             style={chordNote && { display: 'block' }}>
 
-                                                            <span className='note-staff-image-accidental font-2'>{chordNote.accidental}</span>
-                                                            {chordNote.notePath}
+                                                            <div className='flex'>
+                                                                <div className='note-staff-image-accidental font-2'>{chordNote.accidental}</div>
+                                                                <div className='notePath'>{chordNote.notePath}</div>
+                                                            </div>
                                                             {(chordNote.type === 'Dotted-WholeRest' || chordNote.type === 'Dotted-HalfRest' || chordNote.type === 'Dotted-QuarterRest') && <span className='rest-dotted dot'>.</span>}
                                                         </div>
 
                                                     </button>}
-                                            </div>
+                                            </Fragment>
                                         ))}
                                     </div>
                                 </div>

@@ -6,7 +6,7 @@ import Buttons from './EditBtns'
 import { useSelector, useDispatch } from 'react-redux'
 import { finishUpdatingNote, updateNote, currentEditColumn } from '../../../Redux/Actions/Notes'
 import { editIndex } from '../../../HelperFunctions/Helpers'
-import { isShowingMenu, isShowLogout } from '../../../Redux/Actions/Util'
+import { isShowingMenuAndLogout } from '../../../Redux/Actions/Util'
 
 const EditNote = () => {
     const dispatch = useDispatch()
@@ -18,14 +18,14 @@ const EditNote = () => {
     const currentLogoutState = useSelector(state => state.util.isShowingLogout)
 
     const confirmCancel = () => {
-        let columnWithEdit = notes[editColumn][editIndex(notes[editColumn])]
+        const idx = editIndex(notes[editColumn])
+        let columnWithEdit = notes[editColumn][idx]
         delete columnWithEdit['edit']
-        columnWithEdit = { ...columnWithEdit, draggable: false }
+        notes[editColumn][idx] = { ...columnWithEdit, draggable: false }
 
         dispatch(updateNote(notes))
         dispatch(finishUpdatingNote())
-        dispatch(isShowingMenu(!currentMenuState))
-        dispatch(isShowLogout(!currentLogoutState))
+        dispatch(isShowingMenuAndLogout(!currentLogoutState))
         dispatch(currentEditColumn(-1))
     }
 

@@ -4,7 +4,7 @@ import { finishUpdatingNote } from '../../../Redux/Actions/Notes'
 import { addToSongArray, replaceNoteInSong, insertNoteInSong } from '../../../HelperFunctions/NoteManipulation'
 import { createNull } from '../../../HelperFunctions/Helpers'
 import { WHOLE_NOTE, HALF_NOTE, QUARTER_NOTE, EIGHTH_NOTE } from '../../../HelperFunctions/SourceCodeEncodings'
-import { isShowingMenu, isShowLogout } from '../../../Redux/Actions/Util'
+import { isShowingMenuAndLogout } from '../../../Redux/Actions/Util'
 
 const Notes = () => {
 
@@ -16,31 +16,28 @@ const Notes = () => {
     const isUpdating = useSelector(state => state.notes.isUpdating)
     const editColumn = useSelector(state => state.notes.editColumnNumber)
     const key = useSelector(state => state.song.keySignature)
-    const currentMenuState = useSelector(state => state.util.isShowingMenu)
     const currentLogoutState = useSelector(state => state.util.isShowingLogout)
 
     const onClickWholeNote = () => {
         const nullArray = createNull(8)
 
         if (key.id < -1)
-            addToSongArray(notes, WHOLE_NOTE, 'Whole', 'D#', 5, nullArray)
+            addToSongArray(notes, WHOLE_NOTE, 'Whole', 'D#', 5, 1, nullArray)
         else if (key.id !== 7 || key.id === -1)
-            addToSongArray(notes, WHOLE_NOTE, 'Whole', 'E', 5, nullArray)
+            addToSongArray(notes, WHOLE_NOTE, 'Whole', 'E', 5, 1, nullArray)
         else if (key.id === 7)
-            addToSongArray(notes, WHOLE_NOTE, 'Whole', 'F', 5, nullArray)
+            addToSongArray(notes, WHOLE_NOTE, 'Whole', 'F', 5, 1, nullArray)
 
         if (isReplacing) {
             replaceNoteInSong(notes, WHOLE_NOTE, 'Whole', editColumn, nullArray)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenu(!currentMenuState))
-            dispatch(isShowLogout(!currentLogoutState))
+            dispatch(isShowingMenuAndLogout(!currentLogoutState))
         }
 
         if (isInserting) {
             insertNoteInSong(notes, WHOLE_NOTE, 'Whole', editColumn, nullArray)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenu(!currentMenuState))
-            dispatch(isShowLogout(!currentLogoutState))
+            dispatch(isShowingMenuAndLogout(!currentLogoutState))
         }
     }
 
@@ -48,24 +45,22 @@ const Notes = () => {
         const nullArray = createNull(12)
 
         if (key.id < -1)
-            addToSongArray(notes, `${WHOLE_NOTE}.`, 'Dotted-Whole', 'D#', 5, nullArray)
+            addToSongArray(notes, `${WHOLE_NOTE}.`, 'Dotted-Whole', 'D#', 5, 1, nullArray)
         else if (key.id !== 7 || key.id === -1)
-            addToSongArray(notes, `${WHOLE_NOTE}.`, 'Dotted-Whole', 'E', 5, nullArray)
+            addToSongArray(notes, `${WHOLE_NOTE}.`, 'Dotted-Whole', 'E', 5, 1, nullArray)
         else if (key.id === 7)
-            addToSongArray(notes, `${WHOLE_NOTE}.`, 'Dotted-Whole', 'F', 5, nullArray)
+            addToSongArray(notes, `${WHOLE_NOTE}.`, 'Dotted-Whole', 'F', 5, 1, nullArray)
 
         if (isReplacing) {
             replaceNoteInSong(notes, `${WHOLE_NOTE}.`, 'Dotted-Whole', editColumn, nullArray)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenu(!currentMenuState))
-            dispatch(isShowLogout(!currentLogoutState))
+            dispatch(isShowingMenuAndLogout(!currentLogoutState))
         }
 
         if (isInserting) {
             insertNoteInSong(notes, `${WHOLE_NOTE}.`, 'Dotted-Whole', editColumn, nullArray)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenu(!currentMenuState))
-            dispatch(isShowLogout(!currentLogoutState))
+            dispatch(isShowingMenuAndLogout(!currentLogoutState))
         }
     }
 
@@ -75,24 +70,22 @@ const Notes = () => {
         const nullArray = createNull(4)
 
         if (key.id < -1)
-            addToSongArray(notes, HALF_NOTE, 'Half', 'D#', 5, nullArray)
+            addToSongArray(notes, HALF_NOTE, 'Half', 'D#', 5, 1, nullArray)
         else if (key.id !== 7 || key.id === -1)
-            addToSongArray(notes, HALF_NOTE, 'Half', 'E', 5, nullArray)
+            addToSongArray(notes, HALF_NOTE, 'Half', 'E', 5, 1, nullArray)
         else if (key.id === 7)
-            addToSongArray(notes, HALF_NOTE, 'Half', 'F', 5, nullArray)
+            addToSongArray(notes, HALF_NOTE, 'Half', 'F', 5, 1, nullArray)
 
         if (isReplacing) {
             replaceNoteInSong(notes, HALF_NOTE, 'Half', editColumn, nullArray)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenu(!currentMenuState))
-            dispatch(isShowLogout(!currentLogoutState))
+            dispatch(isShowingMenuAndLogout(!currentLogoutState))
         }
 
         if (isInserting) {
             insertNoteInSong(notes, HALF_NOTE, 'Half', editColumn, nullArray)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenu(!currentMenuState))
-            dispatch(isShowLogout(!currentLogoutState))
+            dispatch(isShowingMenuAndLogout(!currentLogoutState))
         }
     }
 
@@ -100,24 +93,22 @@ const Notes = () => {
         const nullArray = createNull(5)
 
         if (key.id < -1)
-            addToSongArray(notes, `${HALF_NOTE}.`, 'Dotted-Half', 'D#', 5, nullArray)
+            addToSongArray(notes, `${HALF_NOTE}.`, 'Dotted-Half', 'D#', 5, 1, nullArray)
         else if (key.id !== 7 || key.id === -1)
-            addToSongArray(notes, `${HALF_NOTE}.`, 'Dotted-Half', 'E', 5, nullArray)
+            addToSongArray(notes, `${HALF_NOTE}.`, 'Dotted-Half', 'E', 5, 1, nullArray)
         else if (key.id === 7)
-            addToSongArray(notes, `${HALF_NOTE}.`, 'Dotted-Half', 'F', 5, nullArray)
+            addToSongArray(notes, `${HALF_NOTE}.`, 'Dotted-Half', 'F', 5, 1, nullArray)
 
         if (isReplacing) {
             replaceNoteInSong(notes, `${HALF_NOTE}.`, 'Dotted-Half', editColumn, nullArray)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenu(!currentMenuState))
-            dispatch(isShowLogout(!currentLogoutState))
+            dispatch(isShowingMenuAndLogout(!currentLogoutState))
         }
 
         if (isInserting) {
             insertNoteInSong(notes, `${HALF_NOTE}.`, 'Dotted-Half', editColumn, nullArray)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenu(!currentMenuState))
-            dispatch(isShowLogout(!currentLogoutState))
+            dispatch(isShowingMenuAndLogout(!currentLogoutState))
         }
     }
 
@@ -128,24 +119,22 @@ const Notes = () => {
         const nullArray = createNull(2)
 
         if (key.id < -1)
-            addToSongArray(notes, QUARTER_NOTE, 'Quarter', 'D#', 5, nullArray)
+            addToSongArray(notes, QUARTER_NOTE, 'Quarter', 'D#', 5, 1, nullArray)
         else if (key.id !== 7 || key.id === -1)
-            addToSongArray(notes, QUARTER_NOTE, 'Quarter', 'E', 5, nullArray)
+            addToSongArray(notes, QUARTER_NOTE, 'Quarter', 'E', 5, 1, nullArray)
         else if (key.id === 7)
-            addToSongArray(notes, QUARTER_NOTE, 'Quarter', 'F', 5, nullArray)
+            addToSongArray(notes, QUARTER_NOTE, 'Quarter', 'F', 5, 1, nullArray)
 
         if (isReplacing) {
             replaceNoteInSong(notes, QUARTER_NOTE, 'Quarter', editColumn, nullArray)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenu(!currentMenuState))
-            dispatch(isShowLogout(!currentLogoutState))
+            dispatch(isShowingMenuAndLogout(!currentLogoutState))
         }
 
         if (isInserting) {
             insertNoteInSong(notes, QUARTER_NOTE, 'Quarter', editColumn, nullArray)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenu(!currentMenuState))
-            dispatch(isShowLogout(!currentLogoutState))
+            dispatch(isShowingMenuAndLogout(!currentLogoutState))
         }
     }
 
@@ -153,24 +142,22 @@ const Notes = () => {
         const nullArray = createNull(3)
 
         if (key.id < -1)
-            addToSongArray(notes, `${QUARTER_NOTE}.`, 'Dotted-Quarter', 'D#', 5, nullArray)
+            addToSongArray(notes, `${QUARTER_NOTE}.`, 'Dotted-Quarter', 'D#', 5, 1, nullArray)
         else if (key.id !== 7 || key.id === -1)
-            addToSongArray(notes, `${QUARTER_NOTE}.`, 'Dotted-Quarter', 'E', 5, nullArray)
+            addToSongArray(notes, `${QUARTER_NOTE}.`, 'Dotted-Quarter', 'E', 5, 1, nullArray)
         else if (key.id === 7)
-            addToSongArray(notes, `${QUARTER_NOTE}.`, 'Dotted-Quarter', 'F', 5, nullArray)
+            addToSongArray(notes, `${QUARTER_NOTE}.`, 'Dotted-Quarter', 'F', 5, 1, nullArray)
 
         if (isReplacing) {
             replaceNoteInSong(notes, `${QUARTER_NOTE}.`, 'Dotted-Quarter', editColumn, nullArray)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenu(!currentMenuState))
-            dispatch(isShowLogout(!currentLogoutState))
+            dispatch(isShowingMenuAndLogout(!currentLogoutState))
         }
 
         if (isInserting) {
             insertNoteInSong(notes, `${QUARTER_NOTE}.`, 'Dotted-Quarter', editColumn, nullArray)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenu(!currentMenuState))
-            dispatch(isShowLogout(!currentLogoutState))
+            dispatch(isShowingMenuAndLogout(!currentLogoutState))
         }
     }
 
@@ -178,24 +165,22 @@ const Notes = () => {
 
     const onClickEighthNote = () => {
         if (key.id < -1)
-            addToSongArray(notes, EIGHTH_NOTE, 'Eighth', 'D#', 5)
+            addToSongArray(notes, EIGHTH_NOTE, 'Eighth', 'D#', 5, 1)
         else if (key.id !== 7 || key.id === -1)
-            addToSongArray(notes, EIGHTH_NOTE, 'Eighth', 'E', 5)
+            addToSongArray(notes, EIGHTH_NOTE, 'Eighth', 'E', 5, 1)
         else if (key.id === 7)
-            addToSongArray(notes, EIGHTH_NOTE, 'Eighth', 'F', 5)
+            addToSongArray(notes, EIGHTH_NOTE, 'Eighth', 'F', 5, 1)
 
         if (isReplacing) {
             replaceNoteInSong(notes, EIGHTH_NOTE, 'Eighth', editColumn)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenu(!currentMenuState))
-            dispatch(isShowLogout(!currentLogoutState))
+            dispatch(isShowingMenuAndLogout(!currentLogoutState))
         }
 
         if (isInserting) {
             insertNoteInSong(notes, EIGHTH_NOTE, 'Eighth', editColumn)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenu(!currentMenuState))
-            dispatch(isShowLogout(!currentLogoutState))
+            dispatch(isShowingMenuAndLogout(!currentLogoutState))
         }
     }
 

@@ -25,13 +25,32 @@
     background-color: transparent;
     display: none;
     height: 100%;
-    width: 100%;;
+    width: 100%;
 }
 
 .note-temp-container .drag-container-space .note-temp-item-btn .note-staff-image,
 .note-temp-container .drag-container-space .note-temp-item-img .note-staff-image {
+    height: 100%;
     font-weight: 700;
     line-height: 1px;
+}
+
+.note-temp-container .drag-container-space .note-temp-item-btn .note-staff-image .flex .notePath,
+.note-temp-container .drag-container-space .note-temp-item-img .note-staff-image .flex .notePath{
+    pointer-events: none;
+} 
+
+.note-temp-container .drag-container-space .note-temp-item-btn .note-staff-image .flex .note-staff-image-accidental,
+.note-temp-container .drag-container-space .note-temp-item-img .note-staff-image .flex .note-staff-image-accidental {
+    display: flex;
+    align-items: center;
+}
+
+.note-temp-container .drag-container-space .note-temp-item-btn .note-staff-image .flex,
+.note-temp-container .drag-container-space .note-temp-item-img .note-staff-image .flex {
+    display: flex;
+    justify-content: center;
+    height: 100%;
 }
 
 .note-temp-container .drag-container-space .note-temp-item-btn .EighthRest,
