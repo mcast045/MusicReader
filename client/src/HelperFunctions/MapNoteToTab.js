@@ -1,19 +1,18 @@
-import store from '../Redux/Store'
-import { updateNote } from '../Redux/Actions/Notes'
 import { editIndex } from './Helpers'
 
 
 //Updates tabRow for each note
-//This vvariable is used to prevent multiple notes on the same tab line
+//If mulitple notes on single tab line, hide all notes on tab line
 const updateNoteTabRow = (notes, column, tabRow, tabLine, tab) => {
+    const noteToUpdate = notes[column][editIndex(notes[column])]
     const oldRow = notes[column][tabRow].tabRow
     notes[column][tabRow].tabRow = tabLine
-    const isNewTabLine = notes[column][editIndex(notes[column])] && notes[column].some(note => (note !== notes[column][editIndex(notes[column])]) && (note.tabRow === notes[column][editIndex(notes[column])].tabRow))
 
-    if (isNewTabLine) return ''
-    if ((notes[column][tabRow].tabRow !== oldRow) && !isNewTabLine) store.dispatch(updateNote(notes))
+    const isNewTabLine = noteToUpdate && notes[column].some(note => (note !== noteToUpdate) && (note.tabRow === noteToUpdate.tabRow))
+    const notePerTabLine = notes[column].filter(notes => notes.tabRow === oldRow).length
 
-    return tab
+    if (isNewTabLine || notePerTabLine > 1) return ''
+    else return tab
 }
 
 export const tabValue = (tabLine, tab, notes, column, tabRow) => {
