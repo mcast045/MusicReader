@@ -91,6 +91,7 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 loading: true,
+                isUpdating: false,
                 notes: []
             }
         default:

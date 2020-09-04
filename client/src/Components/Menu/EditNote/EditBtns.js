@@ -28,75 +28,87 @@ const EditBtns = () => {
         dispatch(currentEditColumn(-1))
     }
 
-    const addNoteToChord = (chordArr, newNoteEntity, type, letter, row, position) => {
-        const updateChord = { notePath: newNoteEntity, type, letter, row, draggable: false, transform: 'no-translate', accidental: null, tabPosition: position }
+    const addNoteToChord = (chordArr, newNoteEntity, type, letter, row) => {
+        const updateChord = { notePath: newNoteEntity, type, letter, row, draggable: false, transform: 'no-translate', accidental: null, tabPosition: 1 }
         chordArr.push(updateChord)
         dispatch(addNote(notes))
     }
 
-    const chordsInCMaj = (currentNote, notePath, noteType) => {
-        if (notes[editColumn].findIndex(note => note.tabRow === 6) === -1)
-            addNoteToChord(notes[editColumn], notePath, noteType, 'E', 12, currentNote.tabPosition)
-        else if (notes[editColumn].findIndex(note => note.tabRow === 5) === -1)
-            addNoteToChord(notes[editColumn], notePath, noteType, 'B', 10, currentNote.tabPosition)
-        else if (notes[editColumn].findIndex(note => note.tabRow === 4) === -1)
-            addNoteToChord(notes[editColumn], notePath, noteType, 'D', 9, currentNote.tabPosition)
-        else if (notes[editColumn].findIndex(note => note.tabRow === 3) === -1)
-            addNoteToChord(notes[editColumn], notePath, noteType, 'A', 7, currentNote.tabPosition)
-        else if (notes[editColumn].findIndex(note => note.tabRow === 2) === -1)
-            addNoteToChord(notes[editColumn], notePath, noteType, 'C', 6, currentNote.tabPosition)
+    //Prevent notes being on top of eachother
+    const chordsInCMaj = (notePath, noteType) => {
+        const column = notes[editColumn]
+
+        const tabRow1 = column.findIndex(note => note.tabRow === 1)
+        const tabRow2 = column.findIndex(note => note.tabRow === 2)
+        const tabRow3 = column.findIndex(note => note.tabRow === 3)
+        const tabRow4 = column.findIndex(note => note.tabRow === 4)
+        const tabRow5 = column.findIndex(note => note.tabRow === 5)
+        const tabRow6 = column.findIndex(note => note.tabRow === 6)
+        const sheetRow1 = column.findIndex(note => note.row === 5)
+        const sheetRow2 = column.findIndex(note => note.row === 6)
+        const sheetRow3 = column.findIndex(note => note.row === 7)
+        const sheetRow4 = column.findIndex(note => note.row === 9)
+        const sheetRow5 = column.findIndex(note => note.row === 10)
+        const sheetRow6 = column.findIndex(note => note.row === 12)
+
+        if (sheetRow6 === -1 && tabRow6 === -1) addNoteToChord(column, notePath, noteType, 'E', 12)
+        else if (sheetRow5 === -1 && tabRow5 === -1) addNoteToChord(column, notePath, noteType, 'B', 10)
+        else if (sheetRow4 === -1 && tabRow4 === -1) addNoteToChord(column, notePath, noteType, 'D', 9)
+        else if (sheetRow3 === -1 && tabRow3 === -1) addNoteToChord(column, notePath, noteType, 'A', 7)
+        else if (sheetRow2 === -1 && tabRow2 === -1) addNoteToChord(column, notePath, noteType, 'C', 6)
+        else if (sheetRow1 === -1 && tabRow1 === -1) addNoteToChord(column, notePath, noteType, 'E', 5)
     }
 
-    const onClickAddNote = (notes) => {
+    const onClickAddNote = notes => {
         if (notes[editColumn].length < 6) {
             const currentNote = notes[editColumn][editIndex(notes[editColumn])]
 
             if (currentNote.type === 'Whole') {
                 if (key.id === 7) addNoteToChord(notes[editColumn], WHOLE_NOTE, 'Whole', 'F', 12, currentNote.tabPosition)
                 else if (key.id === -5) addNoteToChord(notes[editColumn], WHOLE_NOTE, 'Whole', 'F#', 11, currentNote.tabPosition)
-                else if (key.id > -2) chordsInCMaj(currentNote, WHOLE_NOTE, 'Whole')
+                else if (key.id > -2) chordsInCMaj(WHOLE_NOTE, 'Whole')
                 else if (key.id < -1) addNoteToChord(notes[editColumn], WHOLE_NOTE, 'Whole', 'G', 11, currentNote.tabPosition)
             }
 
             else if (currentNote.type === 'Dotted-Whole') {
                 if (key.id === 7) addNoteToChord(notes[editColumn], `${WHOLE_NOTE}.`, 'Dotted-Whole', 'F', 12, currentNote.tabPosition)
                 else if (key.id === -5) addNoteToChord(notes[editColumn], `${WHOLE_NOTE}.`, 'Dotted-Whole', 'F#', 11, currentNote.tabPosition)
-                else if (key.id > -2) chordsInCMaj(currentNote, `${WHOLE_NOTE}.`, 'Dotted-Whole')
+                else if (key.id > -2) chordsInCMaj(`${WHOLE_NOTE}.`, 'Dotted-Whole')
                 else if (key.id < -1) addNoteToChord(notes[editColumn], `${WHOLE_NOTE}.`, 'Dotted-Whole', 'G', 11, currentNote.tabPosition)
             }
 
             else if (currentNote.type === 'Half') {
                 if (key.id === 7) addNoteToChord(notes[editColumn], HALF_NOTE, 'Half', 'F', 12, currentNote.tabPosition)
                 else if (key.id === -5) addNoteToChord(notes[editColumn], HALF_NOTE, 'Half', 'F#', 11, currentNote.tabPosition)
-                else if (key.id > -2) chordsInCMaj(currentNote, HALF_NOTE, 'Half')
+                else if (key.id > -2) chordsInCMaj(HALF_NOTE, 'Half')
                 else if (key.id < -1) addNoteToChord(notes[editColumn], HALF_NOTE, 'Half', 'G', 11, currentNote.tabPosition)
             }
 
             else if (currentNote.type === 'Dotted-Half') {
                 if (key.id === 7) addNoteToChord(notes[editColumn], `${HALF_NOTE}.`, 'Dotted-Half', 'F', 12, currentNote.tabPosition)
                 else if (key.id === -5) addNoteToChord(notes[editColumn], `${HALF_NOTE}.`, 'Dotted-Half', 'F#', 11, currentNote.tabPosition)
-                else if (key.id > -2) chordsInCMaj(currentNote, `${HALF_NOTE}.`, 'Dotted-Half')
+                else if (key.id > -2) chordsInCMaj(`${HALF_NOTE}.`, 'Dotted-Half')
                 else if (key.id < -1) addNoteToChord(notes[editColumn], `${HALF_NOTE}.`, 'Dotted-Half', 'G', 11, currentNote.tabPosition)
             }
 
             else if (currentNote.type === 'Quarter') {
                 if (key.id === 7) addNoteToChord(notes[editColumn], QUARTER_NOTE, 'Quarter', 'F', 12, currentNote.tabPosition)
                 else if (key.id === -5) addNoteToChord(notes[editColumn], QUARTER_NOTE, 'Quarter', 'F#', 11, currentNote.tabPosition)
-                else if (key.id > -2) chordsInCMaj(currentNote, QUARTER_NOTE, 'Quarter')
+                else if (key.id > -2) chordsInCMaj(QUARTER_NOTE, 'Quarter')
                 else if (key.id < -1) addNoteToChord(notes[editColumn], QUARTER_NOTE, 'Quarter', 'G', 11, currentNote.tabPosition)
             }
 
             else if (currentNote.type === 'Dotted-Quarter') {
                 if (key.id === 7) addNoteToChord(notes[editColumn], `${QUARTER_NOTE}.`, 'Dotted-Quarter', 'F', 12, currentNote.tabPosition)
                 else if (key.id === -5) addNoteToChord(notes[editColumn], `${QUARTER_NOTE}.`, 'Dotted-Quarter', 'F#', 11, currentNote.tabPosition)
-                else if (key.id > -2) chordsInCMaj(currentNote, `${QUARTER_NOTE}.`, 'Dotted-Quarter')
+                else if (key.id > -2) chordsInCMaj(`${QUARTER_NOTE}.`, 'Dotted-Quarter')
                 else if (key.id < -1) addNoteToChord(notes[editColumn], `${QUARTER_NOTE}.`, 'Dotted-Quarter', 'G', 11, currentNote.tabPosition)
             }
 
             else if (currentNote.type === 'Eighth') {
                 if (key.id === 7) addNoteToChord(notes[editColumn], EIGHTH_NOTE, 'Eighth', 'F', 12, currentNote.tabPosition)
                 else if (key.id === -5) addNoteToChord(notes[editColumn], EIGHTH_NOTE, 'Eighth', 'F#', 11, currentNote.tabPosition)
-                else if (key.id > -2) chordsInCMaj(currentNote, EIGHTH_NOTE, 'Eighth')
+                else if (key.id > -2) chordsInCMaj(EIGHTH_NOTE, 'Eighth')
                 else if (key.id < -1) addNoteToChord(notes[editColumn], EIGHTH_NOTE, 'Eighth', 'G', 11, currentNote.tabPosition)
             }
         }

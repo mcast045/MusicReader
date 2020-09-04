@@ -60,44 +60,25 @@
 }
 
 @media only screen and (max-width: 1000px) {
-    .sheet-header .userSignIn .userSignIn_link {
-        display: none;
-    }
-
     .sheet-header {
-        flex-flow: row-reverse;
-        justify-content: space-between;
-        align-items: center;
-        width: 50%;
         margin: 0;
+        width: 100%;
+        flex-flow: column;
+        justify-content: center;
+        align-items: center;
     }
 
     .song-information {
-        transform: translateX(50%);
+        transform: translateX(0);
     }
 }
 
 @media only screen and (max-width: 790px) {
-    .song-information {
-        transform: translateX(0);
-    }
-
     .song-information .main_song_header {
         font-size: 3rem;
     }
 
     .song-information .username {
         font-size: .8rem;
-    }
-
-    .sheet-header {
-        margin: 0;
-        width: 100%;
-        flex-flow: column;
-    }
-
-    .sheet-header .userSignIn a {
-        font-size: 1.5rem;
-        font-weight: 700;
     }
 }

@@ -1,18 +1,22 @@
 import { editIndex } from './Helpers'
+import store from '../Redux/Store'
+import { updateNote } from '../Redux/Actions/Notes'
 
 
 //Updates tabRow for each note
-//If mulitple notes on single tab line, hide all notes on tab line
+//If multiple notes on single tab line, hide all notes on tab line
 const updateNoteTabRow = (notes, column, tabRow, tabLine, tab) => {
     const noteToUpdate = notes[column][editIndex(notes[column])]
-    const oldRow = notes[column][tabRow].tabRow
     notes[column][tabRow].tabRow = tabLine
 
-    const isNewTabLine = noteToUpdate && notes[column].some(note => (note !== noteToUpdate) && (note.tabRow === noteToUpdate.tabRow))
-    const notePerTabLine = notes[column].filter(notes => notes.tabRow === oldRow).length
+    // const oldRow = notes[column][tabRow].tabRow
+    // const isNewTabLine = noteToUpdate && notes[column].some(note => (note !== noteToUpdate) && (note.tabRow === noteToUpdate.tabRow))
+    // const notePerTabLine = notes[column].filter(notes => notes.tabRow === oldRow).length
 
-    if (isNewTabLine || notePerTabLine > 1) return ''
-    else return tab
+    //Prevent updateNote() if user is searching a published song
+    if (noteToUpdate) store.dispatch(updateNote(notes))
+
+    return tab
 }
 
 export const tabValue = (tabLine, tab, notes, column, tabRow) => {
