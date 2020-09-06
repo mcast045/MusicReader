@@ -9,10 +9,6 @@ const updateNoteTabRow = (notes, column, tabRow, tabLine, tab) => {
     const noteToUpdate = notes[column][editIndex(notes[column])]
     notes[column][tabRow].tabRow = tabLine
 
-    // const oldRow = notes[column][tabRow].tabRow
-    // const isNewTabLine = noteToUpdate && notes[column].some(note => (note !== noteToUpdate) && (note.tabRow === noteToUpdate.tabRow))
-    // const notePerTabLine = notes[column].filter(notes => notes.tabRow === oldRow).length
-
     //Prevent updateNote() if user is searching a published song
     if (noteToUpdate) store.dispatch(updateNote(notes))
 

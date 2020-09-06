@@ -6,7 +6,7 @@ import { showModal } from '../../../Redux/Actions/Modal'
 import { isDeletingUser } from '../../../Redux/Actions/Auth'
 import { isShowLogout, isShowInfo } from '../../../Redux/Actions/Util'
 
-const AuthBtn = ({ removeLastNote, clearSheet }) => {
+const AuthBtn = ({ removeLastNote, clearSheet, copyPreviousNote }) => {
 
     const dispatch = useDispatch()
 
@@ -35,6 +35,7 @@ const AuthBtn = ({ removeLastNote, clearSheet }) => {
         <Fragment>
             {!isSongsLoading && <button className='btn' disabled={isUpdating} onClick={() => onClickMySongs()}>My Songs</button>}
             <button className='btn' disabled={isUpdating} onClick={() => saveSheet(true)}>Save</button>
+            <button className='btn' disabled={notes.length === 0} onClick={() => copyPreviousNote()}>Copy Last Note</button>
             <button className='btn' disabled={isUpdating} onClick={() => removeLastNote()}>Delete Last Note</button>
             <button className='btn clearBtn' disabled={isUpdating} onClick={() => clearSheet()}>Delete Song</button>
             <button className='btn' onClick={() => onClickDeleteAccount()}>Delete Account</button>

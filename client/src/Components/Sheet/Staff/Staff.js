@@ -36,8 +36,8 @@ const Staff = ({ viewOnly, bars, staffLines, eighthNotes, numberOfStaves }) => {
         if (!viewOnly) {
             const noteToUpdate = [...notes[column]]
 
-            if (isRestNote(column, noteToUpdate.type, notes)) noteToUpdate[i] = { ...noteToUpdate[i], edit: 'edit-placeholder', draggable: false }
-            else noteToUpdate[i] = { ...noteToUpdate[i], edit: 'edit-placeholder', draggable: true }
+            if (isRestNote(column, noteToUpdate.type, notes)) noteToUpdate[i] = { ...noteToUpdate[i], edit: 'edit-placeholder' }
+            else noteToUpdate[i] = { ...noteToUpdate[i], edit: 'edit-placeholder' }
 
             //Update only 1 note in the chord
             notes[column] = [...noteToUpdate]
@@ -107,7 +107,7 @@ const Staff = ({ viewOnly, bars, staffLines, eighthNotes, numberOfStaves }) => {
                                             <Fragment key={i}>
                                                 {rowNumber === chordNote.row &&
                                                     <button
-                                                        draggable={!viewOnly && chordNote.draggable}
+                                                        draggable={!viewOnly && Boolean(chordNote.edit)}
                                                         id={`note-btn-${getNoteColumn(measure, columnsPerMeasure, numberOfStaves)}-${i}`}
                                                         disabled={(editColumn > -1 && notes[editColumn][editIndex(notes[editColumn])].edit)}
                                                         className={`${!viewOnly ? 'note-temp-item-btn' : 'note-temp-item-img'}  ${chordNote.transform} ${chordNote.edit}`}

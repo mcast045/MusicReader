@@ -5,7 +5,8 @@ import AuthBtn from './AuthBtn'
 import NonAuthBtn from './NonAuthBtn'
 import { useSelector, useDispatch } from 'react-redux'
 import { showModal } from '../../../Redux/Actions/Modal'
-import { deleteLastNote } from '../../../Redux/Actions/Notes'
+import { deleteLastNote, finishUpdatingNote, updateNote } from '../../../Redux/Actions/Notes'
+import { createNull } from '../../../HelperFunctions/Helpers'
 
 const StaveBtn = () => {
 
@@ -31,14 +32,34 @@ const StaveBtn = () => {
         dispatch(deleteLastNote(notesUpdate))
     }
 
+    //Reuse notes and chords
+    const copyPreviousNote = () => {
+        const notesUpdate = [...notes]
+        const idx = notesUpdate.reverse().map(note => note && note.length > 0).findIndex(note => note)
+        const copyiedNoted = notesUpdate[idx]
+
+        let nullArray = []
+        if (copyiedNoted[0].type === 'Whole') nullArray = createNull(8)
+        else if (copyiedNoted[0].type === 'Half') nullArray = createNull(4)
+        else if (copyiedNoted[0].type === 'Quarter') nullArray = createNull(2)
+        else if (copyiedNoted[0].type === 'Dotted-Whole') nullArray = createNull(12)
+        else if (copyiedNoted[0].type === 'Dotted-Half') nullArray = createNull(5)
+        else if (copyiedNoted[0].type === 'Dotted-Quarter') nullArray = createNull(3)
+
+        notesUpdate.reverse()
+        notesUpdate.push(copyiedNoted, ...nullArray)
+        dispatch(updateNote(notesUpdate))
+        dispatch(finishUpdatingNote())
+    }
+
     return (
         <Fragment>
             {currentSong && <SongInfo />}
             <div className='btn-sheets'>
                 {!currentSongInfoMenuState &&
                     <Fragment>
-                        {!isAuthenticated && <NonAuthBtn clearSheet={clearSheet} removeLastNote={removeLastNote} />}
-                        {isAuthenticated && !isNotesLoading && <AuthBtn clearSheet={clearSheet} removeLastNote={removeLastNote} />}
+                        {!isAuthenticated && <NonAuthBtn clearSheet={clearSheet} removeLastNote={removeLastNote} copyPreviousNote={copyPreviousNote} />}
+                        {isAuthenticated && !isNotesLoading && <AuthBtn clearSheet={clearSheet} removeLastNote={removeLastNote} copyPreviousNote={copyPreviousNote} />}
                     </Fragment>
                 }
             </div>

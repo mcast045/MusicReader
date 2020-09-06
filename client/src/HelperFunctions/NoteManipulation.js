@@ -2,15 +2,22 @@ import store from '../Redux/Store'
 import { addNote, replaceNote, insertNote, currentEditColumn } from '../Redux/Actions/Notes'
 import { editIndex, countNumberOfNulls, isRestNote } from './Helpers'
 
-const dispatchReplaceNote = (oldNotesArray, index, notePath, noteType, transform, letter, row, accidental, position, tabRow, nullArray = []) => {
-    oldNotesArray[index][editIndex(oldNotesArray[index])] = { notePath: notePath, draggable: false, type: noteType, transform: transform, letter: letter, row: row, accidental: accidental, tabPosition: position, tabRow: tabRow }
-    oldNotesArray.splice(index + 1, countNumberOfNulls(oldNotesArray, index), ...nullArray)
+const dispatchReplaceNote = (oldNotesArray, editColumn, notePath, noteType, transform, letter, row, accidental, position, tabRow, nullArray = []) => {
+    //If restnote - remove chord. If chord - replace all notes. If 1 note - replace note
+    if (isRestNote(-1, noteType, oldNotesArray)) {
+        oldNotesArray[editColumn] = [{ notePath: notePath, type: noteType, transform: transform, letter: letter, row: row, accidental: accidental, tabPosition: position, tabRow: tabRow }]
+    } else if (oldNotesArray[editColumn].length > 1) {
+        delete oldNotesArray[editColumn][editIndex(oldNotesArray[editColumn])]['edit']
+        oldNotesArray[editColumn] = oldNotesArray[editColumn].map(note => note && { ...note, notePath: notePath, type: noteType })
+    } else oldNotesArray[editColumn][editIndex(oldNotesArray[editColumn])] = { notePath: notePath, type: noteType, transform: transform, letter: letter, row: row, accidental: accidental, tabPosition: position, tabRow: tabRow }
+
+    oldNotesArray.splice(editColumn + 1, countNumberOfNulls(oldNotesArray, editColumn), ...nullArray)
     store.dispatch(replaceNote(oldNotesArray))
     store.dispatch(currentEditColumn(-1))
 }
 
 const dispatchInsertNote = (oldNotesArray, index, notePath, noteType, transform, letter, row, accidental, position, tabRow, nullArray = []) => {
-    oldNotesArray.splice(index, 0, [{ notePath: notePath, draggable: false, type: noteType, transform: transform, letter: letter, row: row, accidental: accidental, tabPosition: position, tabRow: tabRow }], ...nullArray)
+    oldNotesArray.splice(index, 0, [{ notePath: notePath, type: noteType, transform: transform, letter: letter, row: row, accidental: accidental, tabPosition: position, tabRow: tabRow }], ...nullArray)
     store.dispatch(insertNote(oldNotesArray))
     store.dispatch(currentEditColumn(-1))
 }
@@ -30,7 +37,7 @@ export const addToSongArray = (notes, note, type, letter, row, tabRow, nullArray
         notePosition = notes[notes.length - 1 - nullCount][0].tabPosition
     }
 
-    store.dispatch(addNote([...notes, [{ notePath: note, type: type, draggable: false, transform: 'no-translate', letter: letter, row: row, accidental: null, tabPosition: notePosition, tabRow: tabRow }], ...nullArray]))
+    store.dispatch(addNote([...notes, [{ notePath: note, type: type, transform: 'no-translate', letter: letter, row: row, accidental: null, tabPosition: notePosition, tabRow: tabRow }], ...nullArray]))
 }
 
 export const replaceNoteInSong = (notes, notePath, noteType, editColumn, nullArray = []) => {
@@ -41,7 +48,7 @@ export const replaceNoteInSong = (notes, notePath, noteType, editColumn, nullArr
             dispatchReplaceNote(notes, editColumn, notePath, noteType, 'no-translate', 'E', 5, null, 1, 1, nullArray)
         //Replacing regular note to another regular note
         else {
-            const noteToUpdate = notes[editColumn][editIndex(notes[editColumn])]
+            let noteToUpdate = notes[editColumn][editIndex(notes[editColumn])]
             dispatchReplaceNote(notes, editColumn, notePath, noteType, noteToUpdate.transform, noteToUpdate.letter, noteToUpdate.row, noteToUpdate.accidental, noteToUpdate.tabPosition, noteToUpdate.tabRow, nullArray)
         }
     }
@@ -65,11 +72,11 @@ export const insertNoteInSong = (notes, notePath, noteType, editColumn, nullArra
             const noteToUpdate = columnWithEdit[idx]
             dispatchInsertNote(notes, editColumn, notePath, noteType, noteToUpdate.transform, noteToUpdate.letter, noteToUpdate.row, noteToUpdate.accidental, noteToUpdate.tabPosition, noteToUpdate.tabRow, nullArray)
         }
-        delete columnWithEdit[idx]['edit']
     }
     //Inserting a rest note
     else {
         dispatchInsertNote(notes, editColumn, notePath, noteType, 'no-translate', null, 6, null, null, null, nullArray)
-        delete columnWithEdit[idx]['edit']
     }
+
+    delete columnWithEdit[idx]['edit']
 }

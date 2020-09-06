@@ -14,9 +14,6 @@ const notesSchema = new Schema({
                 transform: {
                     type: String
                 },
-                draggable: {
-                    type: Boolean
-                },
                 letter: {
                     type: String
                 },

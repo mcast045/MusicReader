@@ -8,6 +8,8 @@ import { isNewSongMenu, isShowLogout } from '../../../Redux/Actions/Util'
 const NewSongMenu = () => {
 
     const dispatch = useDispatch()
+    const isNotesLoading = useSelector(state => state.notes.loading)
+    const songs = useSelector(state => state.song.songs)
     const user = useSelector(state => state.auth.user)
     const currentSong = useSelector(state => state.song.currentSong)
     const currentNewSongMenuState = useSelector(state => state.util.newSongClickState)
@@ -27,14 +29,11 @@ const NewSongMenu = () => {
         dispatch(isShowLogout(!currentLogoutState))
 
         //To save last current used song before clearing data
-        if (currentSong)
-            setPreviousSong(currentSong._id)
+        if (currentSong) setPreviousSong(currentSong._id)
         dispatch(clearAll())
 
         //Get user's last song info back
-        if (isCancelBtn)
-            dispatch(getUserSong(user._id, previousSong))
-
+        if (isCancelBtn) dispatch(getUserSong(user._id, previousSong))
         dispatch(isNewSongMenu(!currentNewSongMenuState))
     }
 
@@ -86,7 +85,7 @@ const NewSongMenu = () => {
                     </Fragment>
                 }
 
-                {!currentNewSongMenuState && !currentSongInfoMenuState &&
+                {!currentNewSongMenuState && !currentSongInfoMenuState && (!isNotesLoading || songs.length === 0) &&
                     <button className='btn newSongbtn' onClick={() => newSongOnClick(false)}>New Song</button>
                 }
 

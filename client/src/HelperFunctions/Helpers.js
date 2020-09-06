@@ -1,5 +1,5 @@
 import store from '../Redux/Store'
-import { updateNote } from '../Redux/Actions/Notes'
+import { updateNote, finishUpdatingNote } from '../Redux/Actions/Notes'
 
 export const dateFormat = date => {
     const d = new Date(date)
@@ -41,7 +41,7 @@ export const getNoteColumn = (measure, columnNumber, staffNumber) => {
 }
 
 export const editIndex = notesArr =>
-    notesArr.findIndex(note => note && note.edit === 'edit-placeholder')
+    notesArr.findIndex(note => note.edit)
 
 
 export const getDifferentTabPosition = (notes, editColumn) => {
@@ -58,4 +58,15 @@ export const getDifferentTabPosition = (notes, editColumn) => {
         notetoUpdate.tabPosition = 1
 
     store.dispatch(updateNote(copy))
+}
+
+
+//Remove 'edit' key
+export const removeEdit = (idx, notesArr, editColumn) => {
+    const columnWithEdit = notesArr[editColumn][idx]
+    notesArr[editColumn].splice(idx, 1, columnWithEdit)
+    delete columnWithEdit['edit']
+
+    store.dispatch(updateNote(notesArr))
+    store.dispatch(finishUpdatingNote())
 }

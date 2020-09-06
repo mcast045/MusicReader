@@ -4,8 +4,8 @@ import Notes from '../../Menu/Notes/Notes'
 import Rest from '../../Menu/Notes/RestNotes'
 import Buttons from './EditBtns'
 import { useSelector, useDispatch } from 'react-redux'
-import { finishUpdatingNote, updateNote, currentEditColumn } from '../../../Redux/Actions/Notes'
-import { editIndex } from '../../../HelperFunctions/Helpers'
+import { currentEditColumn } from '../../../Redux/Actions/Notes'
+import { editIndex, removeEdit } from '../../../HelperFunctions/Helpers'
 import { isShowingMenuAndLogout } from '../../../Redux/Actions/Util'
 
 const EditNote = () => {
@@ -23,13 +23,9 @@ const EditNote = () => {
 
         //Remove unedited note that is on same tabLine as edited note
         const conflictingTabId = copyNotes[editColumn].findIndex(note => (note.tabRow === columnWithEdit.tabRow) && (!note.edit))
-        if (conflictingTabId !== -1) copyNotes[editColumn].splice(conflictingTabId, 1)
+        if (conflictingTabId !== -1) copyNotes[editColumn].splice(conflictingTabId, 1, 0)
 
-        delete columnWithEdit['edit']
-        columnWithEdit = { ...columnWithEdit, draggable: false }
-
-        dispatch(updateNote(copyNotes))
-        dispatch(finishUpdatingNote())
+        removeEdit(idx, copyNotes, editColumn)
         dispatch(isShowingMenuAndLogout(!currentLogoutState))
         dispatch(currentEditColumn(-1))
     }
