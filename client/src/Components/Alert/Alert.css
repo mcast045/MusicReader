@@ -4,8 +4,8 @@
     padding: 0.8rem;
     opacity: .8;
     width: 30%;
-    margin-left: 50%;
-    transform: translateX(-50%);
+    margin: auto;
+    transform: translateX(10%);
     border-bottom:1px solid black;
 }
 
@@ -20,6 +20,5 @@
 .alert-success {
     background-color: var(--success-color-1);
     border-bottom: none;
-    width: 20%;
     border-radius: 10px;
 }

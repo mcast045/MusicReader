@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import Accidental from './Accidental'
 import { useSelector, useDispatch } from 'react-redux'
 import { deleteAnyNote, replaceNote, insertNote, addNote, currentEditColumn } from '../../../Redux/Actions/Notes'
@@ -17,7 +17,12 @@ const EditBtns = () => {
     const editColumn = useSelector(state => state.notes.editColumnNumber)
     const currentLogoutState = useSelector(state => state.util.isShowingLogout)
 
-    const [letter, setLetter] = useState(notes[editColumn][editIndex(notes[editColumn])].letter)
+    const [currentLetter, setCurrentLetter] = useState(notes[editColumn][editIndex(notes[editColumn])].letter)
+
+    //Change letter on drop
+    useEffect(() => {
+        setCurrentLetter(notes[editColumn][editIndex(notes[editColumn])].letter)
+    }, [notes, editColumn])
 
     const confirmRemove = () => {
         const notesCopy = [...notes]
@@ -34,7 +39,7 @@ const EditBtns = () => {
         const updateChord = { notePath: newNoteEntity, type, letter, row, transform: 'no-translate', accidental: null, tabPosition: 1, edit: 'edit-placeholder' }
         chordArr.push(updateChord)
         dispatch(addNote(notes))
-        setLetter(letter)
+        setCurrentLetter(letter)
     }
 
     //Prevent notes being on top of eachother
@@ -51,6 +56,7 @@ const EditBtns = () => {
             else if (isRowEmpty(9) && isTabEmpty(4)) addNoteToChord(column, notePath, noteType, 'D', 9)
             else if (isRowEmpty(10) && isTabEmpty(5)) addNoteToChord(column, notePath, noteType, 'B', 10)
             else if (isRowEmpty(12) && isTabEmpty(6)) addNoteToChord(column, notePath, noteType, 'E', 12)
+            else return
         } else if (key.id === 3 || key.id === 4) {
             if (isRowEmpty(5) && isTabEmpty(1)) addNoteToChord(column, notePath, noteType, 'E', 5)
             else if (isRowEmpty(6) && isTabEmpty(2)) addNoteToChord(column, notePath, noteType, 'C#', 6)
@@ -58,6 +64,7 @@ const EditBtns = () => {
             else if (isRowEmpty(9) && isTabEmpty(4)) addNoteToChord(column, notePath, noteType, 'D', 9)
             else if (isRowEmpty(10) && isTabEmpty(5)) addNoteToChord(column, notePath, noteType, 'B', 10)
             else if (isRowEmpty(12) && isTabEmpty(6)) addNoteToChord(column, notePath, noteType, 'E', 12)
+            else return
         } else if (key.id === 5) {
             if (isRowEmpty(5) && isTabEmpty(1)) addNoteToChord(column, notePath, noteType, 'E', 5)
             else if (isRowEmpty(6) && isTabEmpty(2)) addNoteToChord(column, notePath, noteType, 'C#', 6)
@@ -65,6 +72,7 @@ const EditBtns = () => {
             else if (isRowEmpty(9) && isTabEmpty(4)) addNoteToChord(column, notePath, noteType, 'D#', 9)
             else if (isRowEmpty(10) && isTabEmpty(5)) addNoteToChord(column, notePath, noteType, 'B', 10)
             else if (isRowEmpty(12) && isTabEmpty(6)) addNoteToChord(column, notePath, noteType, 'E', 12)
+            else return
         } else if (key.id === 6) {
             if (isRowEmpty(5) && isTabEmpty(1)) addNoteToChord(column, notePath, noteType, 'E', 5)
             else if (isRowEmpty(6) && isTabEmpty(2)) addNoteToChord(column, notePath, noteType, 'C#', 6)
@@ -72,6 +80,7 @@ const EditBtns = () => {
             else if (isRowEmpty(9) && isTabEmpty(4)) addNoteToChord(column, notePath, noteType, 'D#', 9)
             else if (isRowEmpty(10) && isTabEmpty(5)) addNoteToChord(column, notePath, noteType, 'B', 10)
             else if (isRowEmpty(12) && isTabEmpty(6)) addNoteToChord(column, notePath, noteType, 'E', 12)
+            else return
         } else if (key.id === 7) {
             if (isRowEmpty(5) && isTabEmpty(1)) addNoteToChord(column, notePath, noteType, 'F', 5)
             else if (isRowEmpty(6) && isTabEmpty(2)) addNoteToChord(column, notePath, noteType, 'C#', 6)
@@ -86,6 +95,7 @@ const EditBtns = () => {
             else if (isRowEmpty(9) && isTabEmpty(4)) addNoteToChord(column, notePath, noteType, 'D', 9)
             else if (isRowEmpty(10) && isTabEmpty(5)) addNoteToChord(column, notePath, noteType, 'A#', 10)
             else if (isRowEmpty(12) && isTabEmpty(6)) addNoteToChord(column, notePath, noteType, 'E', 12)
+            else return
         } else if (key.id === -2) {
             if (isRowEmpty(5) && isTabEmpty(2)) addNoteToChord(column, notePath, noteType, 'D#', 5)
             else if (isRowEmpty(4) && isTabEmpty(1)) addNoteToChord(column, notePath, noteType, 'G', 4)
@@ -93,6 +103,7 @@ const EditBtns = () => {
             else if (isRowEmpty(9) && isTabEmpty(4)) addNoteToChord(column, notePath, noteType, 'D', 9)
             else if (isRowEmpty(10) && isTabEmpty(5)) addNoteToChord(column, notePath, noteType, 'A#', 10)
             else if (isRowEmpty(12) && isTabEmpty(6)) addNoteToChord(column, notePath, noteType, 'G', 11)
+            else return
         } else if (key.id === -3) {
             if (isRowEmpty(5) && isTabEmpty(1)) addNoteToChord(column, notePath, noteType, 'D#', 5)
             else if (isRowEmpty(4) && isTabEmpty(1)) addNoteToChord(column, notePath, noteType, 'G', 4)
@@ -100,6 +111,7 @@ const EditBtns = () => {
             else if (isRowEmpty(9) && isTabEmpty(4)) addNoteToChord(column, notePath, noteType, 'D', 9)
             else if (isRowEmpty(10) && isTabEmpty(5)) addNoteToChord(column, notePath, noteType, 'A#', 10)
             else if (isRowEmpty(12) && isTabEmpty(6)) addNoteToChord(column, notePath, noteType, 'G', 11)
+            else return
         } else if (key.id === -4) {
             if (isRowEmpty(5) && isTabEmpty(2)) addNoteToChord(column, notePath, noteType, 'D#', 5)
             else if (isRowEmpty(4) && isTabEmpty(1)) addNoteToChord(column, notePath, noteType, 'G', 4)
@@ -107,6 +119,7 @@ const EditBtns = () => {
             else if (isRowEmpty(8) && isTabEmpty(4)) addNoteToChord(column, notePath, noteType, 'F', 8)
             else if (isRowEmpty(9) && isTabEmpty(5)) addNoteToChord(column, notePath, noteType, 'C#', 9)
             else if (isRowEmpty(10) && isTabEmpty(6)) addNoteToChord(column, notePath, noteType, 'G', 11)
+            else return
         } else if (key.id === -5) {
             if (isRowEmpty(5) && isTabEmpty(2)) addNoteToChord(column, notePath, noteType, 'D#', 5)
             else if (isRowEmpty(4) && isTabEmpty(1)) addNoteToChord(column, notePath, noteType, 'F#', 4)
@@ -114,6 +127,7 @@ const EditBtns = () => {
             else if (isRowEmpty(8) && isTabEmpty(4)) addNoteToChord(column, notePath, noteType, 'F', 8)
             else if (isRowEmpty(9) && isTabEmpty(5)) addNoteToChord(column, notePath, noteType, 'C#', 9)
             else if (isRowEmpty(10) && isTabEmpty(6)) addNoteToChord(column, notePath, noteType, 'F#', 11)
+            else return
         }
         removeEdit(editIndex(notes[editColumn]), notes, editColumn)
     }
@@ -136,7 +150,7 @@ const EditBtns = () => {
             {notes[editColumn][editIndex(notes[editColumn])] && notes[editColumn][editIndex(notes[editColumn])].letter &&
                 <div className='showNote font-2 center'>
                     <h5 className='nomarginpadding'>Note</h5>
-                    {letter}
+                    {currentLetter}
                 </div>
             }
 

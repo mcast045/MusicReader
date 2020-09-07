@@ -7,7 +7,7 @@ import { updateNoteLetter } from '../../../HelperFunctions/UpdateNoteLetter'
 import { getNoteColumn, isRestNote, editIndex } from '../../../HelperFunctions/Helpers'
 import { isShowingMenuAndLogout } from '../../../Redux/Actions/Util'
 
-const Staff = ({ viewOnly, bars, staffLines, eighthNotes, numberOfStaves }) => {
+const Staff = ({ screenSize, viewOnly, bars, staffLines, eighthNotes, numberOfStaves }) => {
 
     const dispatch = useDispatch()
 

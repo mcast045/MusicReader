@@ -25,3 +25,9 @@
 .btn-sheets .clearBtn:hover {
     background-color: var(--danger-color-1);
 }
+
+.btn-sheets .not-available {
+    opacity: .5;
+    background-color: #333;
+    pointer-events: none;
+}

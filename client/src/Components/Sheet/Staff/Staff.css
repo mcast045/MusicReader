@@ -98,7 +98,10 @@
 .Eighth {padding-left: 5px;}
 .edit-placeholder {color: var(--danger-color-1);}
 .no-translate {transform: translateY(0);}
-.sheet-music li .note-temp-container .edit-placeholder:hover {cursor: pointer;}
+
+.sheet-music li .note-temp-container .edit-placeholder:hover {
+    cursor: pointer;
+}
 
 .move-up {
     transform: translateY(-1rem);

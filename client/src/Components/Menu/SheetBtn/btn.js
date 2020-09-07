@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import './btn.css'
 import SongInfo from '../SongInfo/SongInfo'
 import AuthBtn from './AuthBtn'
@@ -17,6 +17,12 @@ const StaveBtn = () => {
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
     const currentSongInfoMenuState = useSelector(state => state.util.isShowingInfo)
 
+    const [disableLastbarBtn, setDisableCN] = useState('not-available')
+    useEffect(() => {
+        if (notes.length % 8 === 0 && notes.length !== 0) setDisableCN()
+        else setDisableCN('not-available')
+    }, [notes])
+
     const clearSheet = () => {
         if (isAuthenticated)
             dispatch(showModal())
@@ -25,18 +31,18 @@ const StaveBtn = () => {
     }
 
     const removeLastNote = () => {
-        const notesUpdate = [...notes]
-        const idx = notesUpdate.reverse().map(note => note && note.length > 0).findIndex(note => note)
-        notesUpdate.splice(0, idx + 1)
-        notesUpdate.reverse()
-        dispatch(deleteLastNote(notesUpdate))
+        const copyNotes = [...notes]
+        const idx = copyNotes.reverse().map(note => note && note.length > 0).findIndex(note => note)
+        copyNotes.splice(0, idx + 1)
+        copyNotes.reverse()
+        dispatch(deleteLastNote(copyNotes))
     }
 
-    //Reuse notes and chords
+    //Reuse notes/chords
     const copyPreviousNote = () => {
-        const notesUpdate = [...notes]
-        const idx = notesUpdate.reverse().map(note => note && note.length > 0).findIndex(note => note)
-        const copyiedNoted = notesUpdate[idx]
+        const copyNotes = [...notes]
+        const idx = copyNotes.reverse().map(note => note && note.length > 0).findIndex(note => note)
+        const copyiedNoted = copyNotes[idx]
 
         let nullArray = []
         if (copyiedNoted[0].type === 'Whole') nullArray = createNull(8)
@@ -46,9 +52,18 @@ const StaveBtn = () => {
         else if (copyiedNoted[0].type === 'Dotted-Half') nullArray = createNull(5)
         else if (copyiedNoted[0].type === 'Dotted-Quarter') nullArray = createNull(3)
 
-        notesUpdate.reverse()
-        notesUpdate.push(copyiedNoted, ...nullArray)
-        dispatch(updateNote(notesUpdate))
+        copyNotes.reverse()
+        copyNotes.push(copyiedNoted, ...nullArray)
+        dispatch(updateNote(copyNotes))
+        dispatch(finishUpdatingNote())
+    }
+
+    const copyPreviousBar = () => {
+        const copyNotes = [...notes]
+        const notesToPush = copyNotes.slice(copyNotes.length - 8)
+        copyNotes.push(...notesToPush)
+
+        dispatch(updateNote(copyNotes))
         dispatch(finishUpdatingNote())
     }
 
@@ -58,8 +73,8 @@ const StaveBtn = () => {
             <div className='btn-sheets'>
                 {!currentSongInfoMenuState &&
                     <Fragment>
-                        {!isAuthenticated && <NonAuthBtn clearSheet={clearSheet} removeLastNote={removeLastNote} copyPreviousNote={copyPreviousNote} />}
-                        {isAuthenticated && !isNotesLoading && <AuthBtn clearSheet={clearSheet} removeLastNote={removeLastNote} copyPreviousNote={copyPreviousNote} />}
+                        {!isAuthenticated && <NonAuthBtn clearSheet={clearSheet} removeLastNote={removeLastNote} copyPreviousNote={copyPreviousNote} copyPreviousBar={copyPreviousBar} disableLastbarBtn={disableLastbarBtn} />}
+                        {isAuthenticated && !isNotesLoading && <AuthBtn clearSheet={clearSheet} removeLastNote={removeLastNote} copyPreviousNote={copyPreviousNote} copyPreviousBar={copyPreviousBar} disableLastbarBtn={disableLastbarBtn} />}
                     </Fragment>
                 }
             </div>

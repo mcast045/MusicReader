@@ -8,6 +8,7 @@
 .stave-container {
     border-left: 1px solid black;
     position: relative;
+    margin-left: .5rem;
 }
 
 #mask {
@@ -24,7 +25,7 @@
     width: 25%;
 }
 
-.sheet-music-container ul:not(:first-child) li:not(:nth-child(9)),
+.sheet-music-container ul:not(:first-child) li:not(:nth-child(9)), 
 .tab-music-container ul:not(:first-child) li:not(:first-child) {
     border-left: 1px solid black;
 }

@@ -1,4 +1,5 @@
-.sheet-header {
+.sheet-header,
+.non-search_Sheet-Header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -7,7 +8,9 @@
 }
 
 .sheet-header .userSignIn .userSignIn_link,
-.sheet-header .search-songs {
+.sheet-header .search-songs,
+.non-search_Sheet-Header .userSignIn .userSignIn_link,
+.non-search_Sheet-Header .search-songs {
     text-decoration: none;
     margin: 0 1rem;
     font-size: 1.5rem;
@@ -15,13 +18,19 @@
 }
 
 .sheet-header .userSignIn .userSignIn_link:hover,
-.sheet-header .search-songs:hover {
+.sheet-header .search-songs:hover,
+.non-search_Sheet-Header .userSignIn .userSignIn_link:hover,
+.non-search_Sheet-Header .search-songs:hover {
     padding-bottom: 1rem;
     border-bottom: 2px solid black;
 }
 
 .song-information .logout {
     visibility: hidden;
+}
+
+.ml-15 {
+    margin-left: 15rem;
 }
 
 .main_song_header {
@@ -43,7 +52,9 @@
     }
 
     .sheet-header .userSignIn .userSignIn_link,
-    .sheet-header .userSignIn a {
+    .sheet-header .userSignIn a,
+    .non-search_Sheet-Header .userSignIn .userSignIn_link,
+    .non-search_Sheet-Header .userSignIn a {
         font-size: 1.3rem;
     }
 }
@@ -54,7 +65,9 @@
     }
 
     .sheet-header .userSignIn .userSignIn_link,
-    .sheet-header .userSignIn a {
+    .sheet-header .userSignIn a,
+    .non-search_Sheet-Header .userSignIn .userSignIn_link,
+    .non-search_Sheet-Header .userSignIn a {
         font-size: 1rem;
     }
 }

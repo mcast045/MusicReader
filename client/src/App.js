@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom'
 import Main from './Pages/Main'
 import Auth from './Pages/Auth/Auth'
 import Search from './Pages/Search/Search'
-import Staff from './Pages/Sheet/Sheet'
+import Sheet from './Pages/Sheet/Sheet'
 
 function App() {
 
@@ -14,7 +14,7 @@ function App() {
         <Route exact path='/' component={Main} />
         <Route path='/auth' component={Auth} />
         <Route path='/search' component={Search} />
-        <Route path='/:id' render={(props) => <Staff {...props} viewOnly={true} />} />
+        <Route path='/:id' render={props => <Sheet {...props} viewOnly={true} />} />
       </Switch>
     </div>
   )

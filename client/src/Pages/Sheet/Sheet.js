@@ -24,8 +24,7 @@ const Sheet = ({ match, viewOnly }) => {
     let columnsPerStaff = 32
 
     //Prevent low end 'D#' note, which has no tab
-    if (keySignature.id < -1)
-        staffLines.pop()
+    if (keySignature.id < -1) staffLines.pop()
 
     if (screenSize < 800) {
         bars = [1]
@@ -56,7 +55,7 @@ const Sheet = ({ match, viewOnly }) => {
 
     return (
         <Fragment>
-            <PageHeader viewOnly={viewOnly} setNumOfSheets={setNumOfSheets} />
+            <PageHeader viewOnly={viewOnly} setNumOfSheets={setNumOfSheets} screenSize={screenSize} />
 
             {numOfSheets.map((staves, numberOfStaves) => (
                 <div key={numberOfStaves} className={viewOnly ? 'fullScreenStaff' : 'sheet'}>
@@ -65,7 +64,7 @@ const Sheet = ({ match, viewOnly }) => {
 
                         <div id='mask'></div>
 
-                        <Staff viewOnly={viewOnly} numberOfStaves={numberOfStaves} bars={bars} staffLines={staffLines} eighthNotes={eighthNotes} />
+                        <Staff screenSize={screenSize} viewOnly={viewOnly} numberOfStaves={numberOfStaves} bars={bars} staffLines={staffLines} eighthNotes={eighthNotes} />
                         <Tab screenSize={screenSize} numberOfStaves={numberOfStaves} bars={bars} tabLines={tabLines} eighthNotes={eighthNotes} />
                     </div>
                 </div>
