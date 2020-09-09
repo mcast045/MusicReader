@@ -70,8 +70,8 @@ const Staff = ({ screenSize, viewOnly, bars, staffLines, eighthNotes, numberOfSt
         let topLedgerLines = false
         let bottomLedgerLines = false
         notes[getNoteColumn(measure, column, staff)].forEach(note => {
-            if (note.row < 5 && !topLedgerLines) topLedgerLines = true
-            else if (note.row > 8 && !bottomLedgerLines) bottomLedgerLines = true
+            if (note && note.row < 5 && !topLedgerLines) topLedgerLines = true
+            else if (note && note.row > 8 && !bottomLedgerLines) bottomLedgerLines = true
         })
 
         if (topLedgerLines && bottomLedgerLines) return rowNumber < 4 || (rowNumber > 8 && rowNumber !== 12) ? { borderBottom: '1px solid black' } : null
@@ -105,7 +105,7 @@ const Staff = ({ screenSize, viewOnly, bars, staffLines, eighthNotes, numberOfSt
 
                                         {notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].map((chordNote, i) => (
                                             <Fragment key={i}>
-                                                {rowNumber === chordNote.row &&
+                                                {chordNote && (rowNumber === chordNote.row) &&
                                                     <button
                                                         draggable={!viewOnly && Boolean(chordNote.edit)}
                                                         id={`note-btn-${getNoteColumn(measure, columnsPerMeasure, numberOfStaves)}-${i}`}

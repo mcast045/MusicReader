@@ -24,7 +24,7 @@ const Tab = ({ bars, tabLines, eighthNotes, numberOfStaves }) => {
                                     readOnly
                                     // Or statement prevents 'changing an uncontrolled input of type text to be controlled'
                                     value={(notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].map((tab, i) => (
-                                        tabValue(rowNumber, tab, notes, getNoteColumn(measure, columnsPerMeasure, numberOfStaves), i))).join('')) || ''}>
+                                        tab && tabValue(rowNumber, tab, notes, getNoteColumn(measure, columnsPerMeasure, numberOfStaves), i))).join('')) || ''}>
                                 </input>
                             ))}
                         </li>
