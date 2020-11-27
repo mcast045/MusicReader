@@ -1,12 +1,13 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useContext } from 'react'
 import './btn.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { saveNotes } from '../../../Redux/Actions/Notes'
 import { showModal } from '../../../Redux/Actions/Modal'
 import { isDeletingUser } from '../../../Redux/Actions/Auth'
 import { isShowLogout, isShowInfo } from '../../../Redux/Actions/Util'
+import CommonBtns from './CommonBtns'
 
-const AuthBtn = ({ removeLastNote, clearSheet, copyPreviousNote, copyPreviousBar, disableLastbarBtn }) => {
+const AuthBtn = () => {
 
     const dispatch = useDispatch()
 
@@ -35,10 +36,7 @@ const AuthBtn = ({ removeLastNote, clearSheet, copyPreviousNote, copyPreviousBar
         <Fragment>
             {!isSongsLoading && <button className='btn' disabled={isUpdating} onClick={() => onClickMySongs()}>My Songs</button>}
             <button className='btn' disabled={isUpdating} onClick={() => saveSheet(true)}>Save</button>
-            <button className='btn' disabled={notes.length === 0} onClick={() => copyPreviousNote()}>Copy Last Note</button>
-            <button className={`btn ${disableLastbarBtn}`} disabled={notes.length % 8 !== 0 || notes.length === 0} onClick={() => copyPreviousBar()}>Copy Last Bar</button>
-            <button className='btn' disabled={isUpdating} onClick={() => removeLastNote()}>Delete Last Note</button>
-            <button className='btn clearBtn' disabled={isUpdating} onClick={() => clearSheet()}>Delete Song</button>
+            <CommonBtns />
             <button className='btn' onClick={() => onClickDeleteAccount()}>Delete Account</button>
         </Fragment>
     )

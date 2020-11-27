@@ -93,7 +93,6 @@ exports.postSong = async (req, res, next) => {
         res.json(song)
     }
     catch (err) {
-        console.log('POST Songs')
         console.log(err.message)
         return res.status(500).send(errorMessage)
     }

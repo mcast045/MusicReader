@@ -15,10 +15,10 @@ const Modal = ({ setNumOfSheets }) => {
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
     const currentSong = useSelector(state => state.song.currentSong)
     const songs = useSelector(state => state.song.songs)
+    const currentLogoutState = useSelector(state => state.util.isShowingLogout)
 
     const onClickOK = () => {
         setNumOfSheets(staffLineNumber)
-        dispatch(isShowLogout(true))
 
         if (isAuthenticated && songs.length > 0)
             dispatch(deleteSong(currentSong._id))
@@ -31,7 +31,7 @@ const Modal = ({ setNumOfSheets }) => {
     }
 
     const onClickCancel = () => {
-        dispatch(isShowLogout(true))
+        dispatch(isShowLogout(!currentLogoutState))
         dispatch(hideModal())
     }
 

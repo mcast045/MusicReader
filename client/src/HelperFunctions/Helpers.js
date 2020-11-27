@@ -1,5 +1,6 @@
 import store from '../Redux/Store'
 import { updateNote, finishUpdatingNote } from '../Redux/Actions/Notes'
+import { showModal } from '../Redux/Actions/Modal'
 
 export const dateFormat = date => {
     const d = new Date(date)
@@ -69,4 +70,11 @@ export const removeEdit = (idx, notesArr, editColumn) => {
 
     store.dispatch(updateNote(notesArr))
     store.dispatch(finishUpdatingNote())
+}
+
+export const clearSheet = (notes, isAuth = false) => {
+    //Allow authenticated users to delete songs even if songs have notes
+    //Removes songs from database
+    if (notes.length > 0 || isAuth)
+        store.dispatch(showModal())
 }

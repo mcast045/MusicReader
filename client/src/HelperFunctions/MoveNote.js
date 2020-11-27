@@ -7,6 +7,91 @@ import { SHARP_NOTE, FLAT_NOTE } from './SourceCodeEncodings'
 export const findLetterIdx = (songArr, index) =>
     allNotes.findIndex(note => note === songArr[index][editIndex(songArr[index])].letter)
 
+
+// export const moveNoteUp = (notes, key, editColumn) => {
+//     if (!isRestNote(notes[editColumn][editIndex(notes[editColumn])], null, notes)) {
+//         //Change transform and letter of note
+//         let copy = [...notes]
+//         let idx = editColumn
+//         let allNotesIdx = findLetterIdx(notes, idx)
+//         const noteToUpdate = notes[idx][editIndex(notes[editColumn])]
+
+//         const changeNaturalLetter = (arr, index, transform) => {
+//             if (transform === 'no-translate') {
+//                 if (noteToUpdate.accidental === FLAT_NOTE) {
+//                     if (!arr[index + 3]) return arr[0]
+//                     else return arr[index + 2].length === 1 ? arr[index + 2] : arr[index + 3]
+//                 }
+//                 else return arr[index + 1].length === 1 ? arr[index + 1] : arr[index + 2]
+//             }
+//             else if (transform === 'move-down') {
+//                 if (noteToUpdate.accidental === FLAT_NOTE) return allNotes[allNotesIdx + 4].length !== 1 ? allNotes[allNotesIdx + 3] : allNotes[allNotesIdx + 4]
+//                 else {
+//                     if (noteToUpdate.letter === 'D#' || noteToUpdate.letter === 'A#') return arr[index + 2]
+//                     else return arr[index + 3].length === 1 ? arr[index + 3] : arr[index + 4]
+//                 }
+//             }
+//         }
+
+//         //Prevent note from going above top ledger line
+//         if (noteToUpdate.row !== 1) {
+//             if (noteToUpdate.transform === 'no-translate') {
+//                 if (allNotes[allNotesIdx + 2])
+//                     copy[idx][editIndex(notes[editColumn])] = { ...copy[idx][editIndex(notes[editColumn])], accidental: null, transform: 'move-up', letter: changeNaturalLetter(allNotes, allNotesIdx, copy[idx][editIndex(notes[editColumn])].transform) }
+//                 else {
+//                     //Changing notes 'G' to 'A'
+//                     if (copy[idx][editIndex(notes[editColumn])].accidental === null)
+//                         copy[idx][editIndex(notes[editColumn])] = { ...copy[idx][editIndex(notes[editColumn])], transform: 'move-up', letter: allNotes[allNotes.length - allNotesIdx - 2] }
+//                     //Changing Sharp notes - 'G#' to 'A'
+//                     else if (copy[idx][editIndex(notes[editColumn])].accidental === SHARP_NOTE)
+//                         copy[idx][editIndex(notes[editColumn])] = { ...copy[idx][editIndex(notes[editColumn])], accidental: null, transform: 'move-up', letter: allNotes[0] }
+//                     //Changing Sharp notes - 'G#' to 'B'
+//                     else if (copy[idx][editIndex(notes[editColumn])].accidental === FLAT_NOTE)
+//                         copy[idx][editIndex(notes[editColumn])] = { ...copy[idx][editIndex(notes[editColumn])], accidental: null, transform: 'move-up', letter: allNotes[2] }
+//                 }
+//             }
+//             else if (noteToUpdate.transform === 'move-down') {
+//                 if (allNotes[allNotesIdx + 4])
+//                     copy[idx][editIndex(notes[editColumn])] = { ...copy[idx][editIndex(notes[editColumn])], accidental: null, transform: 'move-up', letter: changeNaturalLetter(allNotes, allNotesIdx, copy[idx][editIndex(notes[editColumn])].transform) }
+//                 else {
+//                     if (copy[idx][editIndex(notes[editColumn])].accidental === null) {
+//                         //'G' to 'B'
+//                         if (copy[idx][editIndex(notes[editColumn])].letter === allNotes[10])
+//                             copy[idx][editIndex(notes[editColumn])] = { ...copy[idx][editIndex(notes[editColumn])], transform: 'move-up', letter: allNotes[2] }
+//                         //'F' to 'A'    ||   'F#' to 'A'
+//                         else if ((copy[idx][editIndex(notes[editColumn])].letter === allNotes[8]) || copy[idx][editIndex(notes[editColumn])].letter === allNotes[9])
+//                             copy[idx][editIndex(notes[editColumn])] = { ...copy[idx][editIndex(notes[editColumn])], transform: 'move-up', letter: allNotes[0] }
+//                     }
+
+
+//                     else if (copy[idx][editIndex(notes[editColumn])].accidental === SHARP_NOTE) {
+//                         //'G#' to 'B#/C' 
+//                         if (copy[idx][editIndex(notes[editColumn])].letter === allNotes[11])
+//                             copy[idx][editIndex(notes[editColumn])] = { ...copy[idx][editIndex(notes[editColumn])], accidental: null, transform: 'move-up', letter: allNotes[2] }
+//                         //'F#' to 'A'
+//                         else if (copy[idx][editIndex(notes[editColumn])].letter === allNotes[9])
+//                             copy[idx][editIndex(notes[editColumn])] = { ...copy[idx][editIndex(notes[editColumn])], accidental: null, transform: 'move-up', letter: allNotes[0] }
+//                         //'F' to 'G#'
+//                         else if (copy[idx][editIndex(notes[editColumn])].letter === allNotes[8])
+//                             copy[idx][editIndex(notes[editColumn])] = { ...copy[idx][editIndex(notes[editColumn])], transform: 'move-up', letter: allNotes[11] }
+//                     }
+
+
+//                     else if (copy[idx][editIndex(notes[editColumn])].accidental === FLAT_NOTE) {
+//                         //'F#' to 'B' 
+//                         if (copy[idx][editIndex(notes[editColumn])].letter === allNotes[9])
+//                             copy[idx][editIndex(notes[editColumn])] = { ...copy[idx][editIndex(notes[editColumn])], accidental: null, transform: 'move-up', letter: allNotes[2] }
+//                         //'G#' to 'C'
+//                         else if (copy[idx][editIndex(notes[editColumn])].letter === allNotes[allNotes.length - 1])
+//                             copy[idx][editIndex(notes[editColumn])] = { ...copy[idx][editIndex(notes[editColumn])], accidental: null, transform: 'move-up', letter: allNotes[3] }
+//                     }
+//                 }
+//             }
+//         }
+//         store.dispatch(updateNote(copy))
+//     }
+// }
+
 export const moveNoteUp = (notes, key, editColumn) => {
     if (!isRestNote(notes[editColumn][editIndex(notes[editColumn])], null, notes)) {
         //Change transform and letter of note

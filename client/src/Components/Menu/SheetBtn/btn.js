@@ -4,9 +4,9 @@ import SongInfo from '../SongInfo/SongInfo'
 import AuthBtn from './AuthBtn'
 import NonAuthBtn from './NonAuthBtn'
 import { useSelector, useDispatch } from 'react-redux'
-import { showModal } from '../../../Redux/Actions/Modal'
 import { deleteLastNote, finishUpdatingNote, updateNote } from '../../../Redux/Actions/Notes'
 import { createNull } from '../../../HelperFunctions/Helpers'
+import { BtnContext } from '../../../Context/BtnContext'
 
 const StaveBtn = () => {
 
@@ -18,17 +18,11 @@ const StaveBtn = () => {
     const currentSongInfoMenuState = useSelector(state => state.util.isShowingInfo)
 
     const [disableLastbarBtn, setDisableCN] = useState('not-available')
+
     useEffect(() => {
         if (notes.length % 8 === 0 && notes.length !== 0) setDisableCN()
         else setDisableCN('not-available')
     }, [notes])
-
-    const clearSheet = () => {
-        if (isAuthenticated)
-            dispatch(showModal())
-        else if (notes.length > 0)
-            dispatch(showModal())
-    }
 
     const removeLastNote = () => {
         const copyNotes = [...notes]
@@ -73,8 +67,10 @@ const StaveBtn = () => {
             <div className='btn-sheets'>
                 {!currentSongInfoMenuState &&
                     <Fragment>
-                        {!isAuthenticated && <NonAuthBtn clearSheet={clearSheet} removeLastNote={removeLastNote} copyPreviousNote={copyPreviousNote} copyPreviousBar={copyPreviousBar} disableLastbarBtn={disableLastbarBtn} />}
-                        {isAuthenticated && !isNotesLoading && <AuthBtn clearSheet={clearSheet} removeLastNote={removeLastNote} copyPreviousNote={copyPreviousNote} copyPreviousBar={copyPreviousBar} disableLastbarBtn={disableLastbarBtn} />}
+                        <BtnContext.Provider value={{ removeLastNote: removeLastNote, copyPreviousNote: copyPreviousNote, copyPreviousBar: copyPreviousBar, disableLastbarBtn: disableLastbarBtn }}>
+                            {!isAuthenticated && <NonAuthBtn />}
+                            {isAuthenticated && !isNotesLoading && <AuthBtn />}
+                        </BtnContext.Provider>
                     </Fragment>
                 }
             </div>

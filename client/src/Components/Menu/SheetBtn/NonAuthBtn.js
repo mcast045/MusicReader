@@ -1,18 +1,20 @@
 import React, { Fragment } from 'react'
 import './btn.css'
 import { useSelector } from 'react-redux'
+import { clearSheet } from '../../../HelperFunctions/Helpers'
+import CommonBtns from './CommonBtns'
 
-const NonAuthBtn = ({ removeLastNote, clearSheet, copyPreviousNote, copyPreviousBar, disableLastbarBtn }) => {
+const NonAuthBtn = () => {
 
     const notes = useSelector(state => state.notes.notes)
     const isUpdating = useSelector(state => state.notes.isUpdating)
+    const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
+
 
     return (
         <Fragment>
-            <button className='btn' disabled={notes.length === 0} onClick={() => copyPreviousNote()}>Copy Last Note</button>
-            <button className={`btn ${disableLastbarBtn}`} disabled={notes.length % 8 !== 0 || notes.length === 0} onClick={() => copyPreviousBar()}>Copy Last Bar</button>
-            <button className='btn' disabled={isUpdating} onClick={() => removeLastNote()}>Delete Last Note</button>
-            <button className='btn clearBtn' disabled={isUpdating} onClick={() => clearSheet()}>Clear All</button>
+            <CommonBtns />
+            <button className='btn clearBtn' disabled={isUpdating} onClick={() => clearSheet(notes)}>Clear All</button>
         </Fragment>
     )
 }

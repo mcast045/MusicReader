@@ -23,12 +23,26 @@
     color: var(--dark-color-1)
 } 
 
-.songInfo_btn:hover {
+.songInfo_btns-container .editBtns-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.songInfo_btns-container .editBtns-container .songInfo_btn {
+    flex-basis: 7rem;
+}
+
+.songInfo_btns-container .editBtns-container .songInfo_btn:hover {
     background-color: var(--main-bg-color);
     color: var(--dark-color-1)
 }
 
-.songInfo_btns {
+.songInfo_btns-container .clearBtn-container {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.songInfo_btns-container .clearBtn-container .clearBtn {
+    width: 100%;
 }

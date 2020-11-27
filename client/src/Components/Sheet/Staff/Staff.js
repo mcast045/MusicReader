@@ -7,7 +7,7 @@ import { updateNoteLetter } from '../../../HelperFunctions/UpdateNoteLetter'
 import { getNoteColumn, isRestNote, editIndex } from '../../../HelperFunctions/Helpers'
 import { isShowingMenuAndLogout } from '../../../Redux/Actions/Util'
 
-const Staff = ({ screenSize, viewOnly, bars, staffLines, eighthNotes, numberOfStaves }) => {
+const Staff = ({ viewOnly, bars, staffLines, eighthNotes, numberOfStaves }) => {
 
     const dispatch = useDispatch()
 
@@ -48,7 +48,6 @@ const Staff = ({ screenSize, viewOnly, bars, staffLines, eighthNotes, numberOfSt
         }
     }
 
-    //Drag and Drop functionality
     const allowDrop = e =>
         e.preventDefault()
 

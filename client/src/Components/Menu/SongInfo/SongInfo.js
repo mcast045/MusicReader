@@ -4,7 +4,7 @@ import Loader from '../../../Images/Loader/Loader'
 import { isFetchingNotes } from '../../../Redux/Actions/Notes'
 import { getUserSong, publishSong, redactSong } from '../../../Redux/Actions/Song'
 import { useSelector, useDispatch } from 'react-redux'
-import { dateFormat } from '../../../HelperFunctions/Helpers'
+import { dateFormat, clearSheet } from '../../../HelperFunctions/Helpers'
 import { setAlert } from '../../../Redux/Actions/Alert'
 import { isShowLogout, isShowInfo } from '../../../Redux/Actions/Util'
 
@@ -12,10 +12,13 @@ const SongInformation = () => {
     const dispatch = useDispatch()
 
     const user = useSelector(state => state.auth.user)
+    const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
+    const notes = useSelector(state => state.notes.notes)
+    const isNotesLoading = useSelector(state => state.notes.loading)
+    const isUpdating = useSelector(state => state.notes.isUpdating)
     const songs = useSelector(state => state.song.songs)
     const currentSong = useSelector(state => state.song.currentSong)
     const songLoading = useSelector(state => state.song.loading)
-    const isNotesLoading = useSelector(state => state.notes.loading)
     const currentLogoutState = useSelector(state => state.util.isShowingLogout)
     const currentSongInfomenuState = useSelector(state => state.util.isShowingInfo)
 
@@ -76,13 +79,19 @@ const SongInformation = () => {
                                     </div>
                                 </div>
                             }
-                            <div className='songInfo_btns'>
-                                <button className='btn songInfo_btn' onClick={() => onClickEdit()}>Edit</button>
-                                {currentSong.isPublished ?
-                                    <button className='btn songInfo_btn' onClick={() => onClickRedact()}>Redact</button>
-                                    :
-                                    <button className='btn songInfo_btn' onClick={() => onClickPublish()}>Publish</button>
-                                }
+                            <div className='songInfo_btns-container'>
+                                <div className='editBtns-container'>
+                                    <button className='btn songInfo_btn' onClick={() => onClickEdit()}>Edit</button>
+                                    {currentSong.isPublished ?
+                                        <button className='btn songInfo_btn' onClick={() => onClickRedact()}>Redact</button>
+                                        :
+                                        <button className='btn songInfo_btn' onClick={() => onClickPublish()}>Publish</button>
+                                    }
+                                </div>
+
+                                <div className='clearBtn-container'>
+                                    <button className='btn clearBtn' disabled={isUpdating} onClick={() => clearSheet(notes, isAuthenticated)}>Delete Song</button>
+                                </div>
                             </div>
                         </div>
                     }

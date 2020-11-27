@@ -24,7 +24,8 @@ const Sheet = ({ match, viewOnly }) => {
     let columnsPerStaff = 32
 
     //Prevent low end 'D#' note, which has no tab
-    if (keySignature.id < -1) staffLines.pop()
+    if (keySignature.id < -1)
+        staffLines.pop()
 
     if (screenSize < 800) {
         bars = [1]

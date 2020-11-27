@@ -1,35 +1,39 @@
-const bcrypt = require('bcryptjs')
-const User = require('../models/userModel')
-const Song = require('../models/songsModel')
-const Note = require('../models/notesModel')
 const { validationResult } = require('express-validator')
+const { getUserById, getUserNotes, getAndSortUserSongs, getUsers, getUserByEmail, deleteUserAccount, deleteUserSongs, deleteUserNotes, hashUserPassword, compareUserHashPassword, postNewUser, createUserSession, returnError, destorySession } = require('../services/userService')
 
-const errorMessage = 'Server Error'
+
+
+const catchBlockErrorMessage = (res, err) => {
+    console.log(err.message)
+    return res.status(500).send('Server Error')
+}
+
+
+
 exports.loadUser = async (req, res, next) => {
     try {
         const userId = req.params.userId
-        const song = await Song.find({ userId: userId }, null, { sort: { date: -1 } })
-        const notes = await Note.find({ userId: userId })
-        const user = await User.findById(userId).select('-password')
-
+        const song = await getAndSortUserSongs(userId)
+        const notes = await getUserNotes(userId)
+        const user = await getUserById(userId)
         res.json({ song: song, notes: notes, user: user })
-    }
-    catch (err) {
-        console.log(err.message)
-        return res.status(500).send(errorMessage)
+    } catch (err) {
+        return catchBlockErrorMessage(res, err)
     }
 }
+
+
 
 exports.getAllUsers = async (req, res, next) => {
     try {
-        const users = await User.find().select('-password')
+        const users = await getUsers()
         res.json(users)
-    }
-    catch (err) {
-        console.log(err.message)
-        return res.status(500).send(errorMessage)
+    } catch (err) {
+        return catchBlockErrorMessage(res, err)
     }
 }
+
+
 
 exports.registerUser = async (req, res, next) => {
     try {
@@ -37,76 +41,63 @@ exports.registerUser = async (req, res, next) => {
         if (!errors.isEmpty())
             return res.status(400).json({ errors: errors.array() })
 
-        const { email, password, username } = req.body
-        const existingUser = await User.findOne({ email: email })
-
-        //Hash Password
-        const hashedPassword = await bcrypt.hash(password, 12)
+        const { username, email, password } = req.body
+        const existingUser = await getUserByEmail(email)
 
         if (!existingUser) {
-            const newUser = new User({
-                password: hashedPassword,
-                email,
-                username
-            })
-
-            const user = await newUser.save()
-            req.session.isLoggedIn = true
-            req.session.user = user
-            res.json(user)
-        }
-        else if (existingUser)
-            return res.status(400).json({ errors: [{ msg: 'Email is already in use' }] })
-    }
-    catch (err) {
-        console.log(err.message)
-        return res.status(500).send(errorMessage)
+            const hashedPassword = await hashUserPassword(password)
+            const newUser = await postNewUser(username, email, hashedPassword)
+            createUserSession(newUser, req.session)
+            res.json(newUser)
+        } else if (existingUser) return returnError(res, 'Email is already in use')
+    } catch (err) {
+        return catchBlockErrorMessage(res, err)
     }
 }
 
-exports.loginUser = async (req, res, next) => {
-    const { email, password } = req.body
-    const user = await User.findOne({ email })
 
+
+exports.loginUser = async (req, res, next) => {
     const errors = validationResult(req)
     if (!errors.isEmpty())
         return res.status(400).json({ errors: errors.array() })
 
+    const { email, password } = req.body
+    const returningUser = await getUserByEmail(email)
+
     try {
-        if (!user)
-            return res.status(400).json({ errors: [{ msg: 'Invalid Credentials' }] })
+        if (!returningUser)
+            return returnError(res, 'Invalid Credentials')
 
-        const isMatch = await bcrypt.compare(password, user.password)
-        if (!isMatch)
-            return res.status(400).json({ errors: [{ msg: 'Invalid Credentials' }] })
+        const isMatch = await compareUserHashPassword(password, returningUser)
 
-        else if (isMatch) {
-            req.session.isLoggedIn = true
-            req.session.user = user
-            res.json(user)
-        }
-    }
-    catch (err) {
-        console.log(err.message)
-        return res.status(500).send(errorMessage)
+        if (isMatch) {
+            createUserSession(returningUser, req.session)
+            res.json(returningUser)
+        } else return returnError(res, 'Invalid Credentials')
+
+    } catch (err) {
+        return catchBlockErrorMessage(res, err)
     }
 }
+
+
 
 exports.logoutUser = (req, res, next) => {
-    req.session.destroy()
+    destorySession(req.session)
+    res.json({ msg: "User Logged Out" })
 }
+
+
 
 exports.deleteUser = async (req, res, next) => {
     try {
-        await Note.deleteMany({ userId: req.session.user._id })
-        await Song.deleteMany({ userId: req.session.user._id })
-        await User.findByIdAndRemove(req.session.user._id)
-        req.session.destroy()
-
+        await deleteUserNotes(req.session.user._id)
+        await deleteUserSongs(req.session.user._id)
+        await deleteUserAccount(req.session.user._id)
+        destorySession(req.session)
         res.json({ msg: 'User deleted' })
-    }
-    catch (err) {
-        console.log(err.message)
-        return res.status(500).send(errorMessage)
+    } catch (err) {
+        return catchBlockErrorMessage(res, err)
     }
 }
