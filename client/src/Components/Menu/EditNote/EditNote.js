@@ -16,16 +16,20 @@ const EditNote = () => {
     const editColumn = useSelector(state => state.notes.editColumnNumber)
     const currentLogoutState = useSelector(state => state.util.isShowingLogout)
 
-    const confirmCancel = () => {
-        const copyNotes = [...notes]
+    const removeTabConflict = copyNotes => {
         const idx = editIndex(copyNotes[editColumn])
         let columnWithEdit = copyNotes[editColumn][idx]
 
         //Remove unedited note that is on same tabLine as edited note
         const conflictingTabId = copyNotes[editColumn].findIndex(note => (note.tabRow === columnWithEdit.tabRow) && (!note.edit))
-        if (conflictingTabId !== -1) copyNotes[editColumn].splice(conflictingTabId, 1, 0)
+        if (conflictingTabId !== -1) copyNotes[editColumn].splice(conflictingTabId, 1)
+    }
 
-        removeEdit(idx, copyNotes, editColumn)
+    const confirmCancel = () => {
+        const copyNotes = [...notes]
+
+        removeTabConflict(copyNotes)
+        removeEdit(editIndex(copyNotes[editColumn]), copyNotes, editColumn, true)
         dispatch(isShowingMenuAndLogout(!currentLogoutState))
         dispatch(currentEditColumn(-1))
     }

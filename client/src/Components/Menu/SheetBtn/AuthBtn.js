@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react'
+import React, { Fragment } from 'react'
 import './btn.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { saveNotes } from '../../../Redux/Actions/Notes'

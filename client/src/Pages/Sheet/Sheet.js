@@ -7,6 +7,7 @@ import Tab from '../../Components/Sheet/Tab/Tab'
 import PageHeader from '../../Components/Sheet/PageHeader/PageHeader'
 import SheetHeader from '../../Components/Sheet/StaffHeader/Clef&Tab/Clef&Tab'
 import { getPublishedSong } from '../../Redux/Actions/Song'
+import { StaffContext } from '../../Context/StaffContext'
 
 const Sheet = ({ match, viewOnly }) => {
 
@@ -61,12 +62,14 @@ const Sheet = ({ match, viewOnly }) => {
             {numOfSheets.map((staves, numberOfStaves) => (
                 <div key={numberOfStaves} className={viewOnly ? 'fullScreenStaff' : 'sheet'}>
                     <div className='stave-container'>
-                        <SheetHeader numberOfStaves={numberOfStaves} />
+                        <StaffContext.Provider value={{ numberOfStaves, screenSize, viewOnly, bars, eighthNotes }}>
+                            <SheetHeader />
 
-                        <div id='mask'></div>
+                            <div id='mask'></div>
 
-                        <Staff screenSize={screenSize} viewOnly={viewOnly} numberOfStaves={numberOfStaves} bars={bars} staffLines={staffLines} eighthNotes={eighthNotes} />
-                        <Tab screenSize={screenSize} numberOfStaves={numberOfStaves} bars={bars} tabLines={tabLines} eighthNotes={eighthNotes} />
+                            <Staff staffLines={staffLines} />
+                            <Tab tabLines={tabLines} />
+                        </StaffContext.Provider>
                     </div>
                 </div>
             ))}

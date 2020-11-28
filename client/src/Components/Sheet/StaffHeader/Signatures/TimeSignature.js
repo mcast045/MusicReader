@@ -1,11 +1,14 @@
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { useState, useEffect, Fragment, useContext } from 'react'
 import './Signature.css'
 import { useSelector } from 'react-redux'
+import { StaffContext } from '../../../../Context/StaffContext'
 
-const TimeSignature = ({ numberOfStaves }) => {
+const TimeSignature = () => {
 
     const key = useSelector(state => state.song.keySignature)
     const staffLineNumber = useSelector(state => state.song.staffLineNumber)
+
+    const { numberOfStaves } = useContext(StaffContext)
 
     const [timeSignatureClassName, setTimeSignatureClassName] = useState('time-signature-placeholder')
 

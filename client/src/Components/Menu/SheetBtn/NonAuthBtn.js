@@ -8,8 +8,6 @@ const NonAuthBtn = () => {
 
     const notes = useSelector(state => state.notes.notes)
     const isUpdating = useSelector(state => state.notes.isUpdating)
-    const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
-
 
     return (
         <Fragment>

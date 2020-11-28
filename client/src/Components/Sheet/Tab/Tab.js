@@ -1,14 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './Tab.css'
 import '../../../Pages/Sheet/Sheet.css'
 import { useSelector } from 'react-redux'
 import { tabValue } from '../../../HelperFunctions/MapNoteToTab'
 import { getNoteColumn } from '../../../HelperFunctions/Helpers'
+import { StaffContext } from '../../../Context/StaffContext'
 
-const Tab = ({ bars, tabLines, eighthNotes, numberOfStaves }) => {
+const Tab = ({ tabLines }) => {
 
     const notes = useSelector(state => state.notes.notes)
     const isUpdating = useSelector(state => state.notes.isUpdating)
+
+    const { numberOfStaves, eighthNotes, bars } = useContext(StaffContext)
 
     return (
         <div className='tab-music-container'>

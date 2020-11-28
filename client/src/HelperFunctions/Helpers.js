@@ -63,9 +63,13 @@ export const getDifferentTabPosition = (notes, editColumn) => {
 
 
 //Remove 'edit' key
-export const removeEdit = (idx, notesArr, editColumn) => {
+export const removeEdit = (idx, notesArr, editColumn, isEditCancel = false) => {
     const columnWithEdit = notesArr[editColumn][idx]
-    notesArr[editColumn].splice(idx, 1, columnWithEdit)
+
+    //isEditCancel - Cancel button when editing note
+    isEditCancel ? notesArr[editColumn].splice(idx, 0)
+        : notesArr[editColumn].splice(idx, 1, columnWithEdit)
+
     delete columnWithEdit['edit']
 
     store.dispatch(updateNote(notesArr))

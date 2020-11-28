@@ -4,14 +4,14 @@ import Clef from '../../../../Images/clef.svg'
 import TimeSignature from '../Signatures/TimeSignature'
 import KeySignature from '../Signatures/KeySignature'
 
-const Cleftab = ({ numberOfStaves }) => {
+const Cleftab = () => {
     return (
         <Fragment>
             <div className='clef'>
                 <img src={Clef} alt='clef' draggable="false" />
             </div>
 
-            <TimeSignature numberOfStaves={numberOfStaves} />
+            <TimeSignature />
             <KeySignature />
 
             <div className="tab-contaner">
