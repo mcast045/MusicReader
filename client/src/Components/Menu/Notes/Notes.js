@@ -64,8 +64,6 @@ const Notes = () => {
         }
     }
 
-
-
     const onClickHalfNote = () => {
         const nullArray = createNull(4)
 
@@ -112,9 +110,6 @@ const Notes = () => {
         }
     }
 
-
-
-
     const onClickQuarterNote = () => {
         const nullArray = createNull(2)
 
@@ -160,8 +155,6 @@ const Notes = () => {
             dispatch(isShowingMenuAndLogout(!currentLogoutState))
         }
     }
-
-
 
     const onClickEighthNote = () => {
         if (key.id < -1)

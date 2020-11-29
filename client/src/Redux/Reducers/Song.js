@@ -23,7 +23,7 @@ const initialState = {
     title: 'Your Song Title',
     keySignature: { id: 1, value: 'C-major/A-minor' },
     staffLineNumber: [{ beats: '4', bar: '4' }],
-    loading: true
+    loading: false
 }
 
 export default function (state = initialState, action) {
@@ -35,35 +35,30 @@ export default function (state = initialState, action) {
         case REDACT_SONG:
             return {
                 ...state,
-                currentSong: payload,
-                loading: false
+                currentSong: payload
             }
         case GET_PUBLISHED_SONG:
             return {
                 ...state,
                 currentSong: payload,
-                keySignature: payload.keySignature,
-                loading: false
+                keySignature: payload.keySignature
             }
         case GET_USER_SONGS:
             return {
                 ...state,
-                songs: payload,
-                loading: false
+                songs: payload
             }
         case GET_ALL_PUBLISHED_SONGS:
             return {
                 ...state,
                 songsSearch: payload.published,
-                publishedSongsCount: payload.count,
-                loading: false
+                publishedSongsCount: payload.count
             }
         case CREATE_SONG:
             return {
                 ...state,
                 currentSong: payload,
-                songs: [payload, ...state.songs],
-                loading: false
+                songs: [payload, ...state.songs]
             }
         case DELETE_SONG:
             return {
@@ -73,21 +68,18 @@ export default function (state = initialState, action) {
                 currentSong:
                     state.songs.length > 1 ?
                         state.songs[state.songs.findIndex(song => (song._id === payload) - 1)] :
-                        {},
-                loading: false
+                        {}
             }
         case UPDATE_KEYSIGNATURE:
             return {
                 ...state,
-                keySignature: payload,
-                loading: false
+                keySignature: payload
             }
         case CLEAR_SONG:
             return {
                 ...state,
                 title: 'Your Song Title',
                 keySignature: { id: 1, value: 'C-major/A-minor' },
-                loading: false,
                 currentSong: {},
                 songsSearch: []
             }
@@ -97,7 +89,6 @@ export default function (state = initialState, action) {
                 title: 'Your Song Title',
                 keySignature: { id: 1, value: 'C-major/A-minor' },
                 songsSearch: [],
-                loading: false,
                 currentSong: {},
                 songs: []
             }
@@ -115,8 +106,7 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 songsSearch: payload.songs,
-                publishedSongsCount: payload.count,
-                loading: false
+                publishedSongsCount: payload.count
             }
         default:
             return state

@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux'
 
 const Menu = () => {
 
+    const isNotesLoading = useSelector(state => state.notes.loading)
     const user = useSelector(state => state.auth.user)
     const currentMenuState = useSelector(state => state.util.isShowingMenu)
     const currentNewSongMenuState = useSelector(state => state.util.newSongClickState)
@@ -22,7 +23,7 @@ const Menu = () => {
                     {!currentNewSongMenuState &&
                         <Fragment>
                             <StaffBtn />
-                            {!currentSongInfoMenuState &&
+                            {!currentSongInfoMenuState && !isNotesLoading &&
                                 <Fragment>
                                     <Notes />
                                     <Rest />

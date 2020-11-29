@@ -17,6 +17,9 @@ const Sheet = ({ match, viewOnly }) => {
     const staffLineNumber = useSelector(state => state.song.staffLineNumber)
     let screenSize = window.screen.width
 
+    //Without 'isUpdating' chord notes/tab does not render till user clicks 'Cancel'
+    const isUpdating = useSelector(state => state.notes.isUpdating)
+
     //Constants used to make music sheet 
     const staffLines = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     const eighthNotes = [1, 2, 3, 4, 5, 6, 7, 8]
@@ -25,8 +28,7 @@ const Sheet = ({ match, viewOnly }) => {
     let columnsPerStaff = 32
 
     //Prevent low end 'D#' note, which has no tab
-    if (keySignature.id < -1)
-        staffLines.pop()
+    if (keySignature.id < -1) staffLines.pop()
 
     if (screenSize < 800) {
         bars = [1]
@@ -36,45 +38,52 @@ const Sheet = ({ match, viewOnly }) => {
         columnsPerStaff = 16
     }
 
-    const [numOfSheets, setNumOfSheets] = useState(staffLineNumber)
+    const [numOfStaffs, setNumOfStaffs] = useState(staffLineNumber)
 
     //Add/remove staff lines
     useEffect(() => {
-        if ((notes.length > 0) && (notes.length > numOfSheets.length * columnsPerStaff))
-            setNumOfSheets([...numOfSheets, (numOfSheets.length + 1)])
-        else if ((notes.length > 0) && ((notes.length - 1) / ((numOfSheets.length - 1) * columnsPerStaff) < 1)) {
-            let copyNumOfSheets = [...numOfSheets]
-            copyNumOfSheets.pop()
-            setNumOfSheets(copyNumOfSheets)
+        //Prevent infinite loop on load
+        if (notes.length !== 0) {
+            const copyNote = [...notes]
+            //Add Staff line if there are more than 32 notes/staff
+            //And if overloaded notes are not all null
+            if ((notes.length > numOfStaffs.length * columnsPerStaff) &&
+                !copyNote.splice(numOfStaffs.length * columnsPerStaff).every(note => note === null))
+                setNumOfStaffs([...numOfStaffs, (numOfStaffs.length + 1)])
+            //Remove staff line
+            else if (((notes.length - 1) / ((numOfStaffs.length - 1) * columnsPerStaff) < 1)) {
+                let copyNumOfSheets = [...numOfStaffs]
+                copyNumOfSheets.pop()
+                setNumOfStaffs(copyNumOfSheets)
+            }
         }
-    }, [notes, numOfSheets, columnsPerStaff])
+    }, [notes, numOfStaffs, columnsPerStaff])
 
     //If refreshing or going back into '/search/:id', load song
     useEffect(() => {
-        if (viewOnly && match.params.id)
-            dispatch(getPublishedSong(match.params.id))
+        if (viewOnly && match.params.id) dispatch(getPublishedSong(match.params.id))
     }, [dispatch, viewOnly, match])
 
     return (
         <Fragment>
-            <PageHeader viewOnly={viewOnly} setNumOfSheets={setNumOfSheets} screenSize={screenSize} />
+            <PageHeader viewOnly={viewOnly} setNumOfStaffs={setNumOfStaffs} screenSize={screenSize} />
 
-            {numOfSheets.map((staves, numberOfStaves) => (
+            {numOfStaffs.map((staves, numberOfStaves) => (
                 <div key={numberOfStaves} className={viewOnly ? 'fullScreenStaff' : 'sheet'}>
                     <div className='stave-container'>
                         <StaffContext.Provider value={{ numberOfStaves, screenSize, viewOnly, bars, eighthNotes }}>
+
                             <SheetHeader />
-
                             <div id='mask'></div>
-
                             <Staff staffLines={staffLines} />
                             <Tab tabLines={tabLines} />
+
                         </StaffContext.Provider>
                     </div>
                 </div>
             ))}
 
-            <Modal setNumOfSheets={setNumOfSheets} />
+            <Modal setNumOfStaffs={setNumOfStaffs} />
         </Fragment >
     )
 }

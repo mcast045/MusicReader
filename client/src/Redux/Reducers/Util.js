@@ -3,7 +3,7 @@ import {
     SHOW_NEW_SONG_MENU,
     SHOW_LOGOUT,
     SHOW_SONG_INFO,
-    SHOW_MENU_AND_LOGOUT
+    SHOW_MENU_AND_LOGOUT,
 } from '../Constants'
 
 const initialState = {

@@ -18,7 +18,7 @@ const SongInformation = () => {
     const isUpdating = useSelector(state => state.notes.isUpdating)
     const songs = useSelector(state => state.song.songs)
     const currentSong = useSelector(state => state.song.currentSong)
-    const songLoading = useSelector(state => state.song.loading)
+    const isSongsLoading = useSelector(state => state.song.loading)
     const currentLogoutState = useSelector(state => state.util.isShowingLogout)
     const currentSongInfomenuState = useSelector(state => state.util.isShowingInfo)
 
@@ -44,7 +44,7 @@ const SongInformation = () => {
 
     return (
         <Fragment>
-            {user._id && songLoading && songs.length > 0 ? <Loader /> :
+            {user._id && isSongsLoading && songs.length > 0 ? <Loader /> :
                 <Fragment>
                     {currentSongInfomenuState && currentSong &&
                         <div>

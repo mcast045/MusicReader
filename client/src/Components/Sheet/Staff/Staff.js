@@ -14,7 +14,6 @@ const Staff = ({ staffLines }) => {
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
 
     const { numberOfStaves, viewOnly, bars } = useContext(StaffContext)
-
     const isMounted = useRef(false)
 
     //Load currentSong notes when user changes song

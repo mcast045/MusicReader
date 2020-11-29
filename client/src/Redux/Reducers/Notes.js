@@ -16,7 +16,7 @@ import {
 const initialState = {
     notes: [],
     editColumnNumber: -1,
-    loading: true,
+    loading: false,
     isReplacing: false,
     isInserting: false,
     isUpdating: false
@@ -44,7 +44,6 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 notes: payload,
-                loading: false,
                 isReplacing: false,
                 isInserting: false,
                 isUpdating: false
@@ -53,14 +52,12 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 notes: payload,
-                loading: false,
                 isUpdating: true
             }
         case REPLACE_NOTE:
             return {
                 ...state,
                 notes: payload,
-                loading: false,
                 isReplacing: true,
                 isUpdating: true
             }
@@ -68,7 +65,6 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 notes: payload,
-                loading: false,
                 isInserting: true,
                 isUpdating: true
             }
@@ -77,16 +73,20 @@ export default function (state = initialState, action) {
                 ...state,
                 isReplacing: false,
                 isInserting: false,
-                loading: false,
                 isUpdating: false
             }
         case EDIT_COLUMN:
             return {
                 ...state,
-                editColumnNumber: payload,
-                loading: false
+                editColumnNumber: payload
             }
         case CLEAR_NOTES:
+            return {
+                ...state,
+                loading: false,
+                isUpdating: false,
+                notes: []
+            }
         case IS_FETCHING_NOTES:
             return {
                 ...state,

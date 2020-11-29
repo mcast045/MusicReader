@@ -79,6 +79,5 @@ export const removeEdit = (idx, notesArr, editColumn, isEditCancel = false) => {
 export const clearSheet = (notes, isAuth = false) => {
     //Allow authenticated users to delete songs even if songs have notes
     //Removes songs from database
-    if (notes.length > 0 || isAuth)
-        store.dispatch(showModal())
+    if (notes.length > 0 || isAuth) store.dispatch(showModal())
 }

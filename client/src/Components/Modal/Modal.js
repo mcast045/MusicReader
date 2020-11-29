@@ -6,7 +6,7 @@ import { deleteSong, clearAll } from '../../Redux/Actions/Song'
 import { deleteUser } from '../../Redux/Actions/Auth'
 import { isShowLogout } from '../../Redux/Actions/Util'
 
-const Modal = ({ setNumOfSheets }) => {
+const Modal = ({ setNumOfStaffs }) => {
 
     const dispatch = useDispatch()
     const isShowModal = useSelector(state => state.modal.showModal)
@@ -18,13 +18,10 @@ const Modal = ({ setNumOfSheets }) => {
     const currentLogoutState = useSelector(state => state.util.isShowingLogout)
 
     const onClickOK = () => {
-        setNumOfSheets(staffLineNumber)
+        setNumOfStaffs(staffLineNumber)
 
-        if (isAuthenticated && songs.length > 0)
-            dispatch(deleteSong(currentSong._id))
-
-        if (isDeleteUser)
-            dispatch(deleteUser())
+        if (isAuthenticated && songs.length > 0) dispatch(deleteSong(currentSong._id))
+        if (isDeleteUser) dispatch(deleteUser())
 
         dispatch(clearAll())
         dispatch(hideModal())

@@ -9,7 +9,6 @@ import { StaffContext } from '../../../Context/StaffContext'
 const Tab = ({ tabLines }) => {
 
     const notes = useSelector(state => state.notes.notes)
-    const isUpdating = useSelector(state => state.notes.isUpdating)
 
     const { numberOfStaves, eighthNotes, bars } = useContext(StaffContext)
 
@@ -27,8 +26,7 @@ const Tab = ({ tabLines }) => {
                                     readOnly
                                     // Or statement prevents 'changing an uncontrolled input of type text to be controlled'
                                     value={(notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].map((tab, i) => (
-                                        tab && tabValue(rowNumber, tab, notes, getNoteColumn(measure, columnsPerMeasure, numberOfStaves), i))).join('')) || ''}>
-                                </input>
+                                        tab && tabValue(rowNumber, tab, notes, getNoteColumn(measure, columnsPerMeasure, numberOfStaves), i))).join('')) || ''} />
                             ))}
                         </li>
                     ))}

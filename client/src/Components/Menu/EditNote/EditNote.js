@@ -9,6 +9,7 @@ import { editIndex, removeEdit } from '../../../HelperFunctions/Helpers'
 import { isShowingMenuAndLogout } from '../../../Redux/Actions/Util'
 
 const EditNote = () => {
+
     const dispatch = useDispatch()
     const notes = useSelector(state => state.notes.notes)
     const isReplacing = useSelector(state => state.notes.isReplacing)

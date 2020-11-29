@@ -1,17 +1,5 @@
-import { editIndex } from './Helpers'
-import store from '../Redux/Store'
-import { updateNote } from '../Redux/Actions/Notes'
-
-
-//Updates tabRow for each note
-//If multiple notes on single tab line, hide all notes on tab line
 const updateNoteTabRow = (notes, column, tabRow, tabLine, tab) => {
-    const noteToUpdate = notes[column][editIndex(notes[column])]
     notes[column][tabRow].tabRow = tabLine
-
-    //Prevent updateNote() if user is searching a published song
-    if (noteToUpdate) store.dispatch(updateNote(notes))
-
     return tab
 }
 

@@ -12,7 +12,6 @@ const StaffRow = ({ rowNumber, measure }) => {
     const dispatch = useDispatch()
 
     const notes = useSelector(state => state.notes.notes)
-    const isUpdating = useSelector(state => state.notes.isUpdating)
     const editColumn = useSelector(state => state.notes.editColumnNumber)
     const key = useSelector(state => state.song.keySignature)
     const currentMenuState = useSelector(state => state.util.isShowingMenu)
@@ -33,11 +32,6 @@ const StaffRow = ({ rowNumber, measure }) => {
             const accidental = null
             updateNoteLetter(row, noteColumn, accidental, notes, key)
         }
-    }
-
-    const isCurrentColumn = (measure, column, staff) => {
-        if (notes[editColumn] && !isRestNote(editColumn, notes[editColumn][0].type, notes))
-            return (getNoteColumn(measure, column, staff) === editColumn)
     }
 
     const showLedgerLines = (measure, column, staff, rowNumber) => {
@@ -75,22 +69,31 @@ const StaffRow = ({ rowNumber, measure }) => {
         }
     }
 
+    const isCurrentColumn = (measure, column, staff) => {
+        if (notes[editColumn] && !isRestNote(editColumn, notes[editColumn][0].type, notes))
+            return (getNoteColumn(measure, column, staff) === editColumn)
+    }
+
+    const currentColumn = (measure, columnsPerMeasure, numberOfStaves) => {
+        return notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)]
+    }
+
     return (
         <li key={rowNumber} style={hideLedgerLinesOnLoad(rowNumber)}>
             {eighthNotes.map(columnsPerMeasure => (
                 <div
                     className='note-temp-container'
                     key={columnsPerMeasure}
-                    style={isCurrentColumn(measure, columnsPerMeasure, numberOfStaves) && (rowNumber !== 12 && (rowNumber < 4 || rowNumber > 8)) ? { borderBottom: '1px solid black' } : notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && showLedgerLines(measure, columnsPerMeasure, numberOfStaves, rowNumber)}>
+                    style={isCurrentColumn(measure, columnsPerMeasure, numberOfStaves) && (rowNumber !== 12 && (rowNumber < 4 || rowNumber > 8)) ? { borderBottom: '1px solid black' } : currentColumn(measure, columnsPerMeasure, numberOfStaves) && showLedgerLines(measure, columnsPerMeasure, numberOfStaves, rowNumber)}>
 
                     <div
                         id={`note-container-${getNoteColumn(measure, columnsPerMeasure, numberOfStaves)}`}
                         className='drag-container-space'
                         onDrop={e => drop(e, rowNumber, getNoteColumn(measure, columnsPerMeasure, numberOfStaves))}
                         onDragOver={e => allowDrop(e)}
-                        style={notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && { display: 'block' }}>
+                        style={currentColumn(measure, columnsPerMeasure, numberOfStaves) && { display: 'block' }}>
 
-                        {notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].map((chordNote, i) => (
+                        {currentColumn(measure, columnsPerMeasure, numberOfStaves) && currentColumn(measure, columnsPerMeasure, numberOfStaves).map((chordNote, i) => (
                             <Fragment key={i}>
                                 {chordNote && (rowNumber === chordNote.row) &&
                                     <button
@@ -111,6 +114,7 @@ const StaffRow = ({ rowNumber, measure }) => {
                                                 <div className='note-staff-image-accidental font-2'>{chordNote.accidental}</div>
                                                 <div className='notePath'>{chordNote.notePath}</div>
                                             </div>
+
                                             {(chordNote.type === 'Dotted-WholeRest' || chordNote.type === 'Dotted-HalfRest' || chordNote.type === 'Dotted-QuarterRest') && <span className='rest-dotted dot'>.</span>}
                                         </div>
 

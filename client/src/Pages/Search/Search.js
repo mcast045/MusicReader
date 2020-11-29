@@ -13,7 +13,6 @@ const Search = props => {
 
     const dispatch = useDispatch()
     const songs = useSelector(state => state.song.songsSearch)
-    const songsLoaded = useSelector(state => state.song.loading)
 
     //Load and display published songs based on search page
     let query = props.location.search
@@ -37,7 +36,7 @@ const Search = props => {
 
     return (
         <div className='search'>
-            {songsLoaded ? <Loader /> :
+            {songs.length === 0 ? <Loader /> :
                 <div className='search-block'>
                     <SearchMenu query={query} />
                     <div className='search-songs'>
