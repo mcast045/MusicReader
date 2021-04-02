@@ -39,6 +39,8 @@ const SheetHeader = ({ setNumOfStaffs, viewOnly, screenSize }) => {
             dispatch(isFetchingNotes())
     }
 
+    const onClickAuth = cardFace => dispatch(flipAuthCard(cardFace))
+
     return (
         <Fragment>
             {(isNotesLoading && currentSong._id) || (viewOnly && isNotesLoading) ? <Loader /> :
@@ -58,15 +60,15 @@ const SheetHeader = ({ setNumOfStaffs, viewOnly, screenSize }) => {
 
                         {!user._id &&
                             < div className='userSignIn'>
-                                <Link to='/auth' className='userSignIn_link' onClick={() => dispatch(flipAuthCard('back'))}>Login</Link>
-                                <Link to='/auth' className='userSignIn_link' onClick={() => dispatch(flipAuthCard('front'))}>Register</Link>
+                                {!isUpdating && <Link to='/auth' className='userSignIn_link' onClick={() => onClickAuth('back')}>Login</Link>}
+                                {!isUpdating && <Link to='/auth' className='userSignIn_link' onClick={() => onClickAuth('front')}>Register</Link>}
                                 {!isUpdating && <Link to='/search?page=1' className='search-songs'>Search</Link>}
                                 {viewOnly && <Link to='/' onClick={() => onClickHome()} className='search-songs'>Home</Link>}
                             </div>
                         }
                         {user._id && (currentLogoutState || viewOnly) &&
                             <div className='userSignIn'>
-                                <Link to='/' className='userSignIn_link' onClick={() => onClickLogoutUser()}>Logout</Link>
+                                {!isUpdating && <Link to='/' className='userSignIn_link' onClick={() => onClickLogoutUser()}>Logout</Link>}
                                 {!isUpdating && <Link to='/search?page=1' className='search-songs'>Search</Link>}
                                 {viewOnly && <Link to='/' onClick={() => onClickHome()} className='search-songs'>Home</Link>}
                             </div>

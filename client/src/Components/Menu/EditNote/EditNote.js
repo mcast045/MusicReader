@@ -28,7 +28,6 @@ const EditNote = () => {
 
     const confirmCancel = () => {
         const copyNotes = [...notes]
-
         removeTabConflict(copyNotes)
         removeEdit(editIndex(copyNotes[editColumn]), copyNotes, editColumn, true)
         dispatch(isShowingMenuAndLogout(!currentLogoutState))

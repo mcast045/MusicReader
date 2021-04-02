@@ -10,7 +10,7 @@ import {
     FINISH_UPDATE_NOTE,
     CLEAR_NOTES,
     IS_FETCHING_NOTES,
-    EDIT_COLUMN
+    EDIT_COLUMN,
 } from '../Constants'
 
 const initialState = {

@@ -14,7 +14,7 @@ function App() {
         <Route exact path='/' component={Main} />
         <Route path='/auth' component={Auth} />
         <Route path='/search' component={Search} />
-        {/* Below path will be un editable */}
+        {/* Below path will be uneditable */}
         <Route path='/:id' render={props => <Sheet {...props} viewOnly={true} />} />
       </Switch>
     </div>

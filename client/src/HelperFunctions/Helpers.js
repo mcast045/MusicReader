@@ -41,9 +41,7 @@ export const getNoteColumn = (measure, columnNumber, staffNumber) => {
     return ((measure * 8) + columnNumber - 9) + (columnsPerStaff * staffNumber)
 }
 
-export const editIndex = notesArr =>
-    notesArr.findIndex(note => note.edit)
-
+export const editIndex = notesArr => notesArr.findIndex(note => note.edit)
 
 export const getDifferentTabPosition = (notes, editColumn) => {
     const copy = [...notes]
@@ -61,8 +59,6 @@ export const getDifferentTabPosition = (notes, editColumn) => {
     store.dispatch(updateNote(copy))
 }
 
-
-//Remove 'edit' key
 export const removeEdit = (idx, notesArr, editColumn, isEditCancel = false) => {
     const columnWithEdit = notesArr[editColumn][idx]
 

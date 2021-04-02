@@ -10,9 +10,6 @@ const app = express()
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-//KEPT FOR REFERENCE
-// app.use(cors({ origin: ['http://localhost:3000'], credentials: true }))
-
 //DB Connection
 connectDB()
 

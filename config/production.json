@@ -1,4 +1,0 @@
-{
-    "mongoURI": "mongodb+srv://testUser:kGB9VS0hSouUj1nZ@cluster0-ebbsz.mongodb.net/test?retryWrites=true&w=majority",
-    "sessionSecret": "YPKlRszBs78rpaxtha"
-}

@@ -1,16 +1,14 @@
-const config = require('config')
-const db = config.get('mongoURI')
-const token = config.get('sessionSecret')
+require('dotenv').config();
 const session = require('express-session')
 const MongoDBStore = require('connect-mongodb-session')(session)
 
 const store = new MongoDBStore({
-    uri: db,
+    uri: process.env.MONGO_URI,
     collection: 'session'
 })
 
 module.exports = (session({
-    secret: token,
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     store: store
