@@ -21,11 +21,11 @@ const Accidental = () => {
         else if (key === 6) return notetoUpdate.letter !== 'A#' && notetoUpdate.letter !== 'D#' && notetoUpdate.letter !== 'G#' && notetoUpdate.letter !== 'C#' && notetoUpdate.letter !== 'F#'
         else if (key === 7) return notetoUpdate.letter !== 'F' && notetoUpdate.letter !== 'A#' && notetoUpdate.letter !== 'D#' && notetoUpdate.letter !== 'G#' && notetoUpdate.letter !== 'C#' && notetoUpdate.letter !== 'F#'
 
-        else if (key === -1) return notetoUpdate.letter !== 'A#'
-        else if (key === -2) return notetoUpdate.letter !== 'A#' && notetoUpdate.letter !== 'D#'
-        else if (key === -3) return notetoUpdate.letter !== 'A#' && notetoUpdate.letter !== 'D#' && notetoUpdate.letter !== 'G#'
-        else if (key === -4) return notetoUpdate.letter !== 'A#' && notetoUpdate.letter !== 'D#' && notetoUpdate.letter !== 'G#' && notetoUpdate.letter !== 'C#'
-        else if (key === -5) return notetoUpdate.letter !== 'A#' && notetoUpdate.letter !== 'D#' && notetoUpdate.letter !== 'G#' && notetoUpdate.letter !== 'C#' && notetoUpdate.letter !== 'F#'
+        else if (key === 8) return notetoUpdate.letter !== 'A#'
+        else if (key === 9) return notetoUpdate.letter !== 'A#' && notetoUpdate.letter !== 'D#'
+        else if (key === 10) return notetoUpdate.letter !== 'A#' && notetoUpdate.letter !== 'D#' && notetoUpdate.letter !== 'G#'
+        else if (key === 11) return notetoUpdate.letter !== 'A#' && notetoUpdate.letter !== 'D#' && notetoUpdate.letter !== 'G#' && notetoUpdate.letter !== 'C#'
+        else if (key === 12) return notetoUpdate.letter !== 'A#' && notetoUpdate.letter !== 'D#' && notetoUpdate.letter !== 'G#' && notetoUpdate.letter !== 'C#' && notetoUpdate.letter !== 'F#'
     }
 
     const preventNaturalNotes = (key, idx) => {
@@ -36,13 +36,13 @@ const Accidental = () => {
         else if (key === 4) return notetoUpdate.letter === 'G#' || notetoUpdate.letter === 'C#' || notetoUpdate.letter === 'F#'
         else if (key === 5) return notetoUpdate.letter === 'D#' || notetoUpdate.letter === 'G#' || notetoUpdate.letter === 'C#' || notetoUpdate.letter === 'F#'
         else if (key === 6) return notetoUpdate.letter === 'A#' || notetoUpdate.letter === 'D#' || notetoUpdate.letter === 'G#' || notetoUpdate.letter === 'C#' || notetoUpdate.letter === 'F#'
-        else if (key === 7) return notetoUpdate.letter === 'F' || notetoUpdate.letter === 'A#' || notetoUpdate.letter === 'D#' || notetoUpdate.letter === 'G#' || notetoUpdate.letter === 'C#' || notetoUpdate.letter === 'F#'
+        else if (key === 7) return notetoUpdate.letter === 'F' || notetoUpdate.letter === 'A#' || notetoUpdate.letter === 'D#' || notetoUpdate.letter === 'G#' || notetoUpdate.letter === 'C#'
 
-        else if (key === -1) return notetoUpdate.letter === 'A#'
-        else if (key === -2) return notetoUpdate.letter === 'A#' || notetoUpdate.letter === 'D#'
-        else if (key === -3) return notetoUpdate.letter === 'A#' || notetoUpdate.letter === 'D#' || notetoUpdate.letter === 'G#'
-        else if (key === -4) return notetoUpdate.letter === 'A#' || notetoUpdate.letter === 'D#' || notetoUpdate.letter === 'G#' || notetoUpdate.letter === 'C#'
-        else if (key === -5) return notetoUpdate.letter === 'A#' || notetoUpdate.letter === 'D#' || notetoUpdate.letter === 'G#' || notetoUpdate.letter === 'C#' || notetoUpdate.letter === 'F#'
+        else if (key === 8) return notetoUpdate.letter === 'A#'
+        else if (key === 9) return notetoUpdate.letter === 'A#' || notetoUpdate.letter === 'D#'
+        else if (key === 10) return notetoUpdate.letter === 'A#' || notetoUpdate.letter === 'D#' || notetoUpdate.letter === 'G#'
+        else if (key === 11) return notetoUpdate.letter === 'A#' || notetoUpdate.letter === 'D#' || notetoUpdate.letter === 'G#' || notetoUpdate.letter === 'C#'
+        else if (key === 12) return notetoUpdate.letter === 'A#' || notetoUpdate.letter === 'D#' || notetoUpdate.letter === 'G#' || notetoUpdate.letter === 'C#' || notetoUpdate.letter === 'F#'
     }
 
     //Only Sharp/Flat notes if they are not already part of natural scale
@@ -50,24 +50,24 @@ const Accidental = () => {
         let letterIdx = findLetterIdx(notes, idx)
         if (type === 'Sharp') {
             if ((allNotes[letterIdx] === 'G' || allNotes[letterIdx] === 'G#') && key.id > 0) return true
-            else if (allNotes[letterIdx] === 'G#' && key.id < 0 && key.id > -3) return false
-            else if (allNotes[letterIdx] === 'A' && key.id < 0) return false
-            else if (allNotes[letterIdx] === 'D' && key.id < -1) return false
-            else if (allNotes[letterIdx] === 'G' && key.id < -2) return false
-            else if (allNotes[letterIdx] === 'C' && key.id < -3) return false
-            else if (allNotes[letterIdx] === 'F' && key.id < -4) return false
+            else if (allNotes[letterIdx] === 'G#' && key.id > 7 && key.id < 10) return false
+            else if (allNotes[letterIdx] === 'A' && key.id > 7) return false
+            else if (allNotes[letterIdx] === 'D' && key.id > 8) return false
+            else if (allNotes[letterIdx] === 'G' && key.id > 9) return false
+            else if (allNotes[letterIdx] === 'C' && key.id > 10) return false
+            else if (allNotes[letterIdx] === 'F' && key.id > 11) return false
             else return allNotes[letterIdx].length !== allNotes[letterIdx + 1].length
         }
 
         else if (type === 'Flat') {
-            if (allNotes[letterIdx] === 'A' && key.id < 0) return true
-            else if (allNotes[letterIdx] === 'F' && key.id < -1) return true
+            if (allNotes[letterIdx] === 'A' && key.id > 7) return true
+            else if (allNotes[letterIdx] === 'F' && key.id > 8) return true
             else if (allNotes[letterIdx] === 'A' && key.id > 0 && key.id < 4) return true
-            else if (allNotes[letterIdx] === 'G' && key.id > 1) return false
-            else if ((allNotes[letterIdx] === 'D' || allNotes[letterIdx] === 'G') && key.id > 2) return false
-            else if (allNotes[letterIdx] === 'A' && key.id > 3) return false
-            else if (allNotes[letterIdx] === 'E' && key.id > 4) return false
-            else if (allNotes[letterIdx] === 'B' && key.id > 5) return false
+            else if (allNotes[letterIdx] === 'G' && (key.id > 1 && key.id < 8)) return false
+            else if ((allNotes[letterIdx] === 'D' || allNotes[letterIdx] === 'G') && (key.id > 2 && key.id < 8)) return false
+            else if (allNotes[letterIdx] === 'A' && (key.id > 3 && key.id < 8)) return false
+            else if (allNotes[letterIdx] === 'E' && (key.id > 4 && key.id < 8)) return false
+            else if (allNotes[letterIdx] === 'B' && (key.id > 5 && key.id < 8)) return false
             else return allNotes[letterIdx].length !== allNotes[letterIdx - 1].length
         }
     }
@@ -94,11 +94,11 @@ const Accidental = () => {
             else if (key.id === 6) accidentalChange(e, kb, editColumn, key)
             else if (key.id === 7) accidentalChange(e, kb, editColumn, key)
 
-            else if (key.id === -1) accidentalChange(e, kb, editColumn, key)
-            else if (key.id === -2) accidentalChange(e, kb, editColumn, key)
-            else if (key.id === -3) accidentalChange(e, kb, editColumn, key)
-            else if (key.id === -4) accidentalChange(e, kb, editColumn, key)
-            else if (key.id === -5) accidentalChange(e, kb, editColumn, key)
+            else if (key.id === 8) accidentalChange(e, kb, editColumn, key)
+            else if (key.id === 9) accidentalChange(e, kb, editColumn, key)
+            else if (key.id === 10) accidentalChange(e, kb, editColumn, key)
+            else if (key.id === 11) accidentalChange(e, kb, editColumn, key)
+            else if (key.id === 12) accidentalChange(e, kb, editColumn, key)
         }
     }
 
@@ -134,7 +134,6 @@ const Accidental = () => {
             }
         }, [kbKey, keyFunction, isKeyMatch, notetoUpdate.accidental])
     }
-
     useKey('1', 'Sharp')
     useKey('2', 'Natural')
     useKey('3', 'Flat')

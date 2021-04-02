@@ -50,7 +50,7 @@ export const createSongInfo = ({ title, tempo, keySignature }) => async dispatch
         const res = await axios.post('songs', body, config)
 
         dispatch({ type: CREATE_SONG, payload: res.data })
-        dispatch(saveNotes([], res.data._id, false))
+        // dispatch(saveNotes([], res.data._id, false))
     }
     catch (err) {
         dispatch(setAlert('Error Creating Song', 'danger'))

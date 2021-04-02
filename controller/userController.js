@@ -3,11 +3,10 @@ const { getUserById, getUserNotes, getAndSortUserSongs, getUsers, getUserByEmail
 
 
 
-const catchBlockErrorMessage = (res, err) => {
+exports.catchBlockErrorMessage = (res, err) => {
     console.log(err.message)
     return res.status(500).send('Server Error')
 }
-
 
 
 exports.loadUser = async (req, res, next) => {
@@ -23,7 +22,6 @@ exports.loadUser = async (req, res, next) => {
 }
 
 
-
 exports.getAllUsers = async (req, res, next) => {
     try {
         const users = await getUsers()
@@ -32,7 +30,6 @@ exports.getAllUsers = async (req, res, next) => {
         return catchBlockErrorMessage(res, err)
     }
 }
-
 
 
 exports.registerUser = async (req, res, next) => {
@@ -54,7 +51,6 @@ exports.registerUser = async (req, res, next) => {
         return catchBlockErrorMessage(res, err)
     }
 }
-
 
 
 exports.loginUser = async (req, res, next) => {
@@ -82,12 +78,10 @@ exports.loginUser = async (req, res, next) => {
 }
 
 
-
 exports.logoutUser = (req, res, next) => {
     destorySession(req.session)
     res.json({ msg: "User Logged Out" })
 }
-
 
 
 exports.deleteUser = async (req, res, next) => {

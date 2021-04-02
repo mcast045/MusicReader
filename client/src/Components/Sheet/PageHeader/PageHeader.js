@@ -44,10 +44,11 @@ const SheetHeader = ({ setNumOfStaffs, viewOnly, screenSize }) => {
             {(isNotesLoading && currentSong._id) || (viewOnly && isNotesLoading) ? <Loader /> :
                 <div className='ml-15'>
                     <div className={sheetHeaderCN}>
-                        {(user._id && currentSong._id && notes.length > 0) || (!user._id && viewOnly && notes.length > 0) ?
+                        {(user._id && currentSong._id) || (!user._id && viewOnly && notes.length > 0) ?
                             <div className='song-information'>
                                 <h2 className='main_song_header font-4 nomargin'>{currentSong.title}</h2>
                                 <h3 className='username nomargin'><span>{`by: ${currentSong.author}`}</span></h3>
+                                {viewOnly && <h3 className='username nomargin'><span>{`Tempo: ${currentSong.tempo} bpm`}</span></h3>}
                             </div> :
                             <div className='song-information'>
                                 <h2 className='main_song_header nomargin logout'>Developer tools</h2>

@@ -1,19 +1,19 @@
 const Song = require('../models/songsModel')
 const Note = require('../models/notesModel')
 const User = require('../models/userModel')
+const { catchBlockErrorMessage } = require('./userController')
 
-const errorMessage = 'Server Error'
 const ITEMS_PER_PAGE = 10
 
 exports.getUserSong = async (req, res, next) => {
     try {
         const userSongs = await Song.find({ userId: req.params.id })
         const selectedSong = userSongs.find(song => song.id === req.params.songId)
+        if (!selectedSong) throw new Error('No Song Found')
         res.json(selectedSong)
     }
     catch (err) {
-        console.log(err)
-        return res.status(500).send(errorMessage)
+        return catchBlockErrorMessage(res, err)
     }
 }
 
@@ -23,8 +23,7 @@ exports.getPublishedSong = async (req, res, next) => {
         res.json(song)
     }
     catch (err) {
-        console.log(err)
-        return res.status(500).send(errorMessage)
+        return catchBlockErrorMessage(res, err)
     }
 }
 
@@ -53,8 +52,7 @@ exports.getFilteredSong = async (req, res, next) => {
         res.json({ song, totalMatches })
     }
     catch (err) {
-        console.log(err)
-        return res.status(500).send(errorMessage)
+        return catchBlockErrorMessage(res, err)
     }
 }
 
@@ -72,8 +70,7 @@ exports.getPublishedSongs = async (req, res, next) => {
         res.json({ published: publishedSongs, count: totalPublishedSongs })
     }
     catch (err) {
-        console.log(err)
-        return res.status(500).send(errorMessage)
+        return catchBlockErrorMessage(res, err)
     }
 }
 
@@ -93,8 +90,7 @@ exports.postSong = async (req, res, next) => {
         res.json(song)
     }
     catch (err) {
-        console.log(err.message)
-        return res.status(500).send(errorMessage)
+        return catchBlockErrorMessage(res, err)
     }
 }
 
@@ -104,8 +100,7 @@ exports.publishSong = async (req, res, next) => {
         return res.json(song)
     }
     catch (err) {
-        console.log(err.message)
-        return res.status(500).send(errorMessage)
+        return catchBlockErrorMessage(res, err)
     }
 }
 
@@ -115,8 +110,7 @@ exports.redactSong = async (req, res, next) => {
         return res.json(song)
     }
     catch (err) {
-        console.log(err.message)
-        return res.status(500).send(errorMessage)
+        return catchBlockErrorMessage(res, err)
     }
 }
 
@@ -128,8 +122,7 @@ exports.deleteSong = async (req, res, next) => {
         res.json({ msg: 'Song Removed' })
     }
     catch (err) {
-        console.log(err.message)
-        return res.status(500).send(errorMessage)
+        return catchBlockErrorMessage(res, err)
     }
 }
 

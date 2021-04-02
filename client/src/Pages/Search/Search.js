@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import './Search.css'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { getViewableSeachSongs, getPublishedSong } from '../../Redux/Actions/Song'
+import { getViewableSeachSongs, getPublishedSong, clearAll } from '../../Redux/Actions/Song'
 import { dateFormat } from '../../HelperFunctions/Helpers'
 import Loader from '../../Images/Loader/Loader'
 import { isFetchingNotes } from '../../Redux/Actions/Notes'
@@ -16,7 +16,11 @@ const Search = props => {
 
     //Load and display published songs based on search page
     let query = props.location.search
+
     useEffect(() => {
+        //Remove notes if browser's back button is pressed
+        dispatch(clearAll())
+
         dispatch(getViewableSeachSongs(query))
     }, [dispatch, query])
 

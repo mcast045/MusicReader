@@ -13,7 +13,7 @@ const Sheet = ({ match, viewOnly }) => {
 
     const dispatch = useDispatch()
     const notes = useSelector(state => state.notes.notes)
-    const keySignature = useSelector(state => state.song.keySignature)
+    const key = useSelector(state => state.song.keySignature)
     const staffLineNumber = useSelector(state => state.song.staffLineNumber)
     let screenSize = window.screen.width
 
@@ -28,7 +28,7 @@ const Sheet = ({ match, viewOnly }) => {
     let columnsPerStaff = 32
 
     //Prevent low end 'D#' note, which has no tab
-    if (keySignature.id < -1) staffLines.pop()
+    if (key.id > 8) staffLines.pop()
 
     if (screenSize < 800) {
         bars = [1]
@@ -56,7 +56,7 @@ const Sheet = ({ match, viewOnly }) => {
                 copyNumOfSheets.pop()
                 setNumOfStaffs(copyNumOfSheets)
             }
-        }
+        } else setNumOfStaffs(staffLineNumber)
     }, [notes, numOfStaffs, columnsPerStaff])
 
     //If refreshing or going back into '/search/:id', load song

@@ -11,6 +11,9 @@ const Menu = () => {
 
     const isNotesLoading = useSelector(state => state.notes.loading)
     const user = useSelector(state => state.auth.user)
+
+    const currentSong = useSelector(state => state.song.currentSong)
+
     const currentMenuState = useSelector(state => state.util.isShowingMenu)
     const currentNewSongMenuState = useSelector(state => state.util.newSongClickState)
     const currentSongInfoMenuState = useSelector(state => state.util.isShowingInfo)
@@ -25,8 +28,9 @@ const Menu = () => {
                             <StaffBtn />
                             {!currentSongInfoMenuState && !isNotesLoading &&
                                 <Fragment>
-                                    <Notes />
-                                    <Rest />
+                                    {/* Prevent Notes from showing when loading a newly created song */}
+                                    {!user._id ? <Notes /> : currentSong._id && <Notes />}
+                                    {!user._id ? <Rest /> : currentSong._id && <Rest />}
                                 </Fragment>
                             }
                         </Fragment>

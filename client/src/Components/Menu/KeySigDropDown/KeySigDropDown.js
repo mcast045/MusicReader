@@ -19,11 +19,11 @@ const KeySigDropDown = ({ setNewSongInfo, newSongInfo }) => {
         else if (value === 'B-major/G#-minor') id = 6
         else if (value === 'F#-major/D#-minor') id = 7
 
-        else if (value === 'Dflat-major/Bflat-minor') id = -5
-        else if (value === 'Aflat-major/F-minor') id = -4
-        else if (value === 'Eflat-major/C-minor') id = -3
-        else if (value === 'Bflat-major/G-minor') id = -2
-        else if (value === 'F-major/D-minor') id = -1
+        else if (value === 'F-major/D-minor') id = 8
+        else if (value === 'Bflat-major/G-minor') id = 9
+        else if (value === 'Eflat-major/C-minor') id = 10
+        else if (value === 'Aflat-major/F-minor') id = 11
+        else if (value === 'Dflat-major/Bflat-minor') id = 12
 
         dispatch(updateKeySignature({ id, value }))
         setNewSongInfo({ ...newSongInfo, keySignature: { id, value } })

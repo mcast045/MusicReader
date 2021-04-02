@@ -1,7 +1,20 @@
 const Note = require('../models/notesModel')
 const Song = require('../models/songsModel')
+const { catchBlockErrorMessage } = require('./userController')
 
-const errorMessage = 'Server Error'
+exports.getNotes = async (req, res, next) => {
+    try {
+        //Force songId to be defined before Notes.find()
+        //Create new song sometimes failed 
+        await Song.findById(req.params.songId)
+        const notes = await Note.find({ songId: req.params.songId })
+        res.json(notes)
+    }
+    catch (err) {
+        return catchBlockErrorMessage(res, err)
+    }
+}
+
 exports.postNotes = async (req, res, next) => {
     try {
         const songNotes = req.body
@@ -24,21 +37,6 @@ exports.postNotes = async (req, res, next) => {
         }
     }
     catch (err) {
-        console.log(err.message)
-        return res.status(500).send(errorMessage)
-    }
-}
-
-exports.getNotes = async (req, res, next) => {
-    try {
-        //Force songId to be defined before Notes.find()
-        //Create new song sometimes failed 
-        await Song.findById(req.params.songId)
-        const notes = await Note.find({ songId: req.params.songId })
-        res.json(notes)
-    }
-    catch (err) {
-        console.log(err.message)
-        return res.status(500).send(errorMessage)
+        return catchBlockErrorMessage(res, err)
     }
 }
