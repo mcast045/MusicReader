@@ -102,15 +102,15 @@ const Accidental = () => {
         }
     }
 
+    const isKeyMatch = (e, kbKey) =>
+        kbKey.toLowerCase() === e.key.toLowerCase()
+
     const useKey = (kbKey, keyFunction) => {
         const notetoUpdate = notes[editColumn][editIndex(notes[editColumn])]
 
-        const isKeyMatch = e =>
-            kbKey.toLowerCase() === e.key.toLowerCase()
-
         useEffect(() => {
             const onDown = e => {
-                if (isKeyMatch(e)) {
+                if (isKeyMatch(e, kbKey)) {
                     if (keyFunction === 'Sharp' && notetoUpdate.accidental !== SHARP_NOTE)
                         accidentalNote(e, 'Sharp')
                     else if (keyFunction === 'Flat' && notetoUpdate.accidental !== FLAT_NOTE)
@@ -132,16 +132,14 @@ const Accidental = () => {
                 window.addEventListener('keydown', onDown)
                 return () => { window.removeEventListener('keydown', onDown) }
             }
-        }, [kbKey, keyFunction, isKeyMatch, notetoUpdate.accidental])
+        }, [kbKey, keyFunction, notetoUpdate.accidental])
     }
     useKey('1', 'Sharp')
     useKey('2', 'Natural')
     useKey('3', 'Flat')
-
     useKey('q', 'Up')
     useKey('z', 'Down')
     useKey('a', 'Between')
-
     useKey('t', 'tabChange')
 
     return (

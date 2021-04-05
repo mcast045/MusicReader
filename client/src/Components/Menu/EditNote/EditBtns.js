@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import Accidental from './Accidental'
 import { useSelector, useDispatch } from 'react-redux'
-import { deleteAnyNote, replaceNote, insertNote, addNote, currentEditColumn } from '../../../Redux/Actions/Notes'
+import { deleteAnyNote, replaceNote, insertNote, currentEditColumn } from '../../../Redux/Actions/Notes'
 import { isRestNote, countNumberOfNulls, editIndex, getDifferentTabPosition, removeEdit } from '../../../HelperFunctions/Helpers'
 import { moveNoteBetween, moveNoteDown, moveNoteUp } from '../../../HelperFunctions/MoveNote'
 import { WHOLE_NOTE, HALF_NOTE, QUARTER_NOTE, EIGHTH_NOTE } from '../../../HelperFunctions/SourceCodeEncodings'
@@ -37,11 +37,10 @@ const EditBtns = () => {
     const addNoteToChord = (chordArr, newNoteEntity, type, letter, row) => {
         const updateChord = { notePath: newNoteEntity, type, letter, row, transform: 'no-translate', accidental: null, tabPosition: 1, edit: 'edit-placeholder' }
         chordArr.push(updateChord)
-        dispatch(addNote(notes))
         setCurrentLetter(letter)
     }
 
-    //Prevent notes being on top of eachother
+    //Prevent overlapping notes
     const makeChord = (notePath, noteType) => {
         const column = notes[editColumn]
 
@@ -128,6 +127,7 @@ const EditBtns = () => {
             else if (isRowEmpty(10) && isTabEmpty(6)) addNoteToChord(column, notePath, noteType, 'F#', 11)
             else return
         }
+
         removeEdit(editIndex(notes[editColumn]), notes, editColumn)
     }
 

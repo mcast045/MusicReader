@@ -22,8 +22,7 @@ const StaffRow = ({ rowNumber, measure }) => {
         return notes[column].findIndex(note => note.row === row) === -1
     }
 
-    const allowDrop = e =>
-        e.preventDefault()
+    const allowDrop = e => e.preventDefault()
 
     const drop = (e, row, noteColumn) => {
         //Prevent drop if note is already in row

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useContext } from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 import './Staff.css'
 import '../../../Pages/Sheet/Sheet.css'
 import { useSelector, useDispatch } from 'react-redux'
@@ -14,17 +14,17 @@ const Staff = ({ staffLines }) => {
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
 
     const { numberOfStaves, viewOnly, bars } = useContext(StaffContext)
-    const isMounted = useRef(false)
-    //Load currentSong notes when user changes song
-    //Without isMounted, mounting error when adding notes to new staff lines
-    useEffect(() => {
 
-        //Only run when the dependencies change & if user has at least 1 song
-        if (isMounted.current && currentSong._id && !viewOnly && isAuthenticated)
+    const [isMounted, setIsMount] = useState(false)
+    //Load currentSong notes when user changes song
+    useEffect(() => {
+        //if user has at least 1 song
+        if (isMounted && currentSong._id && !viewOnly && isAuthenticated)
             dispatch(getUserNotes(currentSong._id))
 
-        return () => { isMounted.current = true; }
-    }, [isAuthenticated, currentSong, dispatch, viewOnly])
+        //Without isMounted, notes resets to the original notes array
+        return () => { setIsMount(!isMounted) }
+    }, [isAuthenticated, currentSong._id, dispatch, viewOnly, isMounted])
 
     return (
         <div className='sheet-music-container'>

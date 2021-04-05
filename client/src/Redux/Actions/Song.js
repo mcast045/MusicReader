@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { setAlert } from './Alert'
-import { saveNotes } from './Notes'
 import {
     GET_NOTES,
     GET_USER_SONG,
@@ -50,7 +49,6 @@ export const createSongInfo = ({ title, tempo, keySignature }) => async dispatch
         const res = await axios.post('songs', body, config)
 
         dispatch({ type: CREATE_SONG, payload: res.data })
-        // dispatch(saveNotes([], res.data._id, false))
     }
     catch (err) {
         dispatch(setAlert('Error Creating Song', 'danger'))

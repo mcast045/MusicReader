@@ -17,8 +17,7 @@ const Sheet = ({ match, viewOnly }) => {
     const staffLineNumber = useSelector(state => state.song.staffLineNumber)
     let screenSize = window.screen.width
 
-    //Without 'isUpdating' chord notes/tab does not render till user clicks 'Cancel'
-    const isUpdating = useSelector(state => state.notes.isUpdating)
+
 
     //Constants used to make music sheet 
     const staffLines = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
@@ -40,6 +39,9 @@ const Sheet = ({ match, viewOnly }) => {
 
     const [numOfStaffs, setNumOfStaffs] = useState(staffLineNumber)
 
+    //Without 'isUpdating' chord notes/tab does not render till user clicks 'Cancel'
+    const isUpdating = useSelector(state => state.notes.isUpdating)
+
     //Add/remove staff lines
     useEffect(() => {
         //Prevent infinite loop on load
@@ -57,7 +59,7 @@ const Sheet = ({ match, viewOnly }) => {
                 setNumOfStaffs(copyNumOfSheets)
             }
         } else setNumOfStaffs(staffLineNumber)
-    }, [notes, numOfStaffs, columnsPerStaff])
+    }, [notes, numOfStaffs, columnsPerStaff, staffLineNumber])
 
     //If refreshing or going back into '/search/:id', load song
     useEffect(() => {

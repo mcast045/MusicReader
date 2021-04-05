@@ -4,7 +4,7 @@ import Notes from '../../Menu/Notes/Notes'
 import Rest from '../../Menu/Notes/RestNotes'
 import Buttons from './EditBtns'
 import { useSelector, useDispatch } from 'react-redux'
-import { currentEditColumn } from '../../../Redux/Actions/Notes'
+import { currentEditColumn, finishUpdatingNote } from '../../../Redux/Actions/Notes'
 import { editIndex, removeEdit } from '../../../HelperFunctions/Helpers'
 import { isShowingMenuAndLogout } from '../../../Redux/Actions/Util'
 
@@ -32,6 +32,7 @@ const EditNote = () => {
         removeEdit(editIndex(copyNotes[editColumn]), copyNotes, editColumn, true)
         dispatch(isShowingMenuAndLogout(!currentLogoutState))
         dispatch(currentEditColumn(-1))
+        dispatch(finishUpdatingNote())
     }
 
     return (

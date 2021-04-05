@@ -68,8 +68,8 @@ export const removeEdit = (idx, notesArr, editColumn, isEditCancel = false) => {
 
     delete columnWithEdit['edit']
 
-    store.dispatch(updateNote(notesArr))
     store.dispatch(finishUpdatingNote())
+    store.dispatch(updateNote(notesArr))
 }
 
 export const clearSheet = (notes, isAuth = false) => {

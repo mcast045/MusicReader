@@ -58,18 +58,22 @@ const SheetHeader = ({ setNumOfStaffs, viewOnly, screenSize }) => {
                             </div>
                         }
 
-                        {!user._id &&
+                        {!user._id && !isUpdating &&
                             < div className='userSignIn'>
-                                {!isUpdating && <Link to='/auth' className='userSignIn_link' onClick={() => onClickAuth('back')}>Login</Link>}
-                                {!isUpdating && <Link to='/auth' className='userSignIn_link' onClick={() => onClickAuth('front')}>Register</Link>}
-                                {!isUpdating && <Link to='/search?page=1' className='search-songs'>Search</Link>}
+                                <Link to='/auth' className='userSignIn_link' onClick={() => onClickAuth('back')}>Login</Link>
+                                <Link to='/auth' className='userSignIn_link' onClick={() => onClickAuth('front')}>Register</Link>
+                                <Link to='/search?page=1' className='search-songs'>Search</Link>
                                 {viewOnly && <Link to='/' onClick={() => onClickHome()} className='search-songs'>Home</Link>}
                             </div>
                         }
                         {user._id && (currentLogoutState || viewOnly) &&
                             <div className='userSignIn'>
-                                {!isUpdating && <Link to='/' className='userSignIn_link' onClick={() => onClickLogoutUser()}>Logout</Link>}
-                                {!isUpdating && <Link to='/search?page=1' className='search-songs'>Search</Link>}
+                                {!isUpdating &&
+                                    <Fragment>
+                                        <Link to='/' className='userSignIn_link' onClick={() => onClickLogoutUser()}>Logout</Link>
+                                        <Link to='/search?page=1' className='search-songs'>Search</Link>
+                                    </Fragment>
+                                }
                                 {viewOnly && <Link to='/' onClick={() => onClickHome()} className='search-songs'>Home</Link>}
                             </div>
                         }
