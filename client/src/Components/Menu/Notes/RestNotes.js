@@ -3,135 +3,145 @@ import { useSelector, useDispatch } from 'react-redux'
 import { finishUpdatingNote } from '../../../Redux/Actions/Notes'
 import { addToSongArray, replaceNoteInSong, insertNoteInSong } from '../../../HelperFunctions/NoteManipulation'
 import { createNull } from '../../../HelperFunctions/Helpers'
-import { WHOLE_REST_NOTE, HALF_REST_NOTE, QUARTER_REST_NOTE, EIGHTH_REST_NOTE } from '../../../HelperFunctions/SourceCodeEncodings'
+import { WHOLE_REST_NOTE, HALF_REST_NOTE, QUARTER_REST_NOTE, EIGHTH_REST_NOTE, WHOLE_REST, HALF_REST, QUARTER_REST, EIGHTH_REST, DOTTED_WHOLE_REST, DOTTED_HALF_REST, DOTTED_QUARTER_REST } from '../../../HelperFunctions/SourceCodeEncodings'
 import { isShowingMenuAndLogout } from '../../../Redux/Actions/Util'
 
 const RestNotes = () => {
 
     const dispatch = useDispatch()
 
-    const notes = useSelector(state => state.notes.notes)
-    const isReplacing = useSelector(state => state.notes.isReplacing)
-    const isInserting = useSelector(state => state.notes.isInserting)
-    const isUpdating = useSelector(state => state.notes.isUpdating)
-    const editColumn = useSelector(state => state.notes.editColumnNumber)
-    const currentLogoutState = useSelector(state => state.util.isShowingLogout)
+    const { notes, isReplacing, isInserting, isUpdating, editColumnNumber } = useSelector(({ notes }) => notes)
+    const { isShowingLogout } = useSelector(({ util }) => util)
 
     const onClickWholeRestNote = () => {
         const nullArray = createNull(8)
-        addToSongArray(notes, WHOLE_REST_NOTE, 'WholeRest', null, 6, null, nullArray)
+        const wholeRestNote = { notePath: WHOLE_REST_NOTE, type: WHOLE_REST }
+
+        addToSongArray(notes, wholeRestNote, nullArray)
 
         if (isReplacing) {
-            replaceNoteInSong(notes, WHOLE_REST_NOTE, 'WholeRest', editColumn, nullArray)
+            replaceNoteInSong(notes, wholeRestNote, editColumnNumber, nullArray)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenuAndLogout(!currentLogoutState))
+            dispatch(isShowingMenuAndLogout(!isShowingLogout))
         }
 
         if (isInserting) {
-            insertNoteInSong(notes, WHOLE_REST_NOTE, 'WholeRest', editColumn, nullArray)
+            insertNoteInSong(notes, wholeRestNote, editColumnNumber, nullArray)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenuAndLogout(!currentLogoutState))
+            dispatch(isShowingMenuAndLogout(!isShowingLogout))
         }
     }
 
     const onClickDottedWholeRestNote = () => {
         const nullArray = createNull(12)
-        addToSongArray(notes, WHOLE_REST_NOTE, 'Dotted-WholeRest', null, 6, null, nullArray)
+        const dottedWholeRestNote = { notePath: WHOLE_REST_NOTE, type: DOTTED_WHOLE_REST }
+
+        addToSongArray(notes, dottedWholeRestNote, nullArray)
 
         if (isReplacing) {
-            replaceNoteInSong(notes, WHOLE_REST_NOTE, 'Dotted-WholeRest', editColumn, nullArray)
+            replaceNoteInSong(notes, dottedWholeRestNote, editColumnNumber, nullArray)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenuAndLogout(!currentLogoutState))
+            dispatch(isShowingMenuAndLogout(!isShowingLogout))
         }
 
         if (isInserting) {
-            insertNoteInSong(notes, WHOLE_REST_NOTE, 'Dotted-WholeRest', editColumn, nullArray)
+            insertNoteInSong(notes, dottedWholeRestNote, editColumnNumber, nullArray)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenuAndLogout(!currentLogoutState))
+            dispatch(isShowingMenuAndLogout(!isShowingLogout))
         }
     }
 
     const onClickHalfRestNote = () => {
         const nullArray = createNull(4)
-        addToSongArray(notes, HALF_REST_NOTE, 'HalfRest', null, 6, null, nullArray)
+        const halfRestNote = { notePath: HALF_REST_NOTE, type: HALF_REST }
+
+        addToSongArray(notes, halfRestNote, nullArray)
 
         if (isReplacing) {
-            replaceNoteInSong(notes, HALF_REST_NOTE, 'HalfRest', editColumn, nullArray)
+            replaceNoteInSong(notes, halfRestNote, editColumnNumber, nullArray)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenuAndLogout(!currentLogoutState))
+            dispatch(isShowingMenuAndLogout(!isShowingLogout))
         }
 
         if (isInserting) {
-            insertNoteInSong(notes, HALF_REST_NOTE, 'HalfRest', editColumn, nullArray)
+            insertNoteInSong(notes, halfRestNote, editColumnNumber, nullArray)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenuAndLogout(!currentLogoutState))
+            dispatch(isShowingMenuAndLogout(!isShowingLogout))
         }
     }
 
     const onClickDottedeHalfRestNote = () => {
         const nullArray = createNull(6)
-        addToSongArray(notes, HALF_REST_NOTE, 'Dotted-HalfRest', null, 6, null, nullArray)
+        const dottedHalfRestNote = { notePath: HALF_REST_NOTE, type: DOTTED_HALF_REST }
+
+        addToSongArray(notes, dottedHalfRestNote, nullArray)
 
         if (isReplacing) {
-            replaceNoteInSong(notes, HALF_REST_NOTE, 'Dotted-HalfRest', editColumn, nullArray)
+            replaceNoteInSong(notes, dottedHalfRestNote, editColumnNumber, nullArray)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenuAndLogout(!currentLogoutState))
+            dispatch(isShowingMenuAndLogout(!isShowingLogout))
         }
 
         if (isInserting) {
-            insertNoteInSong(notes, HALF_REST_NOTE, 'Dotted-HalfRest', editColumn, nullArray)
+            insertNoteInSong(notes, dottedHalfRestNote, editColumnNumber, nullArray)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenuAndLogout(!currentLogoutState))
+            dispatch(isShowingMenuAndLogout(!isShowingLogout))
         }
     }
 
     const onClickQuarterRestNote = () => {
         const nullArray = createNull(2)
-        addToSongArray(notes, QUARTER_REST_NOTE, 'QuarterRest', null, 6, null, nullArray)
+        const quarterRestNote = { notePath: QUARTER_REST_NOTE, type: QUARTER_REST }
+
+        addToSongArray(notes, quarterRestNote, nullArray)
 
         if (isReplacing) {
-            replaceNoteInSong(notes, QUARTER_REST_NOTE, 'QuarterRest', editColumn, nullArray)
+            replaceNoteInSong(notes, quarterRestNote, editColumnNumber, nullArray)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenuAndLogout(!currentLogoutState))
+            dispatch(isShowingMenuAndLogout(!isShowingLogout))
         }
 
         if (isInserting) {
-            insertNoteInSong(notes, QUARTER_REST_NOTE, 'QuarterRest', editColumn, nullArray)
+            insertNoteInSong(notes, quarterRestNote, editColumnNumber, nullArray)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenuAndLogout(!currentLogoutState))
+            dispatch(isShowingMenuAndLogout(!isShowingLogout))
         }
     }
 
     const onClickDottedQuarterRestNote = () => {
         const nullArray = createNull(3)
-        addToSongArray(notes, QUARTER_REST_NOTE, 'Dotted-QuarterRest', null, 6, null, nullArray)
+        const dottedQuarterRestNote = { notePath: QUARTER_REST_NOTE, type: DOTTED_QUARTER_REST }
+
+        addToSongArray(notes, dottedQuarterRestNote, nullArray)
 
         if (isReplacing) {
-            replaceNoteInSong(notes, QUARTER_REST_NOTE, 'Dotted-QuarterRest', editColumn, nullArray)
+            replaceNoteInSong(notes, dottedQuarterRestNote, editColumnNumber, nullArray)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenuAndLogout(!currentLogoutState))
+            dispatch(isShowingMenuAndLogout(!isShowingLogout))
         }
 
         if (isInserting) {
-            insertNoteInSong(notes, QUARTER_REST_NOTE, 'Dotted-QuarterRest', editColumn, nullArray)
+            insertNoteInSong(notes, dottedQuarterRestNote, editColumnNumber, nullArray)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenuAndLogout(!currentLogoutState))
+            dispatch(isShowingMenuAndLogout(!isShowingLogout))
         }
     }
 
     const onClickEighthRestNote = () => {
-        addToSongArray(notes, EIGHTH_REST_NOTE, 'EighthRest', null, 6, null)
+        const eighthRestNote = { notePath: EIGHTH_REST_NOTE, type: EIGHTH_REST }
+
+        addToSongArray(notes, eighthRestNote)
 
         if (isReplacing) {
-            replaceNoteInSong(notes, EIGHTH_REST_NOTE, 'EighthRest', editColumn)
+            replaceNoteInSong(notes, eighthRestNote, editColumnNumber)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenuAndLogout(!currentLogoutState))
+            dispatch(isShowingMenuAndLogout(!isShowingLogout))
         }
 
         if (isInserting) {
-            insertNoteInSong(notes, EIGHTH_REST_NOTE, 'EighthRest', editColumn)
+            insertNoteInSong(notes, eighthRestNote, editColumnNumber)
             dispatch(finishUpdatingNote())
-            dispatch(isShowingMenuAndLogout(!currentLogoutState))
+            dispatch(isShowingMenuAndLogout(!isShowingLogout))
         }
     }
 
@@ -142,15 +152,15 @@ const RestNotes = () => {
                 <div className='row'>
                     <div className='note-container'>
                         <h3 className='note-label'>Whole</h3>
-                        <button disabled={isUpdating && !isReplacing && !isInserting} className='btn-translate note-btn' onClick={() => onClickWholeRestNote()}>
-                            <span id='WholeRest' className='note-menu-image'>&#119099;</span>
+                        <button disabled={isUpdating && !isReplacing && !isInserting} className='btn-translate note-btn' onClick={onClickWholeRestNote}>
+                            <span id={WHOLE_REST} className='note-menu-image'>&#119099;</span>
                         </button>
                     </div>
 
                     <div className='note-container'>
                         <h3 className='note-label'>Half</h3>
-                        <button disabled={isUpdating && !isReplacing && !isInserting} onClick={() => onClickHalfRestNote()}>
-                            <span id='HalfRest' className='note-menu-image'>&#119100;</span>
+                        <button disabled={isUpdating && !isReplacing && !isInserting} onClick={onClickHalfRestNote}>
+                            <span id={HALF_REST} className='note-menu-image'>&#119100;</span>
                         </button>
                     </div>
                 </div>
@@ -158,15 +168,15 @@ const RestNotes = () => {
                 <div className='row'>
                     <div className='note-container'>
                         <h3 className='note-label'>Quarter</h3>
-                        <button disabled={isUpdating && !isReplacing && !isInserting} onClick={() => onClickQuarterRestNote()}>
-                            <span id='QuarterRest' className='note-menu-image'>&#119101;</span>
+                        <button disabled={isUpdating && !isReplacing && !isInserting} onClick={onClickQuarterRestNote}>
+                            <span id={QUARTER_REST} className='note-menu-image'>&#119101;</span>
                         </button>
                     </div>
 
                     <div className='note-container'>
                         <h3 className='note-label'>Eighth</h3>
-                        <button disabled={isUpdating && !isReplacing && !isInserting} onClick={() => onClickEighthRestNote()}>
-                            <span id='EighthRest' className='note-menu-image'>&#119102;</span>
+                        <button disabled={isUpdating && !isReplacing && !isInserting} onClick={onClickEighthRestNote}>
+                            <span id={EIGHTH_REST} className='note-menu-image'>&#119102;</span>
                         </button>
                     </div>
                 </div>
@@ -177,20 +187,20 @@ const RestNotes = () => {
                 <div className='row'>
                     <div className='note-container'>
                         <h3 className='note-label'>Whole</h3>
-                        <button disabled={isUpdating && !isReplacing && !isInserting} className='btn-translate note-btn' onClick={() => onClickDottedWholeRestNote()}>
-                            <span id='WholeRest' className='note-menu-image'>&#119099;<span className='dot rest-dot'>.</span></span>
+                        <button disabled={isUpdating && !isReplacing && !isInserting} className='btn-translate note-btn' onClick={onClickDottedWholeRestNote}>
+                            <span id={DOTTED_WHOLE_REST} className='note-menu-image'>&#119099;<span className='dot rest-dot'>.</span></span>
                         </button>
                     </div>
                     <div className='note-container'>
                         <h3 className='note-label'>Half</h3>
-                        <button disabled={isUpdating && !isReplacing && !isInserting} onClick={() => onClickDottedeHalfRestNote()}>
-                            <span id='HalfRest' className='note-menu-image'>&#119100;<span className='dot rest-dot'>.</span></span>
+                        <button disabled={isUpdating && !isReplacing && !isInserting} onClick={onClickDottedeHalfRestNote}>
+                            <span id={DOTTED_HALF_REST} className='note-menu-image'>&#119100;<span className='dot rest-dot'>.</span></span>
                         </button>
                     </div>
                     <div className='note-container'>
                         <h3 className='note-label'>Quarter</h3>
-                        <button disabled={isUpdating && !isReplacing && !isInserting} onClick={() => onClickDottedQuarterRestNote()}>
-                            <span id='QuarterRest' className='note-menu-image'>&#119101;<span className='dot'>.</span></span>
+                        <button disabled={isUpdating && !isReplacing && !isInserting} onClick={onClickDottedQuarterRestNote}>
+                            <span id={DOTTED_QUARTER_REST} className='note-menu-image'>&#119101;<span className='dot'>.</span></span>
                         </button>
                     </div>
                 </div>

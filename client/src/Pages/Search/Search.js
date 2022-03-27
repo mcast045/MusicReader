@@ -12,7 +12,7 @@ import { FLAT_NOTE } from '../../HelperFunctions/SourceCodeEncodings'
 const Search = props => {
 
     const dispatch = useDispatch()
-    const songs = useSelector(state => state.song.songsSearch)
+    const { songsSearch: songs } = useSelector(({ song }) => song)
 
     //Load and display published songs based on search page
     let query = props.location.search
@@ -35,7 +35,7 @@ const Search = props => {
             if (keyValue[0] === 'D') returnWord = returnWord.substr(0, 10) + FLAT_NOTE + returnWord.slice(14)
             return returnWord
         }
-        else return keyValue
+        return keyValue
     }
 
     return (

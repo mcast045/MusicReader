@@ -5,29 +5,28 @@ import { StaffContext } from '../../../../Context/StaffContext'
 
 const TimeSignature = () => {
 
-    const key = useSelector(state => state.song.keySignature)
-    const staffLineNumber = useSelector(state => state.song.staffLineNumber)
+    const { staffLineNumber, keySignature: key } = useSelector(({ song }) => song)
 
     const { numberOfStaves } = useContext(StaffContext)
 
     const [timeSignatureClassName, setTimeSignatureClassName] = useState('time-signature-placeholder')
 
     useEffect(() => {
-        if (key.id === 1)
+        if (key?.id === 1)
             setTimeSignatureClassName('time-signature-natural')
-        else if (key.id === 2 || key.id === 8)
+        else if (key?.id === 2 || key?.id === 8)
             setTimeSignatureClassName('time-signature-1s')
-        else if (key.id === 3 || key.id === 9)
+        else if (key?.id === 3 || key?.id === 9)
             setTimeSignatureClassName('time-signature-2s')
-        else if (key.id === 4 || key.id === 10)
+        else if (key?.id === 4 || key?.id === 10)
             setTimeSignatureClassName('time-signature-3s')
-        else if (key.id === 5 || key.id === 11)
+        else if (key?.id === 5 || key?.id === 11)
             setTimeSignatureClassName('time-signature-4s')
-        else if (key.id === 6 || key.id === 12)
+        else if (key?.id === 6 || key?.id === 12)
             setTimeSignatureClassName('time-signature-5s')
-        else if (key.id === 7)
+        else if (key?.id === 7)
             setTimeSignatureClassName('time-signature-6s')
-    }, [key.id, setTimeSignatureClassName])
+    }, [key, setTimeSignatureClassName])
 
     return (
         <Fragment>

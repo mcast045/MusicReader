@@ -11,16 +11,13 @@ const StaffRow = ({ rowNumber, measure }) => {
 
     const dispatch = useDispatch()
 
-    const notes = useSelector(state => state.notes.notes)
-    const editColumn = useSelector(state => state.notes.editColumnNumber)
-    const key = useSelector(state => state.song.keySignature)
-    const currentMenuState = useSelector(state => state.util.isShowingMenu)
+    const { notes, editColumnNumber } = useSelector(({ notes }) => notes)
+    const key = useSelector(({ song }) => song.keySignature)
+    const { isShowingMenu } = useSelector(({ util }) => util)
 
     const { numberOfStaves, viewOnly, eighthNotes } = useContext(StaffContext)
 
-    const isStaffContinerAvailable = (column, row) => {
-        return notes[column].findIndex(note => note.row === row) === -1
-    }
+    const isStaffContinerAvailable = (column, row) => notes[column].findIndex(note => note?.row === row) === -1
 
     const allowDrop = e => e.preventDefault()
 
@@ -37,8 +34,8 @@ const StaffRow = ({ rowNumber, measure }) => {
         let topLedgerLines = false
         let bottomLedgerLines = false
         notes[getNoteColumn(measure, column, staff)].forEach(note => {
-            if (note && note.row < 5 && !topLedgerLines) topLedgerLines = true
-            else if (note && note.row > 8 && !bottomLedgerLines) bottomLedgerLines = true
+            if (note?.row < 5 && !topLedgerLines) topLedgerLines = true
+            else if (note?.row > 8 && !bottomLedgerLines) bottomLedgerLines = true
         })
 
         if (topLedgerLines && bottomLedgerLines) return rowNumber < 4 || (rowNumber > 8 && rowNumber !== 12) ? { borderBottom: '1px solid black' } : null
@@ -62,15 +59,15 @@ const StaffRow = ({ rowNumber, measure }) => {
             //Update only 1 note in the chord
             notes[column] = [...noteToUpdate]
 
-            dispatch(isShowingMenuAndLogout(!currentMenuState))
+            dispatch(isShowingMenuAndLogout(!isShowingMenu))
             dispatch(currentEditColumn(column))
             dispatch(updateNote(notes))
         }
     }
 
     const isCurrentColumn = (measure, column, staff) => {
-        if (notes[editColumn] && !isRestNote(editColumn, notes[editColumn][0].type, notes))
-            return (getNoteColumn(measure, column, staff) === editColumn)
+        if (notes[editColumnNumber] && !isRestNote(editColumnNumber, notes[editColumnNumber][0].type, notes))
+            return (getNoteColumn(measure, column, staff) === editColumnNumber)
     }
 
     const currentColumn = (measure, columnsPerMeasure, numberOfStaves) => {
@@ -89,32 +86,32 @@ const StaffRow = ({ rowNumber, measure }) => {
                         id={`note-container-${getNoteColumn(measure, columnsPerMeasure, numberOfStaves)}`}
                         className='drag-container-space'
                         onDrop={e => drop(e, rowNumber, getNoteColumn(measure, columnsPerMeasure, numberOfStaves))}
-                        onDragOver={e => allowDrop(e)}
+                        onDragOver={allowDrop}
                         style={currentColumn(measure, columnsPerMeasure, numberOfStaves) && { display: 'block' }}>
 
-                        {currentColumn(measure, columnsPerMeasure, numberOfStaves) && currentColumn(measure, columnsPerMeasure, numberOfStaves).map((chordNote, i) => (
+                        {currentColumn(measure, columnsPerMeasure, numberOfStaves)?.map((chordNote, i) => (
                             <Fragment key={i}>
-                                {chordNote && (rowNumber === chordNote.row) &&
+                                {chordNote && (rowNumber === chordNote?.row) &&
                                     <button
-                                        draggable={!viewOnly && Boolean(chordNote.edit)}
+                                        draggable={!viewOnly && Boolean(chordNote?.edit)}
                                         id={`note-btn-${getNoteColumn(measure, columnsPerMeasure, numberOfStaves)}-${i}`}
-                                        disabled={(editColumn > -1 && notes[editColumn][editIndex(notes[editColumn])].edit)}
-                                        className={`${!viewOnly ? 'note-temp-item-btn' : 'note-temp-item-img'}  ${chordNote.transform} ${chordNote.edit}`}
+                                        disabled={(editColumnNumber > -1 && notes[editColumnNumber][editIndex(notes[editColumnNumber])].edit)}
+                                        className={`${!viewOnly ? 'note-temp-item-btn' : 'note-temp-item-img'}  ${chordNote?.transform} ${chordNote?.edit}`}
                                         style={chordNote && { display: 'block' }}
                                         onClick={() => assignEdit(getNoteColumn(measure, columnsPerMeasure, numberOfStaves), i)}>
 
                                         <div
                                             alt='Note'
                                             draggable='false'
-                                            className={`note-staff-image font-4 ${chordNote.type}`}
+                                            className={`note-staff-image font-4 ${chordNote?.type}`}
                                             style={chordNote && { display: 'block' }}>
 
                                             <div className='flex'>
-                                                <div className='note-staff-image-accidental font-2'>{chordNote.accidental}</div>
-                                                <div className='notePath'>{chordNote.notePath}</div>
+                                                <div className='note-staff-image-accidental font-2'>{chordNote?.accidental}</div>
+                                                <div className='notePath'>{chordNote?.notePath}</div>
                                             </div>
 
-                                            {(chordNote.type === 'Dotted-WholeRest' || chordNote.type === 'Dotted-HalfRest' || chordNote.type === 'Dotted-QuarterRest') && <span className='rest-dotted dot'>.</span>}
+                                            {(chordNote?.type === 'Dotted-WholeRest' || chordNote?.type === 'Dotted-HalfRest' || chordNote?.type === 'Dotted-QuarterRest') && <span className='rest-dotted dot'>.</span>}
                                         </div>
 
                                     </button>}

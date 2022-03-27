@@ -11,26 +11,23 @@ import { isShowingMenuAndLogout } from '../../../Redux/Actions/Util'
 const EditNote = () => {
 
     const dispatch = useDispatch()
-    const notes = useSelector(state => state.notes.notes)
-    const isReplacing = useSelector(state => state.notes.isReplacing)
-    const isInserting = useSelector(state => state.notes.isInserting)
-    const editColumn = useSelector(state => state.notes.editColumnNumber)
-    const currentLogoutState = useSelector(state => state.util.isShowingLogout)
+    const { notes, isReplacing, isInserting, editColumnNumber } = useSelector(({ notes }) => notes)
+    const { isShowingLogout } = useSelector(({ util }) => util)
 
     const removeTabConflict = copyNotes => {
-        const idx = editIndex(copyNotes[editColumn])
-        let columnWithEdit = copyNotes[editColumn][idx]
+        const idx = editIndex(copyNotes[editColumnNumber])
+        let columnWithEdit = copyNotes[editColumnNumber][idx]
 
         //Remove unedited note that is on same tabLine as edited note
-        const conflictingTabId = copyNotes[editColumn].findIndex(note => (note.tabRow === columnWithEdit.tabRow) && (!note.edit))
-        if (conflictingTabId !== -1) copyNotes[editColumn].splice(conflictingTabId, 1)
+        const conflictingTabId = copyNotes[editColumnNumber].findIndex(note => (note.tabRow === columnWithEdit.tabRow) && (!note.edit))
+        if (conflictingTabId !== -1) copyNotes[editColumnNumber].splice(conflictingTabId, 1)
     }
 
     const confirmCancel = () => {
         const copyNotes = [...notes]
         removeTabConflict(copyNotes)
-        removeEdit(editIndex(copyNotes[editColumn]), copyNotes, editColumn, true)
-        dispatch(isShowingMenuAndLogout(!currentLogoutState))
+        removeEdit(editIndex(copyNotes[editColumnNumber]), copyNotes, editColumnNumber, true)
+        dispatch(isShowingMenuAndLogout(!isShowingLogout))
         dispatch(currentEditColumn(-1))
         dispatch(finishUpdatingNote())
     }
@@ -44,7 +41,7 @@ const EditNote = () => {
                         <Notes />
                         <Rest />
                     </Fragment>}
-                <button className='btn confirm-edit-btn-col-cancel' onClick={() => confirmCancel()}>Cancel</button>
+                <button className='btn confirm-edit-btn-col-cancel' onClick={confirmCancel}>Cancel</button>
             </div>
         </div>
     )

@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 
 const Auth = () => {
 
-    const isFlipped = useSelector(state => state.auth.card)
+    const { card } = useSelector(({ auth }) => auth)
 
     return (
         <Fragment>
@@ -16,7 +16,7 @@ const Auth = () => {
             <div className='auth'>
                 <div className='auth-block card'>
 
-                    <ReactCardFlip isFlipped={isFlipped} flipSpeedBackToFront={1} flipSpeedFrontToBack={1}>
+                    <ReactCardFlip isFlipped={card} flipSpeedBackToFront={1} flipSpeedFrontToBack={1}>
                         <Fragment><Login /></Fragment>
                         <Fragment><Register /></Fragment>
                     </ReactCardFlip>

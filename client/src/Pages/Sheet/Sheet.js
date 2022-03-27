@@ -12,12 +12,10 @@ import { StaffContext } from '../../Context/StaffContext'
 const Sheet = ({ match, viewOnly }) => {
 
     const dispatch = useDispatch()
-    const notes = useSelector(state => state.notes.notes)
-    const key = useSelector(state => state.song.keySignature)
-    const staffLineNumber = useSelector(state => state.song.staffLineNumber)
+    const { notes } = useSelector(({ notes }) => notes)
+    const { staffLineNumber, currentSong } = useSelector(({ song }) => song)
+    // const key = useSelector(({ song }) => song.keySignature)
     let screenSize = window.screen.width
-
-
 
     //Constants used to make music sheet 
     const staffLines = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
@@ -27,7 +25,7 @@ const Sheet = ({ match, viewOnly }) => {
     let columnsPerStaff = 32
 
     //Prevent low end 'D#' note, which has no tab
-    if (key.id > 8) staffLines.pop()
+    if (currentSong?.keySignature?.id > 8) staffLines.pop()
 
     if (screenSize < 800) {
         bars = [1]
@@ -40,7 +38,7 @@ const Sheet = ({ match, viewOnly }) => {
     const [numOfStaffs, setNumOfStaffs] = useState(staffLineNumber)
 
     //Without 'isUpdating' chord notes/tab does not render till user clicks 'Cancel'
-    const isUpdating = useSelector(state => state.notes.isUpdating)
+    const isUpdating = useSelector(({ notes }) => notes.isUpdating)
 
     //Add/remove staff lines
     useEffect(() => {

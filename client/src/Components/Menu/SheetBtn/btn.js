@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment } from 'react'
 import './btn.css'
 import SongInfo from '../SongInfo/SongInfo'
 import AuthBtn from './AuthBtn'
@@ -6,23 +6,16 @@ import NonAuthBtn from './NonAuthBtn'
 import { useSelector, useDispatch } from 'react-redux'
 import { deleteLastNote, finishUpdatingNote, updateNote } from '../../../Redux/Actions/Notes'
 import { createNull } from '../../../HelperFunctions/Helpers'
+import { DOTTED_QUARTER, WHOLE, DOTTED_WHOLE, HALF, DOTTED_HALF, QUARTER } from '../../../HelperFunctions/SourceCodeEncodings'
 import { BtnContext } from '../../../Context/BtnContext'
 
 const StaveBtn = () => {
 
     const dispatch = useDispatch()
-    const notes = useSelector(state => state.notes.notes)
-    const isNotesLoading = useSelector(state => state.notes.loading)
-    const currentSong = useSelector(state => state.song.currentSong)
-    const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
-    const currentSongInfoMenuState = useSelector(state => state.util.isShowingInfo)
-
-    const [disableLastbarBtn, setDisableCN] = useState('not-available')
-
-    useEffect(() => {
-        if (notes.length % 8 === 0 && notes.length !== 0) setDisableCN()
-        else setDisableCN('not-available')
-    }, [notes])
+    const { notes, loading } = useSelector(({ notes }) => notes)
+    const { currentSong } = useSelector(({ song }) => song)
+    const { isAuthenticated } = useSelector(({ auth }) => auth)
+    const { isShowingInfo } = useSelector(({ util }) => util)
 
     const removeLastNote = () => {
         const copyNotes = [...notes]
@@ -39,12 +32,12 @@ const StaveBtn = () => {
         const copyiedNoted = copyNotes[idx]
 
         let nullArray = []
-        if (copyiedNoted[0].type === 'Whole') nullArray = createNull(8)
-        else if (copyiedNoted[0].type === 'Half') nullArray = createNull(4)
-        else if (copyiedNoted[0].type === 'Quarter') nullArray = createNull(2)
-        else if (copyiedNoted[0].type === 'Dotted-Whole') nullArray = createNull(12)
-        else if (copyiedNoted[0].type === 'Dotted-Half') nullArray = createNull(5)
-        else if (copyiedNoted[0].type === 'Dotted-Quarter') nullArray = createNull(3)
+        if (copyiedNoted[0].type === WHOLE) nullArray = createNull(8)
+        else if (copyiedNoted[0].type === HALF) nullArray = createNull(4)
+        else if (copyiedNoted[0].type === QUARTER) nullArray = createNull(2)
+        else if (copyiedNoted[0].type === DOTTED_WHOLE) nullArray = createNull(12)
+        else if (copyiedNoted[0].type === DOTTED_HALF) nullArray = createNull(5)
+        else if (copyiedNoted[0].type === DOTTED_QUARTER) nullArray = createNull(3)
 
         copyNotes.reverse()
         copyNotes.push(copyiedNoted, ...nullArray)
@@ -52,9 +45,34 @@ const StaveBtn = () => {
         dispatch(finishUpdatingNote())
     }
 
+    const createNullArray = (numberOfNulls) => {
+        const lastIndex = (notes.length - 1) % numberOfNulls
+        const numOfAdditionalNulls = numberOfNulls - lastIndex - 1
+
+        const extraNulls = []
+        for (let i = 0; i < numOfAdditionalNulls; i++) {
+            extraNulls.push(null)
+        }
+
+        return extraNulls
+    }
+
     const copyPreviousBar = () => {
-        const copyNotes = [...notes]
+        const extraNulls = createNullArray(8)
+
+        const copyNotes = [...notes, ...extraNulls]
         const notesToPush = copyNotes.slice(copyNotes.length - 8)
+        copyNotes.push(...notesToPush)
+
+        dispatch(updateNote(copyNotes))
+        dispatch(finishUpdatingNote())
+    }
+
+    const copyPreviousPhrase = () => {
+        const extraNulls = createNullArray(32)
+
+        const copyNotes = [...notes, ...extraNulls]
+        const notesToPush = copyNotes.slice(copyNotes.length - 32)
         copyNotes.push(...notesToPush)
 
         dispatch(updateNote(copyNotes))
@@ -63,15 +81,15 @@ const StaveBtn = () => {
 
     return (
         <Fragment>
-            {currentSong && <SongInfo />}
+            {currentSong?._id ? <SongInfo /> : null}
             <div className='btn-sheets'>
-                {!currentSongInfoMenuState &&
+                {!isShowingInfo ?
                     <Fragment>
-                        <BtnContext.Provider value={{ removeLastNote: removeLastNote, copyPreviousNote: copyPreviousNote, copyPreviousBar: copyPreviousBar, disableLastbarBtn: disableLastbarBtn }}>
+                        <BtnContext.Provider value={{ removeLastNote, copyPreviousNote, copyPreviousBar, copyPreviousPhrase }}>
                             {!isAuthenticated && <NonAuthBtn />}
-                            {isAuthenticated && !isNotesLoading && <AuthBtn />}
+                            {isAuthenticated && !loading && <AuthBtn />}
                         </BtnContext.Provider>
-                    </Fragment>
+                    </Fragment> : null
                 }
             </div>
         </Fragment>

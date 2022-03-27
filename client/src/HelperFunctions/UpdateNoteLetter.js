@@ -23,14 +23,14 @@ const correctLetter = (i, accidental, key) => {
     if (key.id < 8) {
         if (accidental === SHARP_NOTE) return i + 1
         else if (accidental === FLAT_NOTE || (accidental === NATURAL_NOTE && key.id !== 1)) return i === 0 ? 11 : (i - 1)
-        else return i
+        return i
     }
 
     else if (key.id > 7) {
         //Make note higher pitch when natural, dependent of key signature
         if (accidental === SHARP_NOTE || accidental === NATURAL_NOTE) return i === 11 ? 0 : (i + 1)
         else if (accidental === FLAT_NOTE) return i === 0 ? 11 : (i - 1)
-        else return i
+        return i
     }
 }
 

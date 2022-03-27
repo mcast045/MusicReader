@@ -8,25 +8,25 @@ import { StaffContext } from '../../../Context/StaffContext'
 
 const Tab = ({ tabLines }) => {
 
-    const notes = useSelector(state => state.notes.notes)
+    const { notes } = useSelector(({ notes }) => notes)
 
     const { numberOfStaves, eighthNotes, bars } = useContext(StaffContext)
 
     return (
         <div className='tab-music-container'>
-            {bars.map(measure => (
+            {bars?.map(measure => (
                 <ul className='tab-music nomarginpadding' key={measure}>
-                    {tabLines.map(rowNumber => (
+                    {tabLines?.map(rowNumber => (
                         <li key={rowNumber} className={`tab-row-${rowNumber}`}>
-                            {eighthNotes.map(columnsPerMeasure => (
+                            {eighthNotes?.map(columnsPerMeasure => (
                                 <input type='text'
                                     key={columnsPerMeasure}
                                     name={`tab-input-${getNoteColumn(measure, columnsPerMeasure, numberOfStaves)}`}
                                     className='tabLine-input center'
                                     readOnly
                                     // Or statement prevents 'changing an uncontrolled input of type text to be controlled'
-                                    value={(notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)] && notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)].map((tab, i) => (
-                                        tab && tabValue(rowNumber, tab, notes, getNoteColumn(measure, columnsPerMeasure, numberOfStaves), i))).join('')) || ''} />
+                                    value={notes[getNoteColumn(measure, columnsPerMeasure, numberOfStaves)]?.map((tab, i) => (
+                                        tab && tabValue(rowNumber, tab, notes, getNoteColumn(measure, columnsPerMeasure, numberOfStaves), i)))?.join('') || ''} />
                             ))}
                         </li>
                     ))}

@@ -8,13 +8,10 @@ import { isNewSongMenu, isShowLogout } from '../../../Redux/Actions/Util'
 const NewSongMenu = () => {
 
     const dispatch = useDispatch()
-    const isNotesLoading = useSelector(state => state.notes.loading)
-    const songs = useSelector(state => state.song.songs)
-    const user = useSelector(state => state.auth.user)
-    const currentSong = useSelector(state => state.song.currentSong)
-    const currentNewSongMenuState = useSelector(state => state.util.newSongClickState)
-    const currentLogoutState = useSelector(state => state.util.isShowingLogout)
-    const currentSongInfoMenuState = useSelector(state => state.util.isShowingInfo)
+    const { loading: isNotesLoading } = useSelector(({ notes }) => notes)
+    const { songs, currentSong } = useSelector(({ song }) => song)
+    const { user } = useSelector(({ auth }) => auth)
+    const { isShowingInfo, isShowingLogout, newSongClickState } = useSelector(({ util }) => util)
 
     const initialState = {
         tempo: 0,
@@ -26,15 +23,15 @@ const NewSongMenu = () => {
 
     const newSongOnClick = (isCancelBtn) => {
         setNewSongInfo(initialState)
-        dispatch(isShowLogout(!currentLogoutState))
+        dispatch(isShowLogout(!isShowingLogout))
 
         //To save last current used song before clearing data
-        if (currentSong) setPreviousSong(currentSong._id)
+        if (currentSong) setPreviousSong(currentSong?._id)
         dispatch(clearAll())
 
         //Get user's last song info back
         if (isCancelBtn) dispatch(getUserSong(user._id, previousSong))
-        dispatch(isNewSongMenu(!currentNewSongMenuState))
+        dispatch(isNewSongMenu(!newSongClickState))
     }
 
     const newSongInfoChange = e =>
@@ -43,14 +40,14 @@ const NewSongMenu = () => {
     const newSong = () => {
         dispatch(createSongInfo(newSongInfo))
         setNewSongInfo(initialState)
-        dispatch(isNewSongMenu(!currentNewSongMenuState))
-        dispatch(isShowLogout(!currentLogoutState))
+        dispatch(isNewSongMenu(!newSongClickState))
+        dispatch(isShowLogout(!isShowingLogout))
     }
 
     return (
         <Fragment>
             <div className='songInputDetails'>
-                {currentNewSongMenuState &&
+                {newSongClickState &&
                     <Fragment>
                         <div className='songInputDetails_prop'>
                             <label>Title</label>
@@ -59,7 +56,7 @@ const NewSongMenu = () => {
                                 type='text'
                                 name='title'
                                 value={newSongInfo.title}
-                                onChange={e => newSongInfoChange(e)}
+                                onChange={newSongInfoChange}
                             />
                         </div>
 
@@ -73,7 +70,7 @@ const NewSongMenu = () => {
                                 placeholder='85'
                                 className='tempoInput center'
                                 value={newSongInfo.tempo !== 0 && newSongInfo.tempo}
-                                onChange={e => newSongInfoChange(e)}
+                                onChange={newSongInfoChange}
                                 required
                             />
                         </div>
@@ -85,13 +82,13 @@ const NewSongMenu = () => {
                     </Fragment>
                 }
 
-                {!currentNewSongMenuState && !currentSongInfoMenuState && (!isNotesLoading || songs.length === 0) &&
+                {!newSongClickState && !isShowingInfo && (!isNotesLoading || songs.length === 0) &&
                     <button className='btn newSongbtn' onClick={() => newSongOnClick(false)}>New Song</button>
                 }
 
-                {currentNewSongMenuState &&
+                {newSongClickState &&
                     <div className='create_btns'>
-                        <button className='btn create_btn' onClick={() => newSong()}>Submit</button>
+                        <button className='btn create_btn' onClick={newSong}>Submit</button>
                         <button className='btn create_btn' onClick={() => newSongOnClick(true)}>Cancel</button>
                     </div>
                 }

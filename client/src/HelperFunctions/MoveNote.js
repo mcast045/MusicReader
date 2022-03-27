@@ -18,114 +18,116 @@ export const moveNoteUp = (notes, key, editColumn) => {
         let noteToUpdate = copy[editColumn][editIndex(copy[editColumn])]
         const constantChanges = { accidental: null, transform: 'move-up' }
 
+        const { accidental, row, transform } = noteToUpdate
+
         const changeNaturalLetter = (arr, index, transform) => {
             if (transform === 'no-translate') {
-                if (noteToUpdate.accidental === FLAT_NOTE) {
-                    if (isKeySharp(key.id, 2) && arr[index] === 'A#') return 'C#'
-                    else if (isKeySharp(key.id, 1) && arr[index] === 'D#') return 'F#'
-                    else if (isKeyFlat(key.id, 11) && allNotes[allNotesIdx] === 'E') return 'F#'
-                    else if (isKeyFlat(key.id, 9) && allNotes[allNotesIdx] === 'F#') return 'G#'
-                    else if (isKeyFlat(key.id, 8) && arr[index] === 'C#') return 'D#'
-                    else if (!arr[index + 3]) return 'A'
-                    else return arr[index + 2].length === 1 ? arr[index + 2] : arr[index + 3]
+                if (accidental === FLAT_NOTE) {
+                    if (isKeySharp(key.id, 2) && arr[index] === allNotes[1]) return allNotes[4]
+                    else if (isKeySharp(key.id, 1) && arr[index] === allNotes[6]) return allNotes[9]
+                    else if (isKeyFlat(key.id, 11) && allNotes[allNotesIdx] === allNotes[7]) return allNotes[9]
+                    else if (isKeyFlat(key.id, 9) && allNotes[allNotesIdx] === allNotes[9]) return allNotes[11]
+                    else if (isKeyFlat(key.id, 8) && arr[index] === allNotes[4]) return allNotes[6]
+                    else if (!arr[index + 3]) return allNotes[0]
+                    return arr[index + 2].length === 1 ? arr[index + 2] : arr[index + 3]
                 } else {
-                    if (isKeySharp(key.id, 6) && arr[index] === 'F') return 'F#'
-                    else if (isKeySharp(key.id, 6) && (arr[index] === 'D#' || (noteToUpdate.accidental === NATURAL_NOTE && arr[index] === 'D'))) return 'F'
-                    else if (isKeySharp(key.id, 4) && (arr[index] === 'C#' || (noteToUpdate.accidental === NATURAL_NOTE && arr[index] === 'C'))) return 'D#'
-                    else if (isKeySharp(key.id, 3) && (arr[index] === 'F#' || (noteToUpdate.accidental === NATURAL_NOTE && arr[index] === 'F'))) return 'G#'
-                    else if (isKeySharp(key.id, 2) && arr[index] === 'B') return 'C#'
-                    else if (isKeySharp(key.id, 1) && arr[index] === 'E') return 'F#'
-                    else if (isKeyFlat(key.id, 11) && arr[index] === 'F#') return 'G#'
-                    else if (isKeyFlat(key.id, 11) && arr[index] === 'F') return 'F#'
-                    else if (isKeyFlat(key.id, 10) && arr[index] === 'C#') return 'D#'
-                    else if (isKeyFlat(key.id, 10) && arr[index] === 'C') return 'C#'
-                    else if (isKeyFlat(key.id, 8) && arr[index] === 'D') return 'D#'
-                    else if (isKeyFlat(key.id, 8) && arr[index] === 'D#') return 'F'
-                    else if (isKeyFlat(key.id, 7) && arr[index] === 'A#') return 'C'
-                    else if (isKeyFlat(key.id, 7) && arr[index] === 'A') return 'A#'
-                    else return arr[index + 1].length === 1 ? arr[index + 1] : arr[index + 2]
+                    if (isKeySharp(key.id, 6) && arr[index] === allNotes[8]) return allNotes[9]
+                    else if (isKeySharp(key.id, 6) && (arr[index] === allNotes[6] || (accidental === NATURAL_NOTE && arr[index] === allNotes[5]))) return allNotes[8]
+                    else if (isKeySharp(key.id, 4) && (arr[index] === allNotes[4] || (accidental === NATURAL_NOTE && arr[index] === allNotes[3]))) return allNotes[6]
+                    else if (isKeySharp(key.id, 3) && (arr[index] === allNotes[9] || (accidental === NATURAL_NOTE && arr[index] === allNotes[8]))) return allNotes[11]
+                    else if (isKeySharp(key.id, 2) && arr[index] === allNotes[2]) return allNotes[4]
+                    else if (isKeySharp(key.id, 1) && arr[index] === allNotes[7]) return allNotes[9]
+                    else if (isKeyFlat(key.id, 11) && arr[index] === allNotes[9]) return allNotes[11]
+                    else if (isKeyFlat(key.id, 11) && arr[index] === allNotes[8]) return allNotes[9]
+                    else if (isKeyFlat(key.id, 10) && arr[index] === allNotes[4]) return allNotes[6]
+                    else if (isKeyFlat(key.id, 10) && arr[index] === allNotes[3]) return allNotes[4]
+                    else if (isKeyFlat(key.id, 8) && arr[index] === allNotes[5]) return allNotes[6]
+                    else if (isKeyFlat(key.id, 8) && arr[index] === allNotes[6]) return allNotes[8]
+                    else if (isKeyFlat(key.id, 7) && arr[index] === allNotes[1]) return allNotes[3]
+                    else if (isKeyFlat(key.id, 7) && arr[index] === allNotes[0]) return allNotes[1]
+                    return arr[index + 1].length === 1 ? arr[index + 1] : arr[index + 2]
                 }
             } else if (transform === 'move-down') {
-                if (noteToUpdate.accidental === FLAT_NOTE) {
-                    if (isKeyFlat(key.id, 9) && allNotes[allNotesIdx] === 'E') return 'G#'
-                    else if (isKeySharp(key.id, 3) && arr[index] === 'D#') return 'G#'
-                    else if (isKeySharp(key.id, 1) && arr[index] === 'C#') return 'F#'
-                    else return allNotes[allNotesIdx + 4].length !== 1 ? allNotes[allNotesIdx + 3] : allNotes[allNotesIdx + 4]
+                if (accidental === FLAT_NOTE) {
+                    if (isKeyFlat(key.id, 9) && allNotes[allNotesIdx] === allNotes[7]) return allNotes[11]
+                    else if (isKeySharp(key.id, 3) && arr[index] === allNotes[6]) return allNotes[11]
+                    else if (isKeySharp(key.id, 1) && arr[index] === allNotes[4]) return allNotes[9]
+                    return allNotes[allNotesIdx + 4].length !== 1 ? allNotes[allNotesIdx + 3] : allNotes[allNotesIdx + 4]
                 }
                 else {
-                    if (isKeySharp(key.id, 6) && (arr[index] === 'C#' || (noteToUpdate.accidental === NATURAL_NOTE && arr[index] === 'C'))) return 'F'
-                    else if (isKeySharp(key.id, 6) && arr[index] === 'F') return 'G#'
-                    else if (isKeySharp(key.id, 5) && arr[index] === 'A#') return 'C#'
-                    else if (isKeySharp(key.id, 4) && arr[index] === 'D#') return 'F#'
-                    else if (isKeySharp(key.id, 4) && arr[index] === 'B') return 'D#'
-                    else if (isKeySharp(key.id, 3) && arr[index] === 'E') return 'G#'
-                    else if (isKeySharp(key.id, 2) && arr[index] === 'C#') return 'E'
-                    else if (isKeySharp(key.id, 2) && arr[index] === 'A') return 'C#'
-                    else if (isKeySharp(key.id, 1) && (arr[index] === 'D' || arr[index] === 'D#')) return 'F#'
-                    else if (isKeyFlat(key.id, 11) && (arr[index] === 'D#' || (noteToUpdate.accidental === NATURAL_NOTE && arr[index] === 'E'))) return 'F#'
-                    else if (isKeyFlat(key.id, 10) && arr[index] === 'C#') return 'F'
-                    else if (isKeyFlat(key.id, 10) && (arr[index] === 'A#' || (noteToUpdate.accidental === NATURAL_NOTE && arr[index] === 'B'))) return 'C#'
-                    else if (isKeyFlat(key.id, 9) && arr[index] === 'G#') return 'C'
-                    else if (isKeyFlat(key.id, 8) && (arr[index] === 'C' || (noteToUpdate.accidental === SHARP_NOTE && arr[index] === 'C#'))) return 'D#'
-                    else if (isKeyFlat(key.id, 8) && arr[index] === 'D#') return 'G'
-                    else if (isKeyFlat(key.id, 7) && arr[index] === 'A#') return 'D'
+                    if (isKeySharp(key.id, 6) && (arr[index] === allNotes[4] || (accidental === NATURAL_NOTE && arr[index] === allNotes[3]))) return allNotes[8]
+                    else if (isKeySharp(key.id, 6) && arr[index] === allNotes[8]) return allNotes[11]
+                    else if (isKeySharp(key.id, 5) && arr[index] === allNotes[1]) return allNotes[4]
+                    else if (isKeySharp(key.id, 4) && arr[index] === allNotes[6]) return allNotes[9]
+                    else if (isKeySharp(key.id, 4) && arr[index] === allNotes[2]) return allNotes[6]
+                    else if (isKeySharp(key.id, 3) && arr[index] === allNotes[7]) return allNotes[11]
+                    else if (isKeySharp(key.id, 2) && arr[index] === allNotes[4]) return allNotes[7]
+                    else if (isKeySharp(key.id, 2) && arr[index] === allNotes[0]) return allNotes[4]
+                    else if (isKeySharp(key.id, 1) && (arr[index] === allNotes[5] || arr[index] === allNotes[6])) return allNotes[9]
+                    else if (isKeyFlat(key.id, 11) && (arr[index] === allNotes[6] || (accidental === NATURAL_NOTE && arr[index] === allNotes[7]))) return allNotes[9]
+                    else if (isKeyFlat(key.id, 10) && arr[index] === allNotes[4]) return allNotes[8]
+                    else if (isKeyFlat(key.id, 10) && (arr[index] === allNotes[1] || (accidental === NATURAL_NOTE && arr[index] === allNotes[2]))) return allNotes[4]
+                    else if (isKeyFlat(key.id, 9) && arr[index] === allNotes[11]) return allNotes[3]
+                    else if (isKeyFlat(key.id, 8) && (arr[index] === allNotes[3] || (accidental === SHARP_NOTE && arr[index] === allNotes[4]))) return allNotes[6]
+                    else if (isKeyFlat(key.id, 8) && arr[index] === allNotes[6]) return allNotes[10]
+                    else if (isKeyFlat(key.id, 7) && arr[index] === allNotes[1]) return allNotes[5]
                     //Change 'A#' and 'D#' up 2 or 3 notes
                     else if (isKeySharp(key.id, 2) && allNotes[allNotesIdx][1] && allNotes[allNotesIdx + 2].length === 1) return arr[index + 3]
                     else if (allNotes[allNotesIdx][1] && allNotes[allNotesIdx + 2].length === 1) return arr[index + 2]
-                    else return arr[index + 3].length === 1 ? arr[index + 3] : arr[index + 4]
+                    return arr[index + 3].length === 1 ? arr[index + 3] : arr[index + 4]
                 }
             }
         }
 
         //Prevent note from going above top ledger line
-        if (noteToUpdate.row !== 1) {
-            if (noteToUpdate.transform === 'no-translate') {
+        if (row !== 1) {
+            if (transform === 'no-translate') {
                 if (allNotes[allNotesIdx + 2])
-                    noteToUpdate = { ...noteToUpdate, ...constantChanges, letter: changeNaturalLetter(allNotes, allNotesIdx, noteToUpdate.transform) }
+                    noteToUpdate = { ...noteToUpdate, ...constantChanges, letter: changeNaturalLetter(allNotes, allNotesIdx, transform) }
                 else {
-                    if (noteToUpdate.accidental === FLAT_NOTE) {
+                    if (accidental === FLAT_NOTE) {
                         //'G#' to 'B/A#'
                         let letter = allNotes[2]
-                        if (isKeyFlat(key.id, 7) && allNotes[allNotesIdx] === 'G#') letter = 'A#'
+                        if (isKeyFlat(key.id, 7) && allNotes[allNotesIdx] === allNotes[11]) letter = allNotes[1]
                         noteToUpdate = { ...noteToUpdate, ...constantChanges, letter: letter }
                     } else {
                         //'G/G#' to 'A/A#' or 'G#' to 'A' (if Sharp)
-                        let letter = 'A'
-                        if (isKeyFlat(key.id, 9) && allNotes[allNotesIdx] === 'G#') letter = 'A#'
-                        else if (isKeyFlat(key.id, 9) && allNotes[allNotesIdx] === 'G') letter = 'G#'
-                        else if (isKeySharp(key.id, 5) && (allNotes[allNotesIdx] === 'G#' || (allNotes[allNotesIdx] === 'G' && noteToUpdate.accidental === NATURAL_NOTE))) letter = 'A#'
+                        let letter = allNotes[0]
+                        if (isKeyFlat(key.id, 9) && allNotes[allNotesIdx] === allNotes[11]) letter = allNotes[1]
+                        else if (isKeyFlat(key.id, 9) && allNotes[allNotesIdx] === allNotes[10]) letter = allNotes[11]
+                        else if (isKeySharp(key.id, 5) && (allNotes[allNotesIdx] === allNotes[11] || (allNotes[allNotesIdx] === allNotes[10] && accidental === NATURAL_NOTE))) letter = allNotes[1]
                         noteToUpdate = { ...noteToUpdate, ...constantChanges, letter: letter }
                     }
                 }
-            } else if (noteToUpdate.transform === 'move-down') {
+            } else if (transform === 'move-down') {
                 if (allNotes[allNotesIdx + 4])
-                    noteToUpdate = { ...noteToUpdate, ...constantChanges, letter: changeNaturalLetter(allNotes, allNotesIdx, noteToUpdate.transform) }
+                    noteToUpdate = { ...noteToUpdate, ...constantChanges, letter: changeNaturalLetter(allNotes, allNotesIdx, transform) }
                 else {
-                    if (noteToUpdate.accidental === SHARP_NOTE) {
+                    if (accidental === SHARP_NOTE) {
                         //'G#' to 'B' and 'F#' to 'A'
                         let letter = allNotes[3 - (allNotes.length - allNotesIdx)]
-                        if (isKeyFlat(key.id, 9) && allNotes[allNotesIdx] === 'F#') letter = 'G#'
-                        else if (isKeyFlat(key.id, 7) && allNotes[allNotesIdx] === 'G#') letter = 'A#'
+                        if (isKeyFlat(key.id, 9) && allNotes[allNotesIdx] === allNotes[9]) letter = allNotes[11]
+                        else if (isKeyFlat(key.id, 7) && allNotes[allNotesIdx] === allNotes[11]) letter = allNotes[1]
                         noteToUpdate = { ...noteToUpdate, ...constantChanges, letter: letter }
-                    } else if (noteToUpdate.accidental === FLAT_NOTE) {
+                    } else if (accidental === FLAT_NOTE) {
                         //'F#' to 'B' and 'G#' to 'C'
                         let letter
-                        if (isKeyFlat(key.id, 7) && allNotes[allNotesIdx] === 'F#') letter = 'A#'
-                        else if (isKeySharp(key.id, 2) && allNotes[allNotesIdx] === 'G#') letter = 'C#'
-                        else if (noteToUpdate.letter === allNotes[9]) letter = allNotes[(allNotes.length - allNotesIdx - 1) % 4]
-                        else if (noteToUpdate.letter === allNotes[11]) letter = allNotes[4 - (allNotes.length - allNotesIdx)]
+                        if (isKeyFlat(key.id, 7) && allNotes[allNotesIdx] === allNotes[9]) letter = allNotes[1]
+                        else if (isKeySharp(key.id, 2) && allNotes[allNotesIdx] === allNotes[11]) letter = allNotes[4]
+                        else if (letter === allNotes[9]) letter = allNotes[(allNotes.length - allNotesIdx - 1) % 4]
+                        else if (letter === allNotes[11]) letter = allNotes[4 - (allNotes.length - allNotesIdx)]
                         noteToUpdate = { ...noteToUpdate, ...constantChanges, letter: letter }
                     } else {
                         //'G' to 'B' and 'F' to 'A'
                         let letter = allNotes[4 - (allNotes.length - allNotesIdx)]
 
                         //'G#' to 'B' and 'F#' to 'A'
-                        if (isKeyFlat(key.id, 9) && allNotes[allNotesIdx] === 'F') letter = 'G#'
-                        else if (isKeyFlat(key.id, 7) && allNotes[allNotesIdx] === 'G') letter = 'A#'
-                        else if (isKeySharp(key.id, 6) && allNotes[allNotesIdx] === 'F') letter = 'G#'
-                        else if (isKeySharp(key.id, 5) && (allNotes[allNotesIdx] === 'F#' || (noteToUpdate.accidental === NATURAL_NOTE && allNotes[allNotesIdx] === 'F'))) letter = 'A#'
-                        else if (isKeySharp(key.id, 3) && allNotes[allNotesIdx] === 'G#') letter = allNotes[3 - (allNotes.length - allNotesIdx)]
-                        else if (isKeySharp(key.id, 1) && allNotes[allNotesIdx] === 'F#') letter = allNotes[3 - (allNotes.length - allNotesIdx)]
+                        if (isKeyFlat(key.id, 9) && allNotes[allNotesIdx] === allNotes[8]) letter = allNotes[11]
+                        else if (isKeyFlat(key.id, 7) && allNotes[allNotesIdx] === allNotes[10]) letter = allNotes[1]
+                        else if (isKeySharp(key.id, 6) && allNotes[allNotesIdx] === allNotes[8]) letter = allNotes[11]
+                        else if (isKeySharp(key.id, 5) && (allNotes[allNotesIdx] === allNotes[9] || (accidental === NATURAL_NOTE && allNotes[allNotesIdx] === allNotes[8]))) letter = allNotes[1]
+                        else if (isKeySharp(key.id, 3) && allNotes[allNotesIdx] === allNotes[11]) letter = allNotes[3 - (allNotes.length - allNotesIdx)]
+                        else if (isKeySharp(key.id, 1) && allNotes[allNotesIdx] === allNotes[9]) letter = allNotes[3 - (allNotes.length - allNotesIdx)]
 
                         noteToUpdate = { ...noteToUpdate, ...constantChanges, letter: letter }
                     }
@@ -146,109 +148,111 @@ export const moveNoteDown = (notes, key, editColumn) => {
         let noteToUpdate = copy[editColumn][editIndex(copy[editColumn])]
         const constantChanges = { accidental: null, transform: 'move-down' }
 
+        const { accidental, row, transform } = noteToUpdate
+
         const changeNaturalLetter = (arr, index, transform) => {
             if (transform === 'no-translate') {
-                if (noteToUpdate.accidental === SHARP_NOTE) {
-                    if (isKeySharp(key.id, 2) && arr[index] === 'D#') return 'C#'
-                    else if (isKeySharp(key.id, 1) && arr[index] === 'G#') return 'F#'
-                    else if (isKeyFlat(key.id, 8) && arr[index] === 'F#') return 'D#'
-                    else if (isKeyFlat(key.id, 7) && arr[index] === 'C#') return 'A#'
-                    else return arr[index - 2].length === 1 ? arr[index - 2] : arr[index - 3]
+                if (accidental === SHARP_NOTE) {
+                    if (isKeySharp(key.id, 2) && arr[index] === allNotes[6]) return allNotes[4]
+                    else if (isKeySharp(key.id, 1) && arr[index] === allNotes[11]) return allNotes[9]
+                    else if (isKeyFlat(key.id, 8) && arr[index] === allNotes[9]) return allNotes[6]
+                    else if (isKeyFlat(key.id, 7) && arr[index] === allNotes[4]) return allNotes[1]
+                    return arr[index - 2].length === 1 ? arr[index - 2] : arr[index - 3]
                 }
                 else {
-                    if (isKeySharp(key.id, 6) && arr[index] === 'F') return 'D#'
-                    else if (isKeySharp(key.id, 6) && arr[index] === 'F#') return 'F'
-                    else if (isKeySharp(key.id, 5) && arr[index] === 'B') return 'A#'
-                    else if (isKeySharp(key.id, 4) && arr[index] === 'D#') return 'C#'
-                    else if (isKeySharp(key.id, 4) && arr[index] === 'E') return 'D#'
-                    else if (isKeySharp(key.id, 3) && arr[index] === 'G#') return 'F#'
-                    else if (isKeySharp(key.id, 2) && arr[index] === 'C#') return 'B'
-                    else if (isKeySharp(key.id, 2) && arr[index] === 'D') return 'C#'
-                    else if (isKeySharp(key.id, 1) && arr[index] === 'F#') return 'E'
-                    else if (isKeySharp(key.id, 1) && arr[index] === 'G') return 'F#'
-                    else if (isKeyFlat(key.id, 11) && arr[index] === 'G#') return 'F#'
-                    else if (isKeyFlat(key.id, 10) && (arr[index] === 'D#' || (noteToUpdate.accidental === NATURAL_NOTE && arr[index] === 'E'))) return 'C#'
-                    else if (isKeyFlat(key.id, 9) && arr[index] === 'G#') return 'G'
-                    else if (isKeyFlat(key.id, 9) && arr[index] === 'B' && noteToUpdate.accidental === NATURAL_NOTE) return 'G#'
-                    else if (isKeyFlat(key.id, 8) && arr[index] === 'D#') return 'D'
-                    else if (isKeyFlat(key.id, 8) && (arr[index] === 'F' || (noteToUpdate.accidental === FLAT_NOTE && arr[index] === 'E'))) return 'D#'
-                    else if (isKeyFlat(key.id, 7) && arr[index] === 'C') return 'A#'
-                    else return arr[index - 1].length === 1 ? arr[index - 1] : arr[index - 2]
+                    if (isKeySharp(key.id, 6) && arr[index] === allNotes[8]) return allNotes[6]
+                    else if (isKeySharp(key.id, 6) && arr[index] === allNotes[9]) return allNotes[8]
+                    else if (isKeySharp(key.id, 5) && arr[index] === allNotes[2]) return allNotes[1]
+                    else if (isKeySharp(key.id, 4) && arr[index] === allNotes[6]) return allNotes[4]
+                    else if (isKeySharp(key.id, 4) && arr[index] === allNotes[7]) return allNotes[6]
+                    else if (isKeySharp(key.id, 3) && arr[index] === allNotes[11]) return allNotes[9]
+                    else if (isKeySharp(key.id, 2) && arr[index] === allNotes[4]) return allNotes[2]
+                    else if (isKeySharp(key.id, 2) && arr[index] === allNotes[5]) return allNotes[4]
+                    else if (isKeySharp(key.id, 1) && arr[index] === allNotes[9]) return allNotes[7]
+                    else if (isKeySharp(key.id, 1) && arr[index] === allNotes[10]) return allNotes[9]
+                    else if (isKeyFlat(key.id, 11) && arr[index] === allNotes[11]) return allNotes[9]
+                    else if (isKeyFlat(key.id, 10) && (arr[index] === allNotes[6] || (accidental === NATURAL_NOTE && arr[index] === allNotes[7]))) return allNotes[4]
+                    else if (isKeyFlat(key.id, 9) && arr[index] === allNotes[11]) return allNotes[10]
+                    else if (isKeyFlat(key.id, 9) && arr[index] === allNotes[2] && accidental === NATURAL_NOTE) return allNotes[11]
+                    else if (isKeyFlat(key.id, 8) && arr[index] === allNotes[6]) return allNotes[5]
+                    else if (isKeyFlat(key.id, 8) && (arr[index] === allNotes[8] || (accidental === FLAT_NOTE && arr[index] === allNotes[7]))) return allNotes[6]
+                    else if (isKeyFlat(key.id, 7) && arr[index] === allNotes[3]) return allNotes[1]
+                    return arr[index - 1].length === 1 ? arr[index - 1] : arr[index - 2]
                 }
             } else if (transform === 'move-up') {
-                if (noteToUpdate.accidental === SHARP_NOTE) {
-                    if (isKeyFlat(key.id, 10) && arr[index] === 'F#') return 'C#'
-                    if (isKeyFlat(key.id, 9) && arr[index] === 'C#') return 'G#'
-                    if (isKeyFlat(key.id, 8) && arr[index] === 'G#') return 'D#'
-                    if (isKeyFlat(key.id, 7) && arr[index] === 'D#') return 'A#'
+                if (accidental === SHARP_NOTE) {
+                    if (isKeyFlat(key.id, 10) && arr[index] === allNotes[9]) return allNotes[4]
+                    if (isKeyFlat(key.id, 9) && arr[index] === allNotes[4]) return allNotes[11]
+                    if (isKeyFlat(key.id, 8) && arr[index] === allNotes[11]) return allNotes[6]
+                    if (isKeyFlat(key.id, 7) && arr[index] === allNotes[6]) return allNotes[1]
                     return allNotes[allNotesIdx - 4].length !== 1 ? allNotes[allNotesIdx - 3] : allNotes[allNotesIdx - 4]
                 }
                 else {
-                    if (isKeySharp(key.id, 6) && arr[index] === 'F') return 'C#'
-                    else if (isKeySharp(key.id, 6) && (arr[index] === 'G#' || (arr[index] === 'G' && noteToUpdate.accidental === NATURAL_NOTE))) return 'F'
-                    else if (isKeySharp(key.id, 5) && (arr[index] === 'C#' || (arr[index] === 'C' && noteToUpdate.accidental === NATURAL_NOTE))) return 'A#'
-                    else if (isKeySharp(key.id, 4) && arr[index] === 'D#') return 'B'
-                    else if (isKeySharp(key.id, 4) && (arr[index] === 'F#' || (arr[index] === 'F' && noteToUpdate.accidental === NATURAL_NOTE))) return 'D#'
-                    else if (isKeySharp(key.id, 3) && arr[index] === 'G#') return 'E'
-                    else if (isKeySharp(key.id, 2) && arr[index] === 'C#') return 'A'
-                    else if (isKeySharp(key.id, 2) && (arr[index] === 'E' || (arr[index] === 'D#' && noteToUpdate.accidental === FLAT_NOTE))) return 'C#'
-                    else if (isKeySharp(key.id, 1) && arr[index] === 'F#') return 'D'
-                    else if (isKeySharp(key.id, 1) && arr[index] === 'G#') return 'F#'
-                    else if (isKeyFlat(key.id, 11) && arr[index] === 'F#') return 'D#'
-                    else if (isKeyFlat(key.id, 10) && arr[index] === 'C#') return 'A#'
-                    else if (isKeyFlat(key.id, 10) && (arr[index] === 'F' || (noteToUpdate.accidental === FLAT_NOTE && arr[index] === 'E'))) return 'C#'
-                    else if (isKeyFlat(key.id, 9) && arr[index] === 'C') return 'G#'
-                    else if (isKeyFlat(key.id, 9) && arr[index] === 'G#') return 'F'
-                    else if (isKeyFlat(key.id, 8) && (arr[index] === 'G' || (noteToUpdate.accidental === FLAT_NOTE && arr[index] === 'F#'))) return 'D#'
-                    else if (isKeyFlat(key.id, 7) && (arr[index] === 'D' || (noteToUpdate.accidental === FLAT_NOTE && arr[index] === 'C#'))) return 'A#'
+                    if (isKeySharp(key.id, 6) && arr[index] === allNotes[8]) return allNotes[4]
+                    else if (isKeySharp(key.id, 6) && (arr[index] === allNotes[11] || (arr[index] === allNotes[10] && accidental === NATURAL_NOTE))) return allNotes[8]
+                    else if (isKeySharp(key.id, 5) && (arr[index] === allNotes[4] || (arr[index] === allNotes[3] && accidental === NATURAL_NOTE))) return allNotes[1]
+                    else if (isKeySharp(key.id, 4) && arr[index] === allNotes[6]) return allNotes[2]
+                    else if (isKeySharp(key.id, 4) && (arr[index] === allNotes[9] || (arr[index] === allNotes[8] && accidental === NATURAL_NOTE))) return allNotes[6]
+                    else if (isKeySharp(key.id, 3) && arr[index] === allNotes[11]) return allNotes[7]
+                    else if (isKeySharp(key.id, 2) && arr[index] === allNotes[4]) return allNotes[0]
+                    else if (isKeySharp(key.id, 2) && (arr[index] === allNotes[7] || (arr[index] === allNotes[6] && accidental === FLAT_NOTE))) return allNotes[4]
+                    else if (isKeySharp(key.id, 1) && arr[index] === allNotes[9]) return allNotes[5]
+                    else if (isKeySharp(key.id, 1) && arr[index] === allNotes[11]) return allNotes[9]
+                    else if (isKeyFlat(key.id, 11) && arr[index] === allNotes[9]) return allNotes[6]
+                    else if (isKeyFlat(key.id, 10) && arr[index] === allNotes[4]) return allNotes[1]
+                    else if (isKeyFlat(key.id, 10) && (arr[index] === allNotes[8] || (accidental === FLAT_NOTE && arr[index] === allNotes[7]))) return allNotes[4]
+                    else if (isKeyFlat(key.id, 9) && arr[index] === allNotes[3]) return allNotes[11]
+                    else if (isKeyFlat(key.id, 9) && arr[index] === allNotes[11]) return allNotes[8]
+                    else if (isKeyFlat(key.id, 8) && (arr[index] === allNotes[10] || (accidental === FLAT_NOTE && arr[index] === allNotes[9]))) return allNotes[6]
+                    else if (isKeyFlat(key.id, 7) && (arr[index] === allNotes[5] || (accidental === FLAT_NOTE && arr[index] === allNotes[4]))) return allNotes[1]
                     //Change 'C#' and 'F#' down 2 notes
                     else if (allNotes[allNotesIdx][1] && allNotes[allNotesIdx - 2].length === 1) return arr[index - 2]
-                    else return arr[index - 3].length === 1 ? arr[index - 3] : arr[index - 4]
+                    return arr[index - 3].length === 1 ? arr[index - 3] : arr[index - 4]
                 }
             }
         }
 
         //Prevent note from going below bottom ledger line
-        if (noteToUpdate.row !== 12) {
-            if (noteToUpdate.transform === 'no-translate') {
+        if (row !== 12) {
+            if (transform === 'no-translate') {
                 if (allNotes[allNotesIdx - 2])
-                    noteToUpdate = { ...noteToUpdate, ...constantChanges, letter: changeNaturalLetter(allNotes, allNotesIdx, noteToUpdate.transform) }
+                    noteToUpdate = { ...noteToUpdate, ...constantChanges, letter: changeNaturalLetter(allNotes, allNotesIdx, transform) }
                 else {
-                    if (noteToUpdate.accidental === FLAT_NOTE) {
+                    if (accidental === FLAT_NOTE) {
                         //'A#' to 'A'
                         noteToUpdate = { ...noteToUpdate, ...constantChanges, letter: allNotes[0] }
                     } else {
                         //'A' to 'G/G#' or 'A#' to 'G/G#' (if Sharp)
-                        let letter = 'G'
-                        if (isKeyFlat(key.id, 11) && allNotes[allNotesIdx] === 'A' && noteToUpdate.accidental === NATURAL_NOTE) letter = 'F#'
-                        else if (isKeyFlat(key.id, 9) && allNotes[allNotesIdx] === 'A#') letter = 'G#'
-                        else if (isKeyFlat(key.id, 7) && allNotes[allNotesIdx] === 'A#') letter = 'A'
-                        else if (isKeySharp(key.id, 3) && (allNotes[allNotesIdx] === 'A' || allNotes[allNotesIdx] === 'A#')) letter = 'G#'
+                        let letter = allNotes[10]
+                        if (isKeyFlat(key.id, 11) && allNotes[allNotesIdx] === allNotes[0] && accidental === NATURAL_NOTE) letter = allNotes[9]
+                        else if (isKeyFlat(key.id, 9) && allNotes[allNotesIdx] === allNotes[1]) letter = allNotes[11]
+                        else if (isKeyFlat(key.id, 7) && allNotes[allNotesIdx] === allNotes[1]) letter = allNotes[0]
+                        else if (isKeySharp(key.id, 3) && (allNotes[allNotesIdx] === allNotes[0] || allNotes[allNotesIdx] === allNotes[1])) letter = allNotes[11]
                         noteToUpdate = { ...noteToUpdate, ...constantChanges, letter: letter }
                     }
                 }
-            } else if (noteToUpdate.transform === 'move-up') {
+            } else if (transform === 'move-up') {
                 if (allNotes[allNotesIdx - 3])
-                    noteToUpdate = { ...noteToUpdate, ...constantChanges, letter: changeNaturalLetter(allNotes, allNotesIdx, noteToUpdate.transform) }
+                    noteToUpdate = { ...noteToUpdate, ...constantChanges, letter: changeNaturalLetter(allNotes, allNotesIdx, transform) }
                 else {
-                    if (noteToUpdate.accidental === SHARP_NOTE) {
+                    if (accidental === SHARP_NOTE) {
                         //'A#' to 'F'
                         let letter = allNotes[8]
-                        if (isKeySharp(key.id, 1) && allNotes[allNotesIdx] === 'A#') letter = 'F#'
+                        if (isKeySharp(key.id, 1) && allNotes[allNotesIdx] === allNotes[1]) letter = allNotes[9]
                         noteToUpdate = noteToUpdate = { ...noteToUpdate, ...constantChanges, letter: letter }
-                    } else if (noteToUpdate.accidental === FLAT_NOTE) {
+                    } else if (accidental === FLAT_NOTE) {
                         //'A#' to 'G/G#'
                         let letter = allNotes[10]
-                        if (isKeySharp(key.id, 3) && allNotes[allNotesIdx] === 'A#') letter = 'G#'
+                        if (isKeySharp(key.id, 3) && allNotes[allNotesIdx] === allNotes[1]) letter = allNotes[11]
                         noteToUpdate = { ...noteToUpdate, ...constantChanges, letter: letter }
                     } else {
                         //'A' to 'F/F#' and 'B' to 'G'
                         let letter = allNotes[((allNotes.length - allNotesIdx) % 4) + 8]
-                        if (isKeyFlat(key.id, 11) && (allNotes[allNotesIdx] === 'A#' || (noteToUpdate.accidental === NATURAL_NOTE && allNotes[allNotesIdx] === 'B'))) letter = 'F#'
-                        else if (isKeyFlat(key.id, 7) && allNotes[allNotesIdx] === 'A#') letter = 'G'
-                        else if (isKeySharp(key.id, 5) && allNotes[allNotesIdx] === 'A#') letter = 'F#'
-                        else if (isKeySharp(key.id, 3) && allNotes[allNotesIdx] === 'B') letter = 'G#'
-                        else if (isKeySharp(key.id, 1) && allNotes[allNotesIdx] === 'A') letter = 'F#'
+                        if (isKeyFlat(key.id, 11) && (allNotes[allNotesIdx] === allNotes[1] || (accidental === NATURAL_NOTE && allNotes[allNotesIdx] === allNotes[2]))) letter = allNotes[9]
+                        else if (isKeyFlat(key.id, 7) && allNotes[allNotesIdx] === allNotes[1]) letter = allNotes[10]
+                        else if (isKeySharp(key.id, 5) && allNotes[allNotesIdx] === allNotes[1]) letter = allNotes[9]
+                        else if (isKeySharp(key.id, 3) && allNotes[allNotesIdx] === allNotes[2]) letter = allNotes[11]
+                        else if (isKeySharp(key.id, 1) && allNotes[allNotesIdx] === allNotes[0]) letter = allNotes[9]
                         noteToUpdate = { ...noteToUpdate, ...constantChanges, letter: letter }
                     }
                 }
@@ -268,97 +272,99 @@ export const moveNoteBetween = (notes, key, editColumn) => {
         let noteToUpdate = copy[editColumn][editIndex(copy[editColumn])]
         const constantChanges = { accidental: null, transform: 'no-translate' }
 
+        const { accidental, transform } = noteToUpdate
+
         const changeNaturalLetter = (arr, index, transform) => {
             if (transform === 'move-up') {
-                if (noteToUpdate.accidental === SHARP_NOTE) {
-                    if (isKeySharp(key.id, 2) && arr[index] === 'D#') return 'C#'
-                    else if (isKeySharp(key.id, 1) && arr[index] === 'G#') return 'F#'
-                    else if (isKeyFlat(key.id, 8) && arr[index] === 'F#') return 'D#'
-                    else if (isKeyFlat(key.id, 7) && arr[index] === 'C#') return 'A#'
+                if (accidental === SHARP_NOTE) {
+                    if (isKeySharp(key.id, 2) && arr[index] === allNotes[6]) return allNotes[4]
+                    else if (isKeySharp(key.id, 1) && arr[index] === allNotes[11]) return allNotes[9]
+                    else if (isKeyFlat(key.id, 8) && arr[index] === allNotes[9]) return allNotes[6]
+                    else if (isKeyFlat(key.id, 7) && arr[index] === allNotes[4]) return allNotes[1]
                     else if (arr[index - 2].length !== 1) return arr[index - 3]
-                    else return arr[index - 1].length === 1 ? arr[index - 2] : arr[index - 1]
+                    return arr[index - 1].length === 1 ? arr[index - 2] : arr[index - 1]
                 } else {
-                    if (isKeySharp(key.id, 6) && arr[index] === 'F') return 'D#'
-                    else if (isKeySharp(key.id, 6) && arr[index] === 'F#') return 'F'
-                    else if (isKeySharp(key.id, 5) && arr[index] === 'B') return 'A#'
-                    else if (isKeySharp(key.id, 4) && arr[index] === 'D#') return 'C#'
-                    else if (isKeySharp(key.id, 4) && arr[index] === 'E') return 'D#'
-                    else if (isKeySharp(key.id, 3) && arr[index] === 'G#') return 'F#'
-                    else if (isKeySharp(key.id, 2) && arr[index] === 'C#') return 'B'
-                    else if (isKeySharp(key.id, 2) && arr[index] === 'D') return 'C#'
-                    else if (isKeySharp(key.id, 1) && arr[index] === 'F#') return 'E'
-                    else if (isKeySharp(key.id, 1) && arr[index] === 'G') return 'F#'
-                    else if (isKeyFlat(key.id, 11) && arr[index] === 'G#') return 'F#'
-                    else if (isKeyFlat(key.id, 10) && (arr[index] === 'D#' || (noteToUpdate.accidental === NATURAL_NOTE && arr[index] === 'E'))) return 'C#'
-                    else if (isKeyFlat(key.id, 9) && arr[index] === 'B' && noteToUpdate.accidental === NATURAL_NOTE) return 'G#'
-                    else if (isKeyFlat(key.id, 8) && (arr[index] === 'F' || (noteToUpdate.accidental === FLAT_NOTE && arr[index] === 'E'))) return 'D#'
-                    else if (isKeyFlat(key.id, 7) && arr[index] === 'C') return 'A#'
-                    else return arr[index - 1].length === 1 ? arr[index - 1] : arr[index - 2]
+                    if (isKeySharp(key.id, 6) && arr[index] === allNotes[8]) return allNotes[6]
+                    else if (isKeySharp(key.id, 6) && arr[index] === allNotes[9]) return allNotes[8]
+                    else if (isKeySharp(key.id, 5) && arr[index] === allNotes[2]) return allNotes[1]
+                    else if (isKeySharp(key.id, 4) && arr[index] === allNotes[6]) return allNotes[4]
+                    else if (isKeySharp(key.id, 4) && arr[index] === allNotes[7]) return allNotes[6]
+                    else if (isKeySharp(key.id, 3) && arr[index] === allNotes[11]) return allNotes[9]
+                    else if (isKeySharp(key.id, 2) && arr[index] === allNotes[4]) return allNotes[2]
+                    else if (isKeySharp(key.id, 2) && arr[index] === allNotes[5]) return allNotes[4]
+                    else if (isKeySharp(key.id, 1) && arr[index] === allNotes[9]) return allNotes[7]
+                    else if (isKeySharp(key.id, 1) && arr[index] === allNotes[10]) return allNotes[9]
+                    else if (isKeyFlat(key.id, 11) && arr[index] === allNotes[11]) return allNotes[9]
+                    else if (isKeyFlat(key.id, 10) && (arr[index] === allNotes[6] || (accidental === NATURAL_NOTE && arr[index] === allNotes[7]))) return allNotes[4]
+                    else if (isKeyFlat(key.id, 9) && arr[index] === allNotes[2] && accidental === NATURAL_NOTE) return allNotes[11]
+                    else if (isKeyFlat(key.id, 8) && (arr[index] === allNotes[8] || (accidental === FLAT_NOTE && arr[index] === allNotes[7]))) return allNotes[6]
+                    else if (isKeyFlat(key.id, 7) && arr[index] === allNotes[3]) return allNotes[1]
+                    return arr[index - 1].length === 1 ? arr[index - 1] : arr[index - 2]
                 }
             } else if (transform === 'move-down') {
-                if (noteToUpdate.accidental === FLAT_NOTE) {
-                    if (isKeySharp(key.id, 2) && arr[index] === 'A#') return 'C#'
-                    else if (isKeySharp(key.id, 1) && arr[index] === 'D#') return 'F#'
-                    else if (isKeyFlat(key.id, 11) && arr[index] === 'E') return 'F#'
-                    else if (isKeyFlat(key.id, 9) && arr[index] === 'F#') return 'G#'
-                    else if (isKeyFlat(key.id, 8) && arr[index] === 'C#') return 'D#'
-                    else if (!arr[index + 3]) return 'A' //F# to A
-                    else return arr[index + 2].length === 1 ? arr[index + 2] : arr[index + 3]
+                if (accidental === FLAT_NOTE) {
+                    if (isKeySharp(key.id, 2) && arr[index] === allNotes[1]) return allNotes[4]
+                    else if (isKeySharp(key.id, 1) && arr[index] === allNotes[6]) return allNotes[9]
+                    else if (isKeyFlat(key.id, 11) && arr[index] === allNotes[7]) return allNotes[9]
+                    else if (isKeyFlat(key.id, 9) && arr[index] === allNotes[9]) return allNotes[11]
+                    else if (isKeyFlat(key.id, 8) && arr[index] === allNotes[4]) return allNotes[6]
+                    else if (!arr[index + 3]) return allNotes[0] //F# to A
+                    return arr[index + 2].length === 1 ? arr[index + 2] : arr[index + 3]
                 } else {
-                    if (isKeySharp(key.id, 6) && arr[index] === 'F') return 'F#'
-                    else if (isKeySharp(key.id, 6) && (arr[index] === 'D#' || (arr[index] === 'D' && noteToUpdate.accidental === NATURAL_NOTE))) return 'F'
-                    else if (isKeySharp(key.id, 4) && arr[index] === 'D#') return 'E'
-                    else if (isKeySharp(key.id, 4) && (arr[index] === 'C#' || (arr[index] === 'C' && noteToUpdate.accidental === NATURAL_NOTE))) return 'D#'
-                    else if (isKeySharp(key.id, 3) && (arr[index] === 'F#' || (arr[index] === 'F' && noteToUpdate.accidental === NATURAL_NOTE))) return 'G#'
-                    else if (isKeySharp(key.id, 2) && arr[index] === 'B') return 'C#'
-                    else if (isKeySharp(key.id, 1) && arr[index] === 'F#') return 'G'
-                    else if (isKeySharp(key.id, 1) && arr[index] === 'E') return 'F#'
-                    else if (isKeyFlat(key.id, 11) && arr[index] === 'F#') return 'G#'
-                    else if (isKeyFlat(key.id, 11) && arr[index] === 'F') return 'F#'
-                    else if (isKeyFlat(key.id, 10) && arr[index] === 'C#') return 'D#'
-                    else if (isKeyFlat(key.id, 10) && arr[index] === 'C') return 'C#'
-                    else if (isKeyFlat(key.id, 8) && arr[index] === 'D#') return 'F'
-                    else if (isKeyFlat(key.id, 8) && arr[index] === 'D') return 'D#'
-                    else if (isKeyFlat(key.id, 7) && arr[index] === 'A#') return 'C'
-                    else if (isKeyFlat(key.id, 7) && arr[index] === 'A') return 'A#'
-                    else return arr[index + 1].length === 1 ? arr[index + 1] : arr[index + 2]
+                    if (isKeySharp(key.id, 6) && arr[index] === allNotes[8]) return allNotes[9]
+                    else if (isKeySharp(key.id, 6) && (arr[index] === allNotes[6] || (arr[index] === allNotes[5] && accidental === NATURAL_NOTE))) return allNotes[8]
+                    else if (isKeySharp(key.id, 4) && arr[index] === allNotes[6]) return allNotes[7]
+                    else if (isKeySharp(key.id, 4) && (arr[index] === allNotes[4] || (arr[index] === allNotes[3] && accidental === NATURAL_NOTE))) return allNotes[6]
+                    else if (isKeySharp(key.id, 3) && (arr[index] === allNotes[9] || (arr[index] === allNotes[8] && accidental === NATURAL_NOTE))) return allNotes[11]
+                    else if (isKeySharp(key.id, 2) && arr[index] === allNotes[2]) return allNotes[4]
+                    else if (isKeySharp(key.id, 1) && arr[index] === allNotes[9]) return allNotes[10]
+                    else if (isKeySharp(key.id, 1) && arr[index] === allNotes[7]) return allNotes[9]
+                    else if (isKeyFlat(key.id, 11) && arr[index] === allNotes[9]) return allNotes[11]
+                    else if (isKeyFlat(key.id, 11) && arr[index] === allNotes[8]) return allNotes[9]
+                    else if (isKeyFlat(key.id, 10) && arr[index] === allNotes[4]) return allNotes[6]
+                    else if (isKeyFlat(key.id, 10) && arr[index] === allNotes[3]) return allNotes[4]
+                    else if (isKeyFlat(key.id, 8) && arr[index] === allNotes[6]) return allNotes[8]
+                    else if (isKeyFlat(key.id, 8) && arr[index] === allNotes[5]) return allNotes[6]
+                    else if (isKeyFlat(key.id, 7) && arr[index] === allNotes[1]) return allNotes[3]
+                    else if (isKeyFlat(key.id, 7) && arr[index] === allNotes[0]) return allNotes[1]
+                    return arr[index + 1].length === 1 ? arr[index + 1] : arr[index + 2]
                 }
             }
         }
 
-        if (noteToUpdate.transform === 'move-up') {
+        if (transform === 'move-up') {
             if (allNotes[allNotesIdx - 2])
-                noteToUpdate = { ...noteToUpdate, ...constantChanges, letter: changeNaturalLetter(allNotes, allNotesIdx, noteToUpdate.transform) }
+                noteToUpdate = { ...noteToUpdate, ...constantChanges, letter: changeNaturalLetter(allNotes, allNotesIdx, transform) }
             else {
-                if (noteToUpdate.accidental === FLAT_NOTE) {
+                if (accidental === FLAT_NOTE) {
                     //'A#' to 'A'
                     noteToUpdate = { ...noteToUpdate, ...constantChanges, letter: allNotes[0] }
                 } else {
                     //'A' to 'G' and 'A#' to 'G' (if Sharp)
                     let letter = allNotes[10]
-                    if (isKeyFlat(key.id, 11) && allNotes[allNotesIdx] === 'A') letter = 'F#'
-                    else if (isKeyFlat(key.id, 9) && allNotes[allNotesIdx] === 'A#') letter = 'G#'
-                    else if (isKeyFlat(key.id, 7) && allNotes[allNotesIdx] === 'A#') letter = 'A'
-                    else if (isKeySharp(key.id, 3) && (allNotes[allNotesIdx] === 'A' || allNotes[allNotesIdx] === 'A#')) letter = 'G#'
+                    if (isKeyFlat(key.id, 11) && allNotes[allNotesIdx] === allNotes[0]) letter = allNotes[9]
+                    else if (isKeyFlat(key.id, 9) && allNotes[allNotesIdx] === allNotes[1]) letter = allNotes[11]
+                    else if (isKeyFlat(key.id, 7) && allNotes[allNotesIdx] === allNotes[1]) letter = allNotes[0]
+                    else if (isKeySharp(key.id, 3) && (allNotes[allNotesIdx] === allNotes[0] || allNotes[allNotesIdx] === allNotes[1])) letter = allNotes[11]
                     noteToUpdate = { ...noteToUpdate, ...constantChanges, letter: letter }
                 }
             }
-        } else if (noteToUpdate.transform === 'move-down') {
+        } else if (transform === 'move-down') {
             if (allNotes[allNotesIdx + 2])
-                noteToUpdate = { ...noteToUpdate, ...constantChanges, letter: changeNaturalLetter(allNotes, allNotesIdx, noteToUpdate.transform) }
+                noteToUpdate = { ...noteToUpdate, ...constantChanges, letter: changeNaturalLetter(allNotes, allNotesIdx, transform) }
             else {
-                if (noteToUpdate.accidental === FLAT_NOTE) {
+                if (accidental === FLAT_NOTE) {
                     //'G#' to 'B'
                     let letter = allNotes[2]
-                    if (isKeyFlat(key.id, 7) && allNotes[allNotesIdx] === 'G#') letter = 'A#'
+                    if (isKeyFlat(key.id, 7) && allNotes[allNotesIdx] === allNotes[11]) letter = allNotes[1]
                     noteToUpdate = { ...noteToUpdate, ...constantChanges, letter: letter }
                 } else {
                     //'G' to 'A' and 'G#' to 'A' (if Sharp)
-                    let letter = 'A'
+                    let letter = allNotes[0]
                     //Fix
-                    if (isKeyFlat(key.id, 9) && (allNotes[allNotesIdx] === 'G' || (noteToUpdate.accidental === SHARP_NOTE && allNotes[allNotesIdx] === 'G#'))) letter = 'G#'
-                    else if (isKeyFlat(key.id, 9) && allNotes[allNotesIdx] === 'G#') letter = 'A#'
-                    else if (isKeySharp(key.id, 5) && (allNotes[allNotesIdx] === 'G#' || allNotes[allNotesIdx] === 'G')) letter = 'A#'
+                    if (isKeyFlat(key.id, 9) && (allNotes[allNotesIdx] === allNotes[10] || (accidental === SHARP_NOTE && allNotes[allNotesIdx] === allNotes[11]))) letter = allNotes[11]
+                    else if (isKeyFlat(key.id, 9) && allNotes[allNotesIdx] === allNotes[11]) letter = allNotes[1]
+                    else if (isKeySharp(key.id, 5) && (allNotes[allNotesIdx] === allNotes[11] || allNotes[allNotesIdx] === allNotes[10])) letter = allNotes[1]
                     noteToUpdate = { ...noteToUpdate, ...constantChanges, letter: letter }
                 }
             }

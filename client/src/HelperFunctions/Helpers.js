@@ -1,6 +1,7 @@
 import store from '../Redux/Store'
 import { updateNote, finishUpdatingNote } from '../Redux/Actions/Notes'
 import { showModal } from '../Redux/Actions/Modal'
+import { allNotes } from './UpdateNoteLetter'
 
 export const dateFormat = date => {
     const d = new Date(date)
@@ -41,7 +42,7 @@ export const getNoteColumn = (measure, columnNumber, staffNumber) => {
     return ((measure * 8) + columnNumber - 9) + (columnsPerStaff * staffNumber)
 }
 
-export const editIndex = notesArr => notesArr.findIndex(note => note.edit)
+export const editIndex = notesArr => notesArr.findIndex(note => note?.edit)
 
 export const getDifferentTabPosition = (notes, editColumn) => {
     const copy = [...notes]
@@ -50,10 +51,10 @@ export const getDifferentTabPosition = (notes, editColumn) => {
     notetoUpdate.tabPosition < 3 ? notetoUpdate.tabPosition++ : notetoUpdate.tabPosition = 1
 
     //Move position to 1 or 2 if only 2 tab positions are possible
-    if (((notetoUpdate.row === 2 || notetoUpdate.row === 3) && (notetoUpdate.letter === 'B' || notetoUpdate.letter === 'C' || notetoUpdate.letter === 'C#')) || (notetoUpdate.row === 9 && (notetoUpdate.letter === 'C' || notetoUpdate.letter === 'C#')) || (notetoUpdate.row === 10 && notetoUpdate.letter !== 'G#') || (notetoUpdate.row === 11 && (notetoUpdate.letter === 'A#' || notetoUpdate.letter === 'A')))
+    if (((notetoUpdate.row === 2 || notetoUpdate.row === 3) && (notetoUpdate.letter === allNotes[2] || notetoUpdate.letter === allNotes[3] || notetoUpdate.letter === allNotes[4])) || (notetoUpdate.row === 9 && (notetoUpdate.letter === allNotes[3] || notetoUpdate.letter === allNotes[4])) || (notetoUpdate.row === 10 && notetoUpdate.letter !== allNotes[11]) || (notetoUpdate.row === 11 && (notetoUpdate.letter === allNotes[1] || notetoUpdate.letter === allNotes[0])))
         notetoUpdate.tabPosition === 2 ? notetoUpdate.tabPosition = 2 : notetoUpdate.tabPosition = 1
     //Do not change position if only 1 tab position is possible
-    else if (notetoUpdate.row === 1 || notetoUpdate.row === 12 || (notetoUpdate.row === 2 && (notetoUpdate.letter === 'D' || notetoUpdate.letter === 'D#' || notetoUpdate.letter === 'E')) || (notetoUpdate.row === 10 && notetoUpdate.letter === 'G#') || (notetoUpdate.row === 11 && (notetoUpdate.letter !== 'A' || notetoUpdate.letter !== 'A#')))
+    else if (notetoUpdate.row === 1 || notetoUpdate.row === 12 || (notetoUpdate.row === 2 && (notetoUpdate.letter === allNotes[5] || notetoUpdate.letter === allNotes[6] || notetoUpdate.letter === allNotes[7])) || (notetoUpdate.row === 10 && notetoUpdate.letter === allNotes[11]) || (notetoUpdate.row === 11 && (notetoUpdate.letter !== allNotes[0] || notetoUpdate.letter !== allNotes[1])))
         notetoUpdate.tabPosition = 1
 
     store.dispatch(updateNote(copy))

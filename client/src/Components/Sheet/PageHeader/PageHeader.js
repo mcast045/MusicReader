@@ -11,14 +11,12 @@ const SheetHeader = ({ setNumOfStaffs, viewOnly, screenSize }) => {
 
     const dispatch = useDispatch()
 
-    const notes = useSelector(state => state.notes.notes)
-    const isNotesLoading = useSelector(state => state.notes.loading)
-    const isUpdating = useSelector(state => state.notes.isUpdating)
-    const currentSong = useSelector(state => state.song.currentSong)
-    const staffLineNumber = useSelector(state => state.song.staffLineNumber)
-    const user = useSelector(state => state.auth.user)
-    const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
-    const currentLogoutState = useSelector(state => state.util.isShowingLogout)
+    const { notes, isUpdating, loading: isNotesLoading } = useSelector(({ notes }) => notes)
+    const { currentSong, staffLineNumber } = useSelector(({ song }) => song)
+    const { user, isAuthenticated } = useSelector(({ auth }) => auth)
+    const { isShowingLogout } = useSelector(({ util }) => util)
+
+    const { _id: songID, title, author, tempo } = currentSong
 
     //Give Page Header better responsiveness
     const [sheetHeaderCN, setSheetHeaderCN] = useState('sheet-header')
@@ -43,14 +41,14 @@ const SheetHeader = ({ setNumOfStaffs, viewOnly, screenSize }) => {
 
     return (
         <Fragment>
-            {(isNotesLoading && currentSong._id) || (viewOnly && isNotesLoading) ? <Loader /> :
+            {(isNotesLoading && songID) || (viewOnly && isNotesLoading) ? <Loader /> :
                 <div className='ml-15'>
                     <div className={sheetHeaderCN}>
-                        {(user._id && currentSong._id) || (!user._id && viewOnly && notes.length > 0) ?
+                        {(user._id && songID) || (!user._id && viewOnly && notes.length > 0) ?
                             <div className='song-information'>
-                                <h2 className='main_song_header font-4 nomargin'>{currentSong.title}</h2>
-                                <h3 className='username nomargin'><span>{`by: ${currentSong.author}`}</span></h3>
-                                {viewOnly && <h3 className='username nomargin'><span>{`Tempo: ${currentSong.tempo} bpm`}</span></h3>}
+                                <h2 className='main_song_header font-4 nomargin'>{title}</h2>
+                                <h3 className='username nomargin'><span>{`by: ${author}`}</span></h3>
+                                {viewOnly && <h3 className='username nomargin'><span>{`Tempo: ${tempo} bpm`}</span></h3>}
                             </div> :
                             <div className='song-information'>
                                 <h2 className='main_song_header nomargin logout'>Developer tools</h2>
@@ -63,18 +61,18 @@ const SheetHeader = ({ setNumOfStaffs, viewOnly, screenSize }) => {
                                 <Link to='/auth' className='userSignIn_link' onClick={() => onClickAuth('back')}>Login</Link>
                                 <Link to='/auth' className='userSignIn_link' onClick={() => onClickAuth('front')}>Register</Link>
                                 <Link to='/search?page=1' className='search-songs'>Search</Link>
-                                {viewOnly && <Link to='/' onClick={() => onClickHome()} className='search-songs'>Home</Link>}
+                                {viewOnly && <Link to='/' onClick={onClickHome} className='search-songs'>Home</Link>}
                             </div>
                         }
-                        {user._id && (currentLogoutState || viewOnly) &&
+                        {user._id && (isShowingLogout || viewOnly) &&
                             <div className='userSignIn'>
                                 {!isUpdating &&
                                     <Fragment>
-                                        <Link to='/' className='userSignIn_link' onClick={() => onClickLogoutUser()}>Logout</Link>
+                                        <Link to='/' className='userSignIn_link' onClick={onClickLogoutUser}>Logout</Link>
                                         <Link to='/search?page=1' className='search-songs'>Search</Link>
                                     </Fragment>
                                 }
-                                {viewOnly && <Link to='/' onClick={() => onClickHome()} className='search-songs'>Home</Link>}
+                                {viewOnly && <Link to='/' onClick={onClickHome} className='search-songs'>Home</Link>}
                             </div>
                         }
                     </div>

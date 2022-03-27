@@ -9,7 +9,7 @@ const Pagination = ({ query, QUERY_PAGE_RESET }) => {
     const ITEMS_PER_PAGE = 10
     let QUERY_NUM = +query[query.length - 1]
 
-    const publishedSongsCount = useSelector(state => state.song.publishedSongsCount)
+    const { publishedSongsCount } = useSelector(({ song }) => song)
 
     //If ?page= doesn't exists or is blank, ?page= defaults to 1
     const setDefaultSearchPage = () =>

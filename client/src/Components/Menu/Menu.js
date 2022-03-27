@@ -9,28 +9,24 @@ import { useSelector } from 'react-redux'
 
 const Menu = () => {
 
-    const isNotesLoading = useSelector(state => state.notes.loading)
-    const user = useSelector(state => state.auth.user)
-
-    const currentSong = useSelector(state => state.song.currentSong)
-
-    const currentMenuState = useSelector(state => state.util.isShowingMenu)
-    const currentNewSongMenuState = useSelector(state => state.util.newSongClickState)
-    const currentSongInfoMenuState = useSelector(state => state.util.isShowingInfo)
+    const { loading: isNotesLoading } = useSelector(({ notes }) => notes)
+    const { user } = useSelector(({ auth }) => auth)
+    const { isShowingMenu, newSongClickState, isShowingInfo } = useSelector(({ util }) => util)
+    const { currentSong } = useSelector(({ song }) => song)
 
     return (
         <div>
-            {currentMenuState ?
+            {isShowingMenu ?
                 <div className='menu-notes'>
                     {user._id && <NewSong />}
-                    {!currentNewSongMenuState &&
+                    {!newSongClickState &&
                         <Fragment>
                             <StaffBtn />
-                            {!currentSongInfoMenuState && !isNotesLoading &&
+                            {!isShowingInfo && !isNotesLoading &&
                                 <Fragment>
                                     {/* Prevent Notes from showing when loading a newly created song */}
-                                    {!user._id ? <Notes /> : currentSong._id && <Notes />}
-                                    {!user._id ? <Rest /> : currentSong._id && <Rest />}
+                                    {!user._id ? <Notes /> : currentSong?._id && <Notes />}
+                                    {!user._id ? <Rest /> : currentSong?._id && <Rest />}
                                 </Fragment>
                             }
                         </Fragment>

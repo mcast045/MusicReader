@@ -9,7 +9,7 @@ import Alert from '../Components/Alert/Alert'
 const Main = () => {
 
     const dispatch = useDispatch()
-    const user = useSelector(state => state.auth.user)
+    const { user } = useSelector(({ auth }) => auth)
 
     //Load user most recent song
     useEffect(() => {
@@ -18,7 +18,7 @@ const Main = () => {
         //Always show beginning menu on login/registration
         dispatch(isShowingMenu(true))
 
-        user._id && dispatch(loadUser(user._id))
+        user?._id && dispatch(loadUser(user._id))
     }, [dispatch, user._id])
 
     return (

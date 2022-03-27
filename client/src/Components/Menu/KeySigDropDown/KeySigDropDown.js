@@ -31,7 +31,7 @@ const KeySigDropDown = ({ setNewSongInfo, newSongInfo }) => {
 
     return (
         <div className='menu-notes_dropdown font-2'>
-            <select id='key-signature' name='keySignature' onChange={e => updateKey(e)} >
+            <select id='key-signature' name='keySignature' onChange={updateKey} >
                 <option value='C-major/A-minor'>C-major/A-minor</option>
                 <option value='G-major/E-minor'>G-major/E-minor</option>
                 <option value='D-major/B-minor'>D-major/B-minor</option>

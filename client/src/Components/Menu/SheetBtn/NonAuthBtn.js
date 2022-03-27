@@ -6,8 +6,7 @@ import CommonBtns from './CommonBtns'
 
 const NonAuthBtn = () => {
 
-    const notes = useSelector(state => state.notes.notes)
-    const isUpdating = useSelector(state => state.notes.isUpdating)
+    const { notes, isUpdating } = useSelector(({ notes }) => notes)
 
     return (
         <Fragment>

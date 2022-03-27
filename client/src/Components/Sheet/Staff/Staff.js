@@ -10,21 +10,22 @@ const Staff = ({ staffLines }) => {
 
     const dispatch = useDispatch()
 
-    const currentSong = useSelector(state => state.song.currentSong)
-    const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
+    const { currentSong } = useSelector(({ song }) => song)
+    const { isAuthenticated } = useSelector(({ auth }) => auth)
 
     const { numberOfStaves, viewOnly, bars } = useContext(StaffContext)
 
     const [isMounted, setIsMount] = useState(false)
+
     //Load currentSong notes when user changes song
     useEffect(() => {
         //if user has at least 1 song
-        if (isMounted && currentSong._id && !viewOnly && isAuthenticated)
+        if (isMounted && currentSong?._id && !viewOnly && isAuthenticated)
             dispatch(getUserNotes(currentSong._id))
 
         //Without isMounted, notes resets to the original notes array
         return () => { setIsMount(!isMounted) }
-    }, [isAuthenticated, currentSong._id, dispatch, viewOnly, isMounted])
+    }, [isAuthenticated, currentSong, dispatch, viewOnly, isMounted])
 
     return (
         <div className='sheet-music-container'>
