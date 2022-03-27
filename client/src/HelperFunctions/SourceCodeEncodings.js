@@ -12,6 +12,9 @@ export const HALF_REST_NOTE = "\uD834\uDD3C"
 export const QUARTER_REST_NOTE = "\uD834\uDD3D"
 export const EIGHTH_REST_NOTE = "\uD834\uDD3E"
 
+export const PREVIOUS_NOTE = 'PreviousNote'
+export const NEXT_NOTE = 'NextNote'
+
 export const WHOLE = 'Whole'
 export const HALF = 'Half'
 export const QUARTER = 'Quarter'
@@ -27,3 +30,13 @@ export const EIGHTH_REST = 'EighthRest'
 export const DOTTED_WHOLE_REST = 'Dotted-WholeRest'
 export const DOTTED_HALF_REST = 'Dotted-HalfRest'
 export const DOTTED_QUARTER_REST = 'Dotted-QuarterRest'
+
+export const EDIT = 'edit-placeholder'
+
+export const SHARP = 'Sharp'
+export const NATURAL = 'Natural'
+export const FLAT = 'FlAT'
+
+export const MOVE_DOWN = 'move-down'
+export const MOVE_UP = 'move-up'
+export const NO_TRANSLATE = 'no-translate'

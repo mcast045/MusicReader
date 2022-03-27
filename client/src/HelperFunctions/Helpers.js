@@ -1,7 +1,8 @@
 import store from '../Redux/Store'
-import { updateNote, finishUpdatingNote } from '../Redux/Actions/Notes'
+import { updateNote, finishUpdatingNote, currentEditColumn } from '../Redux/Actions/Notes'
 import { showModal } from '../Redux/Actions/Modal'
 import { allNotes } from './UpdateNoteLetter'
+import { NEXT_NOTE, PREVIOUS_NOTE, EDIT } from './SourceCodeEncodings'
 
 export const dateFormat = date => {
     const d = new Date(date)
@@ -77,4 +78,36 @@ export const clearSheet = (notes, isAuth = false) => {
     //Allow authenticated users to delete songs even if songs have notes
     //Removes songs from database
     if (notes.length > 0 || isAuth) store.dispatch(showModal())
+}
+
+export const editNeighboringNote = (notes, editColumn, targetNote) => {
+    const copyNotes = notes
+    const idx = editIndex(copyNotes[editColumn])
+    let currentEditableColumn
+
+    if (targetNote === NEXT_NOTE) {
+        const newEditableColumn = copyNotes?.slice(editColumn)?.findIndex(note => note && !note?.[idx]?.edit)
+        if (newEditableColumn === -1) return
+        copyNotes[newEditableColumn + editColumn][0].edit = EDIT
+        currentEditableColumn = newEditableColumn + editColumn
+    }
+
+    if (targetNote === PREVIOUS_NOTE) {
+        let previousEditableColumn = -1
+        for (let i = editColumn - 1; i > -1; i--) {
+            if (copyNotes[i] && !copyNotes[i]?.edit) {
+                previousEditableColumn = editColumn - 1 - i
+                break
+            }
+        }
+        if (previousEditableColumn === -1) return
+        copyNotes[editColumn - previousEditableColumn - 1][0].edit = EDIT
+        currentEditableColumn = editColumn - previousEditableColumn - 1
+    }
+
+    const columnWithEdit = copyNotes[editColumn][idx]
+    delete columnWithEdit['edit']
+
+    store.dispatch(updateNote(copyNotes))
+    store.dispatch(currentEditColumn(currentEditableColumn))
 }

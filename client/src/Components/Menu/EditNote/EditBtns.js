@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { deleteAnyNote, replaceNote, insertNote, currentEditColumn } from '../../../Redux/Actions/Notes'
 import { isRestNote, countNumberOfNulls, editIndex, getDifferentTabPosition, removeEdit } from '../../../HelperFunctions/Helpers'
 import { moveNoteBetween, moveNoteDown, moveNoteUp } from '../../../HelperFunctions/MoveNote'
-import { WHOLE_NOTE, HALF_NOTE, QUARTER_NOTE, EIGHTH_NOTE, WHOLE, HALF, EIGHTH, QUARTER, DOTTED_QUARTER, DOTTED_HALF, DOTTED_WHOLE } from '../../../HelperFunctions/SourceCodeEncodings'
+import { NO_TRANSLATE, EDIT, WHOLE_NOTE, HALF_NOTE, QUARTER_NOTE, EIGHTH_NOTE, WHOLE, HALF, EIGHTH, QUARTER, DOTTED_QUARTER, DOTTED_HALF, DOTTED_WHOLE } from '../../../HelperFunctions/SourceCodeEncodings'
 import { isShowingMenuAndLogout } from '../../../Redux/Actions/Util'
 import { allNotes } from '../../../HelperFunctions/UpdateNoteLetter'
 
@@ -15,11 +15,11 @@ const EditBtns = () => {
     const key = useSelector(({ song }) => song.keySignature)
     const { isShowingLogout } = useSelector(({ util }) => util)
 
-    const [currentLetter, setCurrentLetter] = useState(notes[editColumnNumber][editIndex(notes[editColumnNumber])].letter)
+    const [currentLetter, setCurrentLetter] = useState()
 
     //Change letter on drop
     useEffect(() => {
-        setCurrentLetter(notes[editColumnNumber][editIndex(notes[editColumnNumber])].letter)
+        setCurrentLetter(notes[editColumnNumber][editIndex(notes[editColumnNumber])]?.letter)
     }, [notes, editColumnNumber])
 
     const confirmRemove = () => {
@@ -33,7 +33,7 @@ const EditBtns = () => {
     }
 
     const addNoteToChord = (chordArr, newNoteEntity, type, letter, row) => {
-        const updateChord = { notePath: newNoteEntity, type, letter, row, transform: 'no-translate', accidental: null, tabPosition: 1, edit: 'edit-placeholder' }
+        const updateChord = { notePath: newNoteEntity, type, letter, row, transform: NO_TRANSLATE, accidental: null, tabPosition: 1, edit: EDIT }
         chordArr.push(updateChord)
         setCurrentLetter(letter)
     }

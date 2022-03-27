@@ -5,7 +5,7 @@ import { getNoteColumn, isRestNote, editIndex } from '../../../HelperFunctions/H
 import { StaffContext } from '../../../Context/StaffContext'
 import { isShowingMenuAndLogout } from '../../../Redux/Actions/Util'
 import { updateNote, currentEditColumn } from '../../../Redux/Actions/Notes'
-
+import { EDIT } from '../../../HelperFunctions/SourceCodeEncodings'
 
 const StaffRow = ({ rowNumber, measure }) => {
 
@@ -53,8 +53,8 @@ const StaffRow = ({ rowNumber, measure }) => {
         if (!viewOnly) {
             const noteToUpdate = [...notes[column]]
 
-            if (isRestNote(column, noteToUpdate.type, notes)) noteToUpdate[i] = { ...noteToUpdate[i], edit: 'edit-placeholder' }
-            else noteToUpdate[i] = { ...noteToUpdate[i], edit: 'edit-placeholder' }
+            if (isRestNote(column, noteToUpdate.type, notes)) noteToUpdate[i] = { ...noteToUpdate[i], edit: EDIT }
+            else noteToUpdate[i] = { ...noteToUpdate[i], edit: EDIT }
 
             //Update only 1 note in the chord
             notes[column] = [...noteToUpdate]
@@ -95,7 +95,7 @@ const StaffRow = ({ rowNumber, measure }) => {
                                     <button
                                         draggable={!viewOnly && Boolean(chordNote?.edit)}
                                         id={`note-btn-${getNoteColumn(measure, columnsPerMeasure, numberOfStaves)}-${i}`}
-                                        disabled={(editColumnNumber > -1 && notes[editColumnNumber][editIndex(notes[editColumnNumber])].edit)}
+                                        disabled={(editColumnNumber > -1 && notes[editColumnNumber][editIndex(notes[editColumnNumber])]?.edit)}
                                         className={`${!viewOnly ? 'note-temp-item-btn' : 'note-temp-item-img'}  ${chordNote?.transform} ${chordNote?.edit}`}
                                         style={chordNote && { display: 'block' }}
                                         onClick={() => assignEdit(getNoteColumn(measure, columnsPerMeasure, numberOfStaves), i)}>

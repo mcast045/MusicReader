@@ -2,6 +2,7 @@ import store from '../Redux/Store'
 import { addNote, replaceNote, insertNote, currentEditColumn } from '../Redux/Actions/Notes'
 import { editIndex, countNumberOfNulls, isRestNote } from './Helpers'
 import { allNotes } from '../HelperFunctions/UpdateNoteLetter'
+import { NO_TRANSLATE } from './SourceCodeEncodings'
 
 const dispatchReplaceNote = (oldNotesArray, editColumn, noteData, nullArray = []) => {
     const { notePath, type } = noteData
@@ -42,7 +43,7 @@ export const addToSongArray = (notes, noteData, nullArray = []) => {
         tabPosition = notes[notes.length - 1 - nullCount][0].tabPosition
     }
 
-    store.dispatch(addNote([...notes, [{ ...noteData, tabRow: 1, transform: 'no-translate', accidental: null, tabPosition }], ...nullArray]))
+    store.dispatch(addNote([...notes, [{ ...noteData, tabRow: 1, transform: NO_TRANSLATE, accidental: null, tabPosition }], ...nullArray]))
 }
 
 export const replaceNoteInSong = (notes, noteData, editColumn, nullArray = []) => {
@@ -51,7 +52,7 @@ export const replaceNoteInSong = (notes, noteData, editColumn, nullArray = []) =
     if (!isRestNote(-1, type, notes)) {
         //If replacing rest note to regular note
         if (isRestNote(editColumn, type, notes))
-            dispatchReplaceNote(notes, editColumn, { ...noteData, transform: 'no-translate', letter: allNotes[7], row: 5, accidental: null, position: 1, tabRow: 1 }, nullArray)
+            dispatchReplaceNote(notes, editColumn, { ...noteData, transform: NO_TRANSLATE, letter: allNotes[7], row: 5, accidental: null, position: 1, tabRow: 1 }, nullArray)
         //Replacing regular note to another regular note
         else {
             const noteToUpdate = notes[editColumn][editIndex(notes[editColumn])]
@@ -61,7 +62,7 @@ export const replaceNoteInSong = (notes, noteData, editColumn, nullArray = []) =
     }
     //Replacing rest note to another rest note
     else
-        dispatchReplaceNote(notes, editColumn, { ...noteData, transform: 'no-translate', letter: null, row: 6, accidental: null, position: null, tabRow: null }, nullArray)
+        dispatchReplaceNote(notes, editColumn, { ...noteData, transform: NO_TRANSLATE, letter: null, row: 6, accidental: null, position: null, tabRow: null }, nullArray)
 }
 
 export const insertNoteInSong = (notes, noteData, editColumn, nullArray = []) => {
@@ -73,7 +74,7 @@ export const insertNoteInSong = (notes, noteData, editColumn, nullArray = []) =>
     if (!isRestNote(-1, type, notes)) {
         //If inserting rest note to regular note, add to normal staff line and show tab
         if (isRestNote(editColumn, type, notes))
-            dispatchInsertNote(notes, editColumn, { ...noteData, transform: 'no-translate', letter: allNotes[7], row: 5, accidental: null, tabRow: 1, tabPosition: 1 }, nullArray)
+            dispatchInsertNote(notes, editColumn, { ...noteData, transform: NO_TRANSLATE, letter: allNotes[7], row: 5, accidental: null, tabRow: 1, tabPosition: 1 }, nullArray)
         //Inserting regular note with another regular note
         else {
             const { transform, letter, row, accidental, tabPosition, tabRow } = columnWithEdit[idx]
@@ -82,7 +83,7 @@ export const insertNoteInSong = (notes, noteData, editColumn, nullArray = []) =>
     }
     //Inserting a rest note
     else {
-        dispatchInsertNote(notes, editColumn, { ...noteData, transform: 'no-translate', letter: null, row: 6, accidental: null, tabPosition: null, tabRow: null }, nullArray)
+        dispatchInsertNote(notes, editColumn, { ...noteData, transform: NO_TRANSLATE, letter: null, row: 6, accidental: null, tabPosition: null, tabRow: null }, nullArray)
     }
 
     delete columnWithEdit[idx]['edit']

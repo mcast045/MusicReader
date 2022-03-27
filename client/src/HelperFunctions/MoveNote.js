@@ -2,10 +2,10 @@ import store from '../Redux/Store'
 import { allNotes } from './UpdateNoteLetter'
 import { updateNote } from '../Redux/Actions/Notes'
 import { editIndex, isRestNote } from './Helpers'
-import { SHARP_NOTE, FLAT_NOTE, NATURAL_NOTE } from './SourceCodeEncodings'
+import { SHARP_NOTE, FLAT_NOTE, NATURAL_NOTE, MOVE_DOWN, NO_TRANSLATE, MOVE_UP } from './SourceCodeEncodings'
 
 export const findLetterIdx = (songArr, index) =>
-    allNotes.findIndex(note => note === songArr[index][editIndex(songArr[index])].letter)
+    allNotes.findIndex(note => note === songArr[index][editIndex(songArr[index])]?.letter)
 
 const isKeySharp = (keyId, idCheck) => keyId > idCheck && keyId < 8
 const isKeyFlat = (keyId, idCheck) => keyId > idCheck && keyId > 7
@@ -16,12 +16,12 @@ export const moveNoteUp = (notes, key, editColumn) => {
         const copy = [...notes]
         const allNotesIdx = findLetterIdx(copy, editColumn)
         let noteToUpdate = copy[editColumn][editIndex(copy[editColumn])]
-        const constantChanges = { accidental: null, transform: 'move-up' }
+        const constantChanges = { accidental: null, transform: MOVE_UP }
 
         const { accidental, row, transform } = noteToUpdate
 
         const changeNaturalLetter = (arr, index, transform) => {
-            if (transform === 'no-translate') {
+            if (transform === NO_TRANSLATE) {
                 if (accidental === FLAT_NOTE) {
                     if (isKeySharp(key.id, 2) && arr[index] === allNotes[1]) return allNotes[4]
                     else if (isKeySharp(key.id, 1) && arr[index] === allNotes[6]) return allNotes[9]
@@ -47,7 +47,7 @@ export const moveNoteUp = (notes, key, editColumn) => {
                     else if (isKeyFlat(key.id, 7) && arr[index] === allNotes[0]) return allNotes[1]
                     return arr[index + 1].length === 1 ? arr[index + 1] : arr[index + 2]
                 }
-            } else if (transform === 'move-down') {
+            } else if (transform === MOVE_DOWN) {
                 if (accidental === FLAT_NOTE) {
                     if (isKeyFlat(key.id, 9) && allNotes[allNotesIdx] === allNotes[7]) return allNotes[11]
                     else if (isKeySharp(key.id, 3) && arr[index] === allNotes[6]) return allNotes[11]
@@ -81,7 +81,7 @@ export const moveNoteUp = (notes, key, editColumn) => {
 
         //Prevent note from going above top ledger line
         if (row !== 1) {
-            if (transform === 'no-translate') {
+            if (transform === NO_TRANSLATE) {
                 if (allNotes[allNotesIdx + 2])
                     noteToUpdate = { ...noteToUpdate, ...constantChanges, letter: changeNaturalLetter(allNotes, allNotesIdx, transform) }
                 else {
@@ -99,7 +99,7 @@ export const moveNoteUp = (notes, key, editColumn) => {
                         noteToUpdate = { ...noteToUpdate, ...constantChanges, letter: letter }
                     }
                 }
-            } else if (transform === 'move-down') {
+            } else if (transform === MOVE_DOWN) {
                 if (allNotes[allNotesIdx + 4])
                     noteToUpdate = { ...noteToUpdate, ...constantChanges, letter: changeNaturalLetter(allNotes, allNotesIdx, transform) }
                 else {
@@ -146,12 +146,12 @@ export const moveNoteDown = (notes, key, editColumn) => {
         const copy = [...notes]
         const allNotesIdx = findLetterIdx(copy, editColumn)
         let noteToUpdate = copy[editColumn][editIndex(copy[editColumn])]
-        const constantChanges = { accidental: null, transform: 'move-down' }
+        const constantChanges = { accidental: null, transform: MOVE_DOWN }
 
         const { accidental, row, transform } = noteToUpdate
 
         const changeNaturalLetter = (arr, index, transform) => {
-            if (transform === 'no-translate') {
+            if (transform === NO_TRANSLATE) {
                 if (accidental === SHARP_NOTE) {
                     if (isKeySharp(key.id, 2) && arr[index] === allNotes[6]) return allNotes[4]
                     else if (isKeySharp(key.id, 1) && arr[index] === allNotes[11]) return allNotes[9]
@@ -179,7 +179,7 @@ export const moveNoteDown = (notes, key, editColumn) => {
                     else if (isKeyFlat(key.id, 7) && arr[index] === allNotes[3]) return allNotes[1]
                     return arr[index - 1].length === 1 ? arr[index - 1] : arr[index - 2]
                 }
-            } else if (transform === 'move-up') {
+            } else if (transform === MOVE_UP) {
                 if (accidental === SHARP_NOTE) {
                     if (isKeyFlat(key.id, 10) && arr[index] === allNotes[9]) return allNotes[4]
                     if (isKeyFlat(key.id, 9) && arr[index] === allNotes[4]) return allNotes[11]
@@ -214,7 +214,7 @@ export const moveNoteDown = (notes, key, editColumn) => {
 
         //Prevent note from going below bottom ledger line
         if (row !== 12) {
-            if (transform === 'no-translate') {
+            if (transform === NO_TRANSLATE) {
                 if (allNotes[allNotesIdx - 2])
                     noteToUpdate = { ...noteToUpdate, ...constantChanges, letter: changeNaturalLetter(allNotes, allNotesIdx, transform) }
                 else {
@@ -231,7 +231,7 @@ export const moveNoteDown = (notes, key, editColumn) => {
                         noteToUpdate = { ...noteToUpdate, ...constantChanges, letter: letter }
                     }
                 }
-            } else if (transform === 'move-up') {
+            } else if (transform === MOVE_UP) {
                 if (allNotes[allNotesIdx - 3])
                     noteToUpdate = { ...noteToUpdate, ...constantChanges, letter: changeNaturalLetter(allNotes, allNotesIdx, transform) }
                 else {
@@ -270,12 +270,12 @@ export const moveNoteBetween = (notes, key, editColumn) => {
         const copy = [...notes]
         const allNotesIdx = findLetterIdx(copy, editColumn)
         let noteToUpdate = copy[editColumn][editIndex(copy[editColumn])]
-        const constantChanges = { accidental: null, transform: 'no-translate' }
+        const constantChanges = { accidental: null, transform: NO_TRANSLATE }
 
         const { accidental, transform } = noteToUpdate
 
         const changeNaturalLetter = (arr, index, transform) => {
-            if (transform === 'move-up') {
+            if (transform === MOVE_UP) {
                 if (accidental === SHARP_NOTE) {
                     if (isKeySharp(key.id, 2) && arr[index] === allNotes[6]) return allNotes[4]
                     else if (isKeySharp(key.id, 1) && arr[index] === allNotes[11]) return allNotes[9]
@@ -301,7 +301,7 @@ export const moveNoteBetween = (notes, key, editColumn) => {
                     else if (isKeyFlat(key.id, 7) && arr[index] === allNotes[3]) return allNotes[1]
                     return arr[index - 1].length === 1 ? arr[index - 1] : arr[index - 2]
                 }
-            } else if (transform === 'move-down') {
+            } else if (transform === MOVE_DOWN) {
                 if (accidental === FLAT_NOTE) {
                     if (isKeySharp(key.id, 2) && arr[index] === allNotes[1]) return allNotes[4]
                     else if (isKeySharp(key.id, 1) && arr[index] === allNotes[6]) return allNotes[9]
@@ -332,7 +332,7 @@ export const moveNoteBetween = (notes, key, editColumn) => {
             }
         }
 
-        if (transform === 'move-up') {
+        if (transform === MOVE_UP) {
             if (allNotes[allNotesIdx - 2])
                 noteToUpdate = { ...noteToUpdate, ...constantChanges, letter: changeNaturalLetter(allNotes, allNotesIdx, transform) }
             else {
@@ -349,7 +349,7 @@ export const moveNoteBetween = (notes, key, editColumn) => {
                     noteToUpdate = { ...noteToUpdate, ...constantChanges, letter: letter }
                 }
             }
-        } else if (transform === 'move-down') {
+        } else if (transform === MOVE_DOWN) {
             if (allNotes[allNotesIdx + 2])
                 noteToUpdate = { ...noteToUpdate, ...constantChanges, letter: changeNaturalLetter(allNotes, allNotesIdx, transform) }
             else {
