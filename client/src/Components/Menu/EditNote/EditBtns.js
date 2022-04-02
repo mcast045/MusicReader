@@ -1,12 +1,27 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import Accidental from './Accidental'
 import { useSelector, useDispatch } from 'react-redux'
-import { deleteAnyNote, replaceNote, insertNote, currentEditColumn } from '../../../Redux/Actions/Notes'
-import { isRestNote, countNumberOfNulls, editIndex, getDifferentTabPosition, removeEdit } from '../../../HelperFunctions/Helpers'
+import { replaceNote, insertNote } from '../../../Redux/Actions/Notes'
+import { isRestNote, editIndex, getDifferentTabPosition, removeEdit, confirmRemove } from '../../../HelperFunctions/Helpers'
 import { moveNoteDown, moveNoteUp } from '../../../HelperFunctions/MoveNote'
-import { NO_TRANSLATE, EDIT, WHOLE_NOTE, HALF_NOTE, QUARTER_NOTE, EIGHTH_NOTE, WHOLE, HALF, EIGHTH, QUARTER, DOTTED_QUARTER, DOTTED_HALF, DOTTED_WHOLE } from '../../../HelperFunctions/SourceCodeEncodings'
-import { isShowingMenuAndLogout } from '../../../Redux/Actions/Util'
 import { allNotes } from '../../../HelperFunctions/UpdateNoteLetter'
+import {
+    ARROW_UP_ENTITY,
+    ARROW_DOWN_ENTITY,
+    NO_TRANSLATE,
+    EDIT,
+    WHOLE_NOTE,
+    HALF_NOTE,
+    QUARTER_NOTE,
+    EIGHTH_NOTE,
+    WHOLE,
+    HALF,
+    EIGHTH,
+    QUARTER,
+    DOTTED_QUARTER,
+    DOTTED_HALF,
+    DOTTED_WHOLE,
+} from '../../../HelperFunctions/SourceCodeEncodings'
 
 const EditBtns = () => {
 
@@ -21,16 +36,6 @@ const EditBtns = () => {
     useEffect(() => {
         setCurrentLetter(notes[editColumnNumber][editIndex(notes[editColumnNumber])]?.letter)
     }, [notes, editColumnNumber])
-
-    const confirmRemove = () => {
-        const notesCopy = [...notes]
-        if (notesCopy[editColumnNumber].length === 1) notesCopy.splice(editColumnNumber, countNumberOfNulls(notesCopy, editColumnNumber, 1))
-        else notesCopy[editColumnNumber].splice(editIndex(notesCopy[editColumnNumber]), 1)
-
-        dispatch(deleteAnyNote(notesCopy))
-        dispatch(isShowingMenuAndLogout(!isShowingLogout))
-        dispatch(currentEditColumn(-1))
-    }
 
     const addNoteToChord = (chordArr, newNoteEntity, type, letter, row) => {
         const updateChord = { notePath: newNoteEntity, type, letter, row, transform: NO_TRANSLATE, accidental: null, tabPosition: 1, edit: EDIT }
@@ -156,13 +161,13 @@ const EditBtns = () => {
                     <div className='confirm-edit-btn-col'>
                         <button className='btn' onClick={() => dispatch(replaceNote(notes))}>Replace Note</button>
                         <button className='btn' onClick={() => dispatch(insertNote(notes))}>Insert Note</button>
-                        <button className='btn' onClick={() => confirmRemove()}>Remove Note</button>
+                        <button className='btn' onClick={() => confirmRemove(notes, editColumnNumber, isShowingLogout)} title='Shortcut: Del key'>Remove Note</button>
                     </div>
                     {!isRestNote(editColumnNumber, null, notes) &&
                         <Fragment>
                             <div className='confirm-edit-btn-col'>
-                                <button className='btn' onClick={() => moveNoteUp(notes, key, editColumnNumber)} title='Shortcut: Q key'>Border Above</button>
-                                <button className='btn' onClick={() => moveNoteDown(notes, key, editColumnNumber)} title='Shortcut: Z key'>Border Below</button>
+                                <button className='btn' onClick={() => moveNoteUp(notes, key, editColumnNumber)} title={`Shortcut: ${ARROW_UP_ENTITY} key`}>Border Above</button>
+                                <button className='btn' onClick={() => moveNoteDown(notes, key, editColumnNumber)} title={`Shortcut: ${ARROW_DOWN_ENTITY} key`}>Border Below</button>
                             </div>
 
                             <div className='confirm-edit-btn-col'>

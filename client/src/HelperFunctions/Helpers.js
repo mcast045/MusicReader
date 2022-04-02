@@ -1,8 +1,9 @@
 import store from '../Redux/Store'
-import { updateNote, finishUpdatingNote, currentEditColumn } from '../Redux/Actions/Notes'
+import { updateNote, finishUpdatingNote, currentEditColumn, deleteAnyNote } from '../Redux/Actions/Notes'
 import { showModal } from '../Redux/Actions/Modal'
 import { allNotes } from './UpdateNoteLetter'
-import { NEXT_NOTE, PREVIOUS_NOTE, EDIT } from './SourceCodeEncodings'
+import { ARROW_KEY_RIGHT, ARROW_KEY_LEFT, EDIT } from './SourceCodeEncodings'
+import { isShowingMenuAndLogout } from '../Redux/Actions/Util'
 
 export const dateFormat = date => {
     const d = new Date(date)
@@ -85,14 +86,14 @@ export const editNeighboringNote = (notes, editColumn, targetNote) => {
     const idx = editIndex(copyNotes[editColumn])
     let currentEditableColumn
 
-    if (targetNote === NEXT_NOTE) {
+    if (targetNote === ARROW_KEY_RIGHT) {
         const newEditableColumn = copyNotes?.slice(editColumn)?.findIndex(note => note && !note?.[idx]?.edit)
         if (newEditableColumn === -1) return
         copyNotes[newEditableColumn + editColumn][0].edit = EDIT
         currentEditableColumn = newEditableColumn + editColumn
     }
 
-    if (targetNote === PREVIOUS_NOTE) {
+    if (targetNote === ARROW_KEY_LEFT) {
         let previousEditableColumn = -1
         for (let i = editColumn - 1; i > -1; i--) {
             if (copyNotes[i] && !copyNotes[i]?.edit) {
@@ -110,4 +111,14 @@ export const editNeighboringNote = (notes, editColumn, targetNote) => {
 
     store.dispatch(updateNote(copyNotes))
     store.dispatch(currentEditColumn(currentEditableColumn))
+}
+
+export const confirmRemove = (notes, editColumn, isShowingLogout) => {
+    const notesCopy = [...notes]
+    if (notesCopy[editColumn].length === 1) notesCopy.splice(editColumn, countNumberOfNulls(notesCopy, editColumn, 1))
+    else notesCopy[editColumn].splice(editIndex(notesCopy[editColumn]), 1)
+
+    store.dispatch(deleteAnyNote(notesCopy))
+    store.dispatch(isShowingMenuAndLogout(!isShowingLogout))
+    store.dispatch(currentEditColumn(-1))
 }

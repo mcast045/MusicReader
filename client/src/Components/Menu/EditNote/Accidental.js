@@ -1,14 +1,36 @@
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { updateNoteLetter, allNotes } from '../../../HelperFunctions/UpdateNoteLetter'
-import { isRestNote, editIndex, getDifferentTabPosition, editNeighboringNote } from '../../../HelperFunctions/Helpers'
-import { ARROW_KEY_UP, ARROW_KEY_DOWN, SHARP, NATURAL, FLAT, SHARP_NOTE, NATURAL_NOTE, FLAT_NOTE, NEXT_NOTE, PREVIOUS_NOTE, MOVE_DOWN, MOVE_UP, TAB_CHANGE } from '../../../HelperFunctions/SourceCodeEncodings'
 import { findLetterIdx, moveNoteDown, moveNoteUp } from '../../../HelperFunctions/MoveNote'
+import {
+    isRestNote,
+    editIndex,
+    getDifferentTabPosition,
+    editNeighboringNote,
+    confirmRemove,
+} from '../../../HelperFunctions/Helpers'
+import {
+    DELETE,
+    ARROW_KEY_UP,
+    ARROW_KEY_DOWN,
+    ARROW_KEY_RIGHT,
+    ARROW_KEY_LEFT,
+    SHARP,
+    NATURAL,
+    FLAT,
+    SHARP_NOTE,
+    NATURAL_NOTE,
+    FLAT_NOTE,
+    MOVE_DOWN,
+    MOVE_UP,
+    TAB_CHANGE,
+} from '../../../HelperFunctions/SourceCodeEncodings'
 
 const Accidental = () => {
 
     const { notes, editColumnNumber } = useSelector(({ notes }) => notes)
     const key = useSelector(({ song }) => song.keySignature)
+    const { isShowingLogout } = useSelector(({ util }) => util)
 
     const preventAccidentalNotes = (key, idx) => {
         const notetoUpdate = notes[idx][editIndex(notes[editColumnNumber])]
@@ -103,14 +125,14 @@ const Accidental = () => {
         }
     }
 
-    const isKeyMatch = (e, kbKey) =>
-        kbKey.toLowerCase() === e.key.toLowerCase()
+    const isKeyMatch = (e, kbKey) => kbKey.toLowerCase() === e.key.toLowerCase()
 
     const useKey = (kbKey, keyFunction) => {
         const accidental = notes[editColumnNumber][editIndex(notes[editColumnNumber])]?.accidental
 
         useEffect(() => {
             const onDown = e => {
+                e.preventDefault()
                 if (isKeyMatch(e, kbKey)) {
                     if (keyFunction === SHARP && accidental !== SHARP_NOTE)
                         accidentalNote(e, SHARP)
@@ -124,10 +146,12 @@ const Accidental = () => {
                         moveNoteDown(notes, key, editColumnNumber)
                     else if (keyFunction === TAB_CHANGE)
                         getDifferentTabPosition(notes, editColumnNumber)
-                    else if (keyFunction === PREVIOUS_NOTE)
-                        editNeighboringNote(notes, editColumnNumber, PREVIOUS_NOTE)
-                    else if (keyFunction === NEXT_NOTE)
-                        editNeighboringNote(notes, editColumnNumber, NEXT_NOTE)
+                    else if (keyFunction === ARROW_KEY_LEFT)
+                        editNeighboringNote(notes, editColumnNumber, ARROW_KEY_LEFT)
+                    else if (keyFunction === ARROW_KEY_RIGHT)
+                        editNeighboringNote(notes, editColumnNumber, ARROW_KEY_RIGHT)
+                    else if (keyFunction === DELETE)
+                        confirmRemove(notes, editColumnNumber, isShowingLogout)
                 }
             }
 
@@ -140,11 +164,12 @@ const Accidental = () => {
     useKey('1', SHARP)
     useKey('2', NATURAL)
     useKey('3', FLAT)
-    useKey('ArrowUp', ARROW_KEY_UP)
-    useKey('ArrowDown', ARROW_KEY_DOWN)
+    useKey(ARROW_KEY_UP, ARROW_KEY_UP)
+    useKey(ARROW_KEY_DOWN, ARROW_KEY_DOWN)
     useKey('t', TAB_CHANGE)
-    useKey('ArrowLeft', PREVIOUS_NOTE)
-    useKey('ArrowRight', NEXT_NOTE)
+    useKey(ARROW_KEY_LEFT, ARROW_KEY_LEFT)
+    useKey(ARROW_KEY_RIGHT, ARROW_KEY_RIGHT)
+    useKey(DELETE, DELETE)
 
     return (
         <div className='row-container-col-mod'>

@@ -12,8 +12,11 @@ export const HALF_REST_NOTE = "\uD834\uDD3C"
 export const QUARTER_REST_NOTE = "\uD834\uDD3D"
 export const EIGHTH_REST_NOTE = "\uD834\uDD3E"
 
-export const PREVIOUS_NOTE = 'PreviousNote'
-export const NEXT_NOTE = 'NextNote'
+export const ARROW_UP_ENTITY = "\u2191"
+export const ARROW_DOWN_ENTITY = "\u2193"
+
+export const ARROW_KEY_LEFT = 'ArrowLeft'
+export const ARROW_KEY_RIGHT = 'ArrowRight'
 export const TAB_CHANGE = 'tabChange'
 
 export const WHOLE = 'Whole'
@@ -42,5 +45,6 @@ export const MOVE_DOWN = 'move-down'
 export const MOVE_UP = 'move-up'
 export const NO_TRANSLATE = 'no-translate'
 
-export const ARROW_KEY_UP = 'arrowUp'
-export const ARROW_KEY_DOWN = 'arrowDown'
+export const ARROW_KEY_UP = 'ArrowUp'
+export const ARROW_KEY_DOWN = 'ArrowDown'
+export const DELETE = 'Delete'
