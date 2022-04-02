@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { updateNoteLetter, allNotes } from '../../../HelperFunctions/UpdateNoteLetter'
 import { isRestNote, editIndex, getDifferentTabPosition, editNeighboringNote } from '../../../HelperFunctions/Helpers'
-import { SHARP, NATURAL, FLAT, SHARP_NOTE, NATURAL_NOTE, FLAT_NOTE, NEXT_NOTE, PREVIOUS_NOTE, MOVE_DOWN, MOVE_UP } from '../../../HelperFunctions/SourceCodeEncodings'
-import { findLetterIdx, moveNoteBetween, moveNoteDown, moveNoteUp } from '../../../HelperFunctions/MoveNote'
+import { ARROW_KEY_UP, ARROW_KEY_DOWN, SHARP, NATURAL, FLAT, SHARP_NOTE, NATURAL_NOTE, FLAT_NOTE, NEXT_NOTE, PREVIOUS_NOTE, MOVE_DOWN, MOVE_UP, TAB_CHANGE } from '../../../HelperFunctions/SourceCodeEncodings'
+import { findLetterIdx, moveNoteDown, moveNoteUp } from '../../../HelperFunctions/MoveNote'
 
 const Accidental = () => {
 
@@ -118,17 +118,15 @@ const Accidental = () => {
                         accidentalNote(e, FLAT)
                     else if (keyFunction === NATURAL && accidental !== NATURAL_NOTE)
                         accidentalNote(e, NATURAL)
-                    else if (keyFunction === 'Up')
+                    else if (keyFunction === ARROW_KEY_UP)
                         moveNoteUp(notes, key, editColumnNumber)
-                    else if (keyFunction === 'Down')
+                    else if (keyFunction === ARROW_KEY_DOWN)
                         moveNoteDown(notes, key, editColumnNumber)
-                    else if (keyFunction === 'Between')
-                        moveNoteBetween(notes, key, editColumnNumber)
-                    else if (keyFunction === 'tabChange')
+                    else if (keyFunction === TAB_CHANGE)
                         getDifferentTabPosition(notes, editColumnNumber)
-                    else if (keyFunction === 'prevNote')
+                    else if (keyFunction === PREVIOUS_NOTE)
                         editNeighboringNote(notes, editColumnNumber, PREVIOUS_NOTE)
-                    else if (keyFunction === 'nextNote')
+                    else if (keyFunction === NEXT_NOTE)
                         editNeighboringNote(notes, editColumnNumber, NEXT_NOTE)
                 }
             }
@@ -142,18 +140,17 @@ const Accidental = () => {
     useKey('1', SHARP)
     useKey('2', NATURAL)
     useKey('3', FLAT)
-    useKey('q', 'Up')
-    useKey('z', 'Down')
-    useKey('a', 'Between')
-    useKey('t', 'tabChange')
-    useKey('ArrowLeft', 'prevNote')
-    useKey('ArrowRight', 'nextNote')
+    useKey('ArrowUp', ARROW_KEY_UP)
+    useKey('ArrowDown', ARROW_KEY_DOWN)
+    useKey('t', TAB_CHANGE)
+    useKey('ArrowLeft', PREVIOUS_NOTE)
+    useKey('ArrowRight', NEXT_NOTE)
 
     return (
         <div className='row-container-col-mod'>
             <div className='row'>
                 <div className='note-container'>
-                    <h3 className='note-label'>Sharp</h3>
+                    <h3 className='note-label'>{SHARP}</h3>
                     <button onClick={accidentalNote} disabled={notes[editColumnNumber] && notes[editColumnNumber][editIndex(notes[editColumnNumber])]?.accidental === SHARP_NOTE}>
                         <span id={SHARP} className='note-menu-image' title='Shortcut: Press 1'>&#9839;</span>
                     </button>
@@ -161,14 +158,14 @@ const Accidental = () => {
             </div>
 
             <div className='note-container'>
-                <h3 className='note-label'>Natural</h3>
+                <h3 className='note-label'>{NATURAL}</h3>
                 <button onClick={accidentalNote} disabled={notes[editColumnNumber] && (notes[editColumnNumber][editIndex(notes[editColumnNumber])]?.accidental === NATURAL_NOTE)}>
                     <span id={NATURAL} className='note-menu-image' title='Shortcut: Press 2'>&#9838;</span>
                 </button>
             </div>
 
             <div className='note-container'>
-                <h3 className='note-label'>Flat</h3>
+                <h3 className='note-label'>{FLAT}</h3>
                 <button onClick={accidentalNote} disabled={notes[editColumnNumber] && notes[editColumnNumber][editIndex(notes[editColumnNumber])]?.accidental === FLAT_NOTE}>
                     <span id={FLAT} className='note-menu-image' title='Shortcut: Press 3'>&#9837;</span>
                 </button>

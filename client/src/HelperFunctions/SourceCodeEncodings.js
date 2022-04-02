@@ -14,6 +14,7 @@ export const EIGHTH_REST_NOTE = "\uD834\uDD3E"
 
 export const PREVIOUS_NOTE = 'PreviousNote'
 export const NEXT_NOTE = 'NextNote'
+export const TAB_CHANGE = 'tabChange'
 
 export const WHOLE = 'Whole'
 export const HALF = 'Half'
@@ -35,8 +36,11 @@ export const EDIT = 'edit-placeholder'
 
 export const SHARP = 'Sharp'
 export const NATURAL = 'Natural'
-export const FLAT = 'FlAT'
+export const FLAT = 'Flat'
 
 export const MOVE_DOWN = 'move-down'
 export const MOVE_UP = 'move-up'
 export const NO_TRANSLATE = 'no-translate'
+
+export const ARROW_KEY_UP = 'arrowUp'
+export const ARROW_KEY_DOWN = 'arrowDown'

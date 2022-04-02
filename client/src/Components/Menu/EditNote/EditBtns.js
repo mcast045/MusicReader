@@ -3,7 +3,7 @@ import Accidental from './Accidental'
 import { useSelector, useDispatch } from 'react-redux'
 import { deleteAnyNote, replaceNote, insertNote, currentEditColumn } from '../../../Redux/Actions/Notes'
 import { isRestNote, countNumberOfNulls, editIndex, getDifferentTabPosition, removeEdit } from '../../../HelperFunctions/Helpers'
-import { moveNoteBetween, moveNoteDown, moveNoteUp } from '../../../HelperFunctions/MoveNote'
+import { moveNoteDown, moveNoteUp } from '../../../HelperFunctions/MoveNote'
 import { NO_TRANSLATE, EDIT, WHOLE_NOTE, HALF_NOTE, QUARTER_NOTE, EIGHTH_NOTE, WHOLE, HALF, EIGHTH, QUARTER, DOTTED_QUARTER, DOTTED_HALF, DOTTED_WHOLE } from '../../../HelperFunctions/SourceCodeEncodings'
 import { isShowingMenuAndLogout } from '../../../Redux/Actions/Util'
 import { allNotes } from '../../../HelperFunctions/UpdateNoteLetter'
@@ -162,7 +162,6 @@ const EditBtns = () => {
                         <Fragment>
                             <div className='confirm-edit-btn-col'>
                                 <button className='btn' onClick={() => moveNoteUp(notes, key, editColumnNumber)} title='Shortcut: Q key'>Border Above</button>
-                                <button className='btn' onClick={() => moveNoteBetween(notes, key, editColumnNumber)} title='Shortcut: A key'>Between Border</button>
                                 <button className='btn' onClick={() => moveNoteDown(notes, key, editColumnNumber)} title='Shortcut: Z key'>Border Below</button>
                             </div>
 
