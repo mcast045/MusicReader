@@ -44,7 +44,7 @@ export const getNoteColumn = (measure, columnNumber, staffNumber) => {
     return ((measure * 8) + columnNumber - 9) + (columnsPerStaff * staffNumber)
 }
 
-export const editIndex = notesArr => notesArr.findIndex(note => note?.edit)
+export const editIndex = notesArr => notesArr?.findIndex(note => note?.edit)
 
 export const getDifferentTabPosition = (notes, editColumn) => {
     const copy = [...notes]
@@ -118,7 +118,7 @@ export const confirmRemove = (notes, editColumn, isShowingLogout) => {
     if (notesCopy[editColumn].length === 1) notesCopy.splice(editColumn, countNumberOfNulls(notesCopy, editColumn, 1))
     else notesCopy[editColumn].splice(editIndex(notesCopy[editColumn]), 1)
 
-    store.dispatch(deleteAnyNote(notesCopy))
     store.dispatch(isShowingMenuAndLogout(!isShowingLogout))
     store.dispatch(currentEditColumn(-1))
+    store.dispatch(deleteAnyNote(notesCopy))
 }

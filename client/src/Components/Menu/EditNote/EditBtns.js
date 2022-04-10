@@ -146,10 +146,9 @@ const EditBtns = () => {
             else if (currentNote.type === DOTTED_QUARTER) makeChord(`${QUARTER_NOTE}.`, DOTTED_QUARTER)
         }
     }
-
     return (
         <div className='confirm-edit-btn'>
-            {notes[editColumnNumber][editIndex(notes[editColumnNumber])] && notes[editColumnNumber][editIndex(notes[editColumnNumber])].letter &&
+            {notes[editColumnNumber][editIndex(notes[editColumnNumber])]?.letter &&
                 <div className='showNote font-2 center'>
                     <h5 className='nomarginpadding'>Note</h5>
                     {currentLetter}
