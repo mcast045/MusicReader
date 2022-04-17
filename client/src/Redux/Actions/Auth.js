@@ -43,7 +43,7 @@ export const loginUser = ({ email, password }) => async dispatch => {
         const errors = err.response.data.errors
 
         if (errors)
-            errors.forEach(error => dispatch(setAlert(error.msg, 'danger')))
+            errors.forEach(error => dispatch(setAlert(error.msg, 'error')))
 
         dispatch({ type: LOGIN_FAIL })
     }
@@ -78,7 +78,7 @@ export const registerUser = ({ email, password, confirmPassword, username }) => 
         const errors = err.response.data.errors
 
         if (errors)
-            errors.forEach(error => dispatch(setAlert(error.msg, 'danger')))
+            errors.forEach(error => dispatch(setAlert(error.msg, 'error')))
 
         dispatch({ type: REGISTER_FAIL })
     }
@@ -106,7 +106,7 @@ export const loadUser = userId => async dispatch => {
         dispatch({ type: LOAD_USER, payload: res.data.user })
     }
     catch (err) {
-        dispatch(setAlert('Error Loading User', 'danger'))
+        dispatch(setAlert('Error Loading User', 'error'))
         dispatch({ type: LOAD_ERROR, payload: { msg: 'Error Loading User' } })
     }
 }

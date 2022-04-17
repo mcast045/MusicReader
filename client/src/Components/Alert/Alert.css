@@ -1,24 +1,35 @@
 .alert {
-    position: relative;
-    z-index: 10;
+    position: fixed;
+    z-index: 1000;
     padding: 0.8rem;
-    opacity: .8;
-    width: 30%;
-    margin: auto;
-    transform: translateX(10%);
-    border-bottom:1px solid black;
+    right: 0;
+    margin: 5rem 1rem 0 0;
+    background-color: var(--menu-bg-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 10px;
+    animation: slideIn 1s ease forwards;
 }
 
-.alert:first-child {
-    margin-top: 2rem;
+.alert .alert_msg {
+    margin-left: 1rem;
+    font-size: 1.7rem;
 }
 
-.alert-danger {
-    background-color: var(--danger-color-1);
+.alert-error {
+    color: var(--danger-color-1);
 }
 
 .alert-success {
-    background-color: var(--success-color-1);
-    border-bottom: none;
-    border-radius: 10px;
+    color: var(--success-color-2);
+}
+
+@keyframes slideIn {
+    to {
+        transform: translateX(0) 
+    }
+    from {
+        transform: translateX(100%) 
+    }
 }

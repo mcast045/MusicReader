@@ -24,7 +24,7 @@ export const getUserSong = (userId, songId) => async dispatch => {
         dispatch({ type: GET_USER_SONG, payload: res.data })
     }
     catch (err) {
-        dispatch(setAlert('Song Not Found', 'danger'))
+        dispatch(setAlert('Song Not Found', 'error'))
     }
 }
 
@@ -34,7 +34,7 @@ export const getViewableSeachSongs = page => async dispatch => {
         dispatch({ type: GET_ALL_PUBLISHED_SONGS, payload: { published: res.data.published, count: res.data.count } })
     }
     catch (err) {
-        dispatch(setAlert('Error Loading Songs', 'danger'))
+        dispatch(setAlert('Error Loading Songs', 'error'))
     }
 }
 
@@ -51,7 +51,7 @@ export const createSongInfo = ({ title, tempo, keySignature }) => async dispatch
         dispatch({ type: CREATE_SONG, payload: res.data })
     }
     catch (err) {
-        dispatch(setAlert('Error Creating Song', 'danger'))
+        dispatch(setAlert('Error Creating Song', 'error'))
     }
 }
 
@@ -63,7 +63,7 @@ export const deleteSong = songId => async dispatch => {
         dispatch(setAlert('Song Removed', 'success'))
     }
     catch (err) {
-        dispatch(setAlert('Error Deleteing Song ', 'danger'))
+        dispatch(setAlert('Error Deleteing Song ', 'error'))
     }
 }
 
@@ -73,7 +73,7 @@ export const publishSong = songId => async dispatch => {
         dispatch({ type: PUBLISH_SONG, payload: res.data })
     }
     catch (err) {
-        dispatch(setAlert('Error Publishing Song', 'danger'))
+        dispatch(setAlert('Error Publishing Song', 'error'))
     }
 }
 
@@ -85,7 +85,7 @@ export const getPublishedSong = songId => async dispatch => {
         dispatch({ type: GET_NOTES, payload: notes.data[0].notes })
     }
     catch (err) {
-        dispatch(setAlert('Error Receving Songs', 'danger'))
+        dispatch(setAlert('Error Receving Songs', 'error'))
     }
 }
 
@@ -95,7 +95,7 @@ export const redactSong = songId => async dispatch => {
         dispatch({ type: REDACT_SONG, payload: res.data })
     }
     catch (err) {
-        dispatch(setAlert('Error Redacting Song', 'danger'))
+        dispatch(setAlert('Error Redacting Song', 'error'))
     }
 }
 
@@ -115,7 +115,7 @@ export const filterSongs = searchParameters => async dispatch => {
             dispatch({ type: END_LOAD })
     }
     catch (err) {
-        dispatch(setAlert('Error Redacting Song', 'danger'))
+        dispatch(setAlert('Error Redacting Song', 'error'))
     }
 }
 

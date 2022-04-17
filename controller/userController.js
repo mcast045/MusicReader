@@ -34,7 +34,6 @@ exports.getAllUsers = async (req, res, next) => {
 
 exports.registerUser = async (req, res, next) => {
     try {
-        console.log('registerUser')
         const errors = validationResult(req)
         if (!errors.isEmpty())
             return res.status(400).json({ errors: errors.array() })

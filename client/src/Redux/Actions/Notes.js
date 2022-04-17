@@ -31,7 +31,7 @@ export const getUserNotes = songId => async dispatch => {
         dispatch({ type: GET_NOTES, payload: notes })
     }
     catch (err) {
-        dispatch(setAlert('No Notes Found', 'danger'))
+        dispatch(setAlert('No Notes Found', 'error'))
     }
 }
 
@@ -53,7 +53,7 @@ export const saveNotes = (notes, songId, isSaveBtn) => async dispatch => {
             dispatch(setAlert('Save Successful', 'success'))
     }
     catch (err) {
-        dispatch(setAlert('Save Failed', 'danger'))
+        dispatch(setAlert('Save Failed', 'error'))
     }
 }
 
