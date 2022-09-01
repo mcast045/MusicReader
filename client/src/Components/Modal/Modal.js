@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import './Modal.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { hideModal } from '../../Redux/Actions/Modal'
@@ -30,7 +30,7 @@ const Modal = ({ setNumOfStaffs }) => {
     }
 
     return (
-        <Fragment>
+        <>
             {showModal &&
                 <div className='modal'>
                     <div className='modal-container'>
@@ -45,7 +45,7 @@ const Modal = ({ setNumOfStaffs }) => {
                     </div>
                 </div>
             }
-        </Fragment >
+        </ >
     )
 }
 

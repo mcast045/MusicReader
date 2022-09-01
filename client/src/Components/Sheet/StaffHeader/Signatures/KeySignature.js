@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import './Signature.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { updateKeySignature } from '../../../../Redux/Actions/Song'
@@ -17,7 +17,7 @@ const KeySignature = () => {
     }, [dispatch, user, key, currentSong])
 
     return (
-        <Fragment>
+        <>
             {(
                 (key?.id === 2 &&
                     <div className='key-signature'>
@@ -88,7 +88,7 @@ const KeySignature = () => {
                     <div className='key-signature'>
                         <span className='flat1 font-3'>&#9837;</span>
                     </div>))}
-        </Fragment>
+        </>
     )
 }
 

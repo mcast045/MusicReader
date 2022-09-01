@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import './EditNote.css'
 import Notes from '../../Menu/Notes/Notes'
 import Rest from '../../Menu/Notes/RestNotes'
@@ -37,10 +37,10 @@ const EditNote = () => {
             <div className='confirm-edit-container'>
                 <Buttons />
                 {(isReplacing || isInserting) &&
-                    <Fragment>
+                    <>
                         <Notes />
                         <Rest />
-                    </Fragment>}
+                    </>}
                 <button className='btn confirm-edit-btn-col-cancel' onClick={confirmCancel}>Cancel</button>
             </div>
         </div>

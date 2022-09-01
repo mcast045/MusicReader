@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import './btn.css'
 import SongInfo from '../SongInfo/SongInfo'
 import AuthBtn from './AuthBtn'
@@ -80,19 +80,19 @@ const StaveBtn = () => {
     }
 
     return (
-        <Fragment>
+        <>
             {currentSong?._id ? <SongInfo /> : null}
             <div className='btn-sheets'>
                 {!isShowingInfo ?
-                    <Fragment>
+                    <>
                         <BtnContext.Provider value={{ removeLastNote, copyPreviousNote, copyPreviousBar, copyPreviousPhrase }}>
                             {!isAuthenticated && <NonAuthBtn />}
                             {isAuthenticated && !loading && <AuthBtn />}
                         </BtnContext.Provider>
-                    </Fragment> : null
+                    </> : null
                 }
             </div>
-        </Fragment>
+        </>
     )
 }
 

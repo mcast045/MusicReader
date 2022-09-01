@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import './Menu.css'
 import Edit from './EditNote/EditNote'
 import StaffBtn from './SheetBtn/btn'
@@ -20,16 +20,16 @@ const Menu = () => {
                 <div className='menu-notes'>
                     {user._id && <NewSong />}
                     {!newSongClickState &&
-                        <Fragment>
+                        <>
                             <StaffBtn />
                             {!isShowingInfo && !isNotesLoading &&
-                                <Fragment>
+                                <>
                                     {/* Prevent Notes from showing when loading a newly created song */}
                                     {!user._id ? <Notes /> : currentSong?._id && <Notes />}
                                     {!user._id ? <Rest /> : currentSong?._id && <Rest />}
-                                </Fragment>
+                                </>
                             }
-                        </Fragment>
+                        </>
                     }
                 </div> :
                 <Edit />

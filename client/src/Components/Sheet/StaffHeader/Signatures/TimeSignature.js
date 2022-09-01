@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment, useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import './Signature.css'
 import { useSelector } from 'react-redux'
 import { StaffContext } from '../../../../Context/StaffContext'
@@ -29,7 +29,7 @@ const TimeSignature = () => {
     }, [key, setTimeSignatureClassName])
 
     return (
-        <Fragment>
+        <>
             {numberOfStaves === 0 &&
                 <div className='time-signature-container relative'>
                     <ul className={`time-signature font-4 nomarginpadding ${timeSignatureClassName}`}>
@@ -38,7 +38,7 @@ const TimeSignature = () => {
                     </ul>
                 </div>
             }
-        </Fragment>
+        </>
     )
 }
 

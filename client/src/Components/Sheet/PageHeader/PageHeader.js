@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import './PageHeader.css'
 import Loader from '../../../Images/Loader/Loader'
 import { Link } from 'react-router-dom'
@@ -40,7 +40,7 @@ const SheetHeader = ({ setNumOfStaffs, viewOnly, screenSize }) => {
     const onClickAuth = cardFace => dispatch(flipAuthCard(cardFace))
 
     return (
-        <Fragment>
+        <>
             {(isNotesLoading && songID) || (viewOnly && isNotesLoading) ? <Loader /> :
                 <div className='ml-15'>
                     <div className={sheetHeaderCN}>
@@ -67,10 +67,10 @@ const SheetHeader = ({ setNumOfStaffs, viewOnly, screenSize }) => {
                         {user._id && (isShowingLogout || viewOnly) &&
                             <div className='userSignIn'>
                                 {!isUpdating &&
-                                    <Fragment>
+                                    <>
                                         <Link to='/' className='userSignIn_link' onClick={onClickLogoutUser}>Logout</Link>
                                         <Link to='/search?page=1' className='search-songs'>Search</Link>
-                                    </Fragment>
+                                    </>
                                 }
                                 {viewOnly && <Link to='/' onClick={onClickHome} className='search-songs'>Home</Link>}
                             </div>
@@ -78,7 +78,7 @@ const SheetHeader = ({ setNumOfStaffs, viewOnly, screenSize }) => {
                     </div>
                 </div>
             }
-        </Fragment>
+        </>
     )
 }
 

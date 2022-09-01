@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Accidental from './Accidental'
 import { useSelector, useDispatch } from 'react-redux'
 import { replaceNote, insertNote } from '../../../Redux/Actions/Notes'
@@ -156,14 +156,14 @@ const EditBtns = () => {
             }
 
             {!isReplacing && !isInserting &&
-                <Fragment>
+                <>
                     <div className='confirm-edit-btn-col'>
                         <button className='btn' onClick={() => dispatch(replaceNote(notes))}>Replace Note</button>
                         <button className='btn' onClick={() => dispatch(insertNote(notes))}>Insert Note</button>
                         <button className='btn' onClick={() => confirmRemove(notes, editColumnNumber, isShowingLogout)} title='Shortcut: Del key'>Remove Note</button>
                     </div>
                     {!isRestNote(editColumnNumber, null, notes) &&
-                        <Fragment>
+                        <>
                             <div className='confirm-edit-btn-col'>
                                 <button className='btn' onClick={() => moveNoteUp(notes, key, editColumnNumber)} title={`Shortcut: ${ARROW_UP_ENTITY} key`}>Border Above</button>
                                 <button className='btn' onClick={() => moveNoteDown(notes, key, editColumnNumber)} title={`Shortcut: ${ARROW_DOWN_ENTITY} key`}>Border Below</button>
@@ -177,9 +177,9 @@ const EditBtns = () => {
                                 <button className='btn' onClick={() => onClickAddNote(notes)}>Add Note</button>
                             </div>
                             <Accidental />
-                        </Fragment>
+                        </>
                     }
-                </Fragment>
+                </>
             }
         </div>
     )

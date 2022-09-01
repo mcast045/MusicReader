@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import './SongInfo.css'
 import Loader from '../../../Images/Loader/Loader'
 import { isFetchingNotes } from '../../../Redux/Actions/Notes'
@@ -39,9 +39,9 @@ const SongInformation = () => {
     }
 
     return (
-        <Fragment>
+        <>
             {user._id && isSongsLoading && songs?.length > 0 ? <Loader /> :
-                <Fragment>
+                <>
                     {isShowingInfo && currentSong &&
                         <div>
                             {songs.length > 0 &&
@@ -91,9 +91,9 @@ const SongInformation = () => {
                             </div>
                         </div>
                     }
-                </Fragment>
+                </>
             }
-        </Fragment >
+        </ >
     )
 }
 

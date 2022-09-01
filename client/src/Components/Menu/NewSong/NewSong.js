@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { useState } from 'react'
 import './NewSong.css'
 import KeySigDropDown from '../KeySigDropDown/KeySigDropDown'
 import { getUserSong, createSongInfo, clearAll } from '../../../Redux/Actions/Song'
@@ -45,10 +45,10 @@ const NewSongMenu = () => {
     }
 
     return (
-        <Fragment>
+        <>
             <div className='songInputDetails'>
                 {newSongClickState &&
-                    <Fragment>
+                    <>
                         <div className='songInputDetails_prop'>
                             <label>Title</label>
                             <input
@@ -79,7 +79,7 @@ const NewSongMenu = () => {
                             <label>Key Signature</label>
                             <KeySigDropDown setNewSongInfo={setNewSongInfo} newSongInfo={newSongInfo} />
                         </div>
-                    </Fragment>
+                    </>
                 }
 
                 {!newSongClickState && !isShowingInfo && (!isNotesLoading || songs.length === 0) &&
@@ -93,7 +93,7 @@ const NewSongMenu = () => {
                     </div>
                 }
             </div>
-        </Fragment>
+        </>
     )
 }
 

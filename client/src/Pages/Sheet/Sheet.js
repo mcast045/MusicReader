@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Sheet.css'
 import { useSelector, useDispatch } from 'react-redux'
 import Modal from '../../Components/Modal/Modal'
@@ -65,7 +65,7 @@ const Sheet = ({ match, viewOnly }) => {
     }, [dispatch, viewOnly, match])
 
     return (
-        <Fragment>
+        <>
             <PageHeader viewOnly={viewOnly} setNumOfStaffs={setNumOfStaffs} screenSize={screenSize} />
 
             {numOfStaffs.map((staves, numberOfStaves) => (
@@ -84,7 +84,7 @@ const Sheet = ({ match, viewOnly }) => {
             ))}
 
             <Modal setNumOfStaffs={setNumOfStaffs} />
-        </Fragment >
+        </ >
     )
 }
 

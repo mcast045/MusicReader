@@ -6,12 +6,13 @@ import { createNull } from '../../../HelperFunctions/Helpers'
 import { WHOLE_NOTE, HALF_NOTE, QUARTER_NOTE, EIGHTH_NOTE, WHOLE, HALF, EIGHTH, QUARTER, DOTTED_QUARTER, DOTTED_HALF, DOTTED_WHOLE } from '../../../HelperFunctions/SourceCodeEncodings'
 import { isShowingMenuAndLogout } from '../../../Redux/Actions/Util'
 import { allNotes } from '../../../HelperFunctions/UpdateNoteLetter'
+import Note from './Components/Note'
 
 const Notes = () => {
 
     const dispatch = useDispatch()
 
-    const { notes, isReplacing, isInserting, isUpdating, editColumnNumber } = useSelector(({ notes }) => notes)
+    const { notes, isReplacing, isInserting, editColumnNumber } = useSelector(({ notes }) => notes)
     const key = useSelector(({ song }) => song.keySignature)
     const { isShowingLogout } = useSelector(({ util }) => util)
 
@@ -192,60 +193,23 @@ const Notes = () => {
     return (
         <div className='notes-section mb-1'>
             <h3 className='menu-section-label center nomargin'>Notes</h3>
-
             <div className='row-container-col'>
-                <div className='row grid-row-1'>
-                    <div className='note-container'>
-                        <h3 className='note-label'>Whole</h3>
-                        <button disabled={isUpdating && !isReplacing && !isInserting} className='btn-translate-whole-note' onClick={onClickWholeNote}>
-                            <span id={WHOLE} className='note-menu-image'>&#119133;</span>
-                        </button>
-                    </div>
-
-                    <div className='note-container'>
-                        <h3 className='note-label'>Half</h3>
-                        <button disabled={isUpdating && !isReplacing && !isInserting} onClick={onClickHalfNote}>
-                            <span id={HALF} className='note-menu-image'>&#119134;</span>
-                        </button>
-                    </div>
-                </div>
-
-                <div className='row grid-row-2 mb-1'>
-                    <div className='note-container'>
-                        <h3 className='note-label'>Quarter</h3>
-                        <button disabled={isUpdating && !isReplacing && !isInserting} onClick={onClickQuarterNote}>
-                            <span id={QUARTER} className='note-menu-image'>&#119135;</span>
-                        </button>
-                    </div>
-
-                    <div className='note-container'>
-                        <h3 className='note-label'>Eighth</h3>
-                        <button disabled={isUpdating && !isReplacing && !isInserting} onClick={onClickEighthNote}>
-                            <span id={EIGHTH} className='note-menu-image'>&#119136;</span>
-                        </button>
-                    </div>
-                </div>
-
-                <h3 className='menu-section-label dotted-label center'>Dotted</h3>
                 <div className='row'>
-                    <div className='note-container'>
-                        <h3 className='note-label'>Whole</h3>
-                        <button disabled={isUpdating && !isReplacing && !isInserting} className='btn-translate-whole-note' onClick={onClickDottedWholeNote}>
-                            <span id={DOTTED_WHOLE} className='note-menu-image'>&#119133;<span className='dot'>.</span></span>
-                        </button>
-                    </div>
-                    <div className='note-container'>
-                        <h3 className='note-label'>Half</h3>
-                        <button disabled={isUpdating && !isReplacing && !isInserting} onClick={onClickDottedHalfNote}>
-                            <span id={DOTTED_HALF} className='note-menu-image'>&#119134;<span className='dot'>.</span></span>
-                        </button>
-                    </div>
-                    <div className='note-container'>
-                        <h3 className='note-label'>Quarter</h3>
-                        <button disabled={isUpdating && !isReplacing && !isInserting} onClick={onClickDottedQuarterNote}>
-                            <span id={DOTTED_QUARTER} className='note-menu-image'>&#119135;<span className='dot'>.</span></span>
-                        </button>
-                    </div>
+                    <Note label='Whole' note={WHOLE} onClick={onClickWholeNote} entity='&#119133;' />
+                    <Note label='Half' note={HALF} onClick={onClickHalfNote} entity='&#119134;' />
+                </div>
+
+                <div className='row'>
+                    <Note label='Quarter' note={QUARTER} onClick={onClickQuarterNote} entity='&#119135;' />
+                    <Note label='Eighth' note={EIGHTH} onClick={onClickEighthNote} entity='&#119136;' />
+                </div>
+
+                <h3 className='menu-section-label dotted-label center nomargin'>Dotted</h3>
+
+                <div className='row'>
+                    <Note label='Whole' note={DOTTED_WHOLE} onClick={onClickDottedWholeNote} entity='&#119133;'><span className='dot'>.</span></Note>
+                    <Note label='Half' note={DOTTED_HALF} onClick={onClickDottedHalfNote} entity='&#119134;'><span className='dot'>.</span></Note>
+                    <Note label='Quarter' note={DOTTED_QUARTER} onClick={onClickDottedQuarterNote} entity='&#119135;'><span className='dot'>.</span></Note>
                 </div>
             </div>
         </div>

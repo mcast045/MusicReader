@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import './Auth.css'
 import Login from './Login'
 import Register from './Register'
@@ -11,19 +11,19 @@ const Auth = () => {
     const { card } = useSelector(({ auth }) => auth)
 
     return (
-        <Fragment>
+        <>
             <Alert />
             <div className='auth'>
                 <div className='auth-block card'>
 
                     <ReactCardFlip isFlipped={card} flipSpeedBackToFront={1} flipSpeedFrontToBack={1}>
-                        <Fragment><Login /></Fragment>
-                        <Fragment><Register /></Fragment>
+                        <><Login /></>
+                        <><Register /></>
                     </ReactCardFlip>
 
                 </div>
             </div>
-        </Fragment>
+        </>
     )
 }
 

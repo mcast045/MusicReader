@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import './btn.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { saveNotes } from '../../../Redux/Actions/Notes'
@@ -30,12 +30,12 @@ const AuthBtn = () => {
     }
 
     return (
-        <Fragment>
+        <>
             {!isSongsLoading && <button className='btn' disabled={isUpdating} onClick={onClickMySongs}>My Songs</button>}
             <button className='btn' disabled={isUpdating} onClick={() => saveSheet(true)}>Save</button>
             <CommonBtns />
             <button className='btn' onClick={onClickDeleteAccount}>Delete Account</button>
-        </Fragment>
+        </>
     )
 }
 
